@@ -1,0 +1,176 @@
+:root{
+    --main-color:#ffbe00;
+    --secound-color:#ffbe00;
+}
+body{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+.container{
+    width: 80%;
+    margin: auto;
+}
+/* start testimonails */
+.testim{
+  position: relative;
+  padding: 80px 60px;
+}
+.testim h2{
+  color: #1a1c3b;
+  font-size: 2rem;
+  font-weight: bold;
+}
+.testim::before{
+  position: absolute;
+  content: "";
+  width: 50%;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  height: 100%;
+  z-index: -1;
+    }
+
+.testim::after{
+  position: absolute;
+  content: "";
+  width: 50%;
+  top: 0;
+  right:  0;
+  background-color: #fff;
+  height: 100%;
+    }
+    
+.testim-content{
+position: relative;
+display: flex;
+justify-content: space-around;
+gap: 30px;
+
+}
+
+.testim-box {
+    z-index: 2;
+    background-color: #f9f9f9; /* Light background color */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .testim-box-content img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+    background-color: #fff; /* White background for the image */
+    padding: 5px; /* Optional: Add padding for better separation */
+  }
+  
+  .testim-content h3 {
+    color: #1a1c3b; /* Text color */
+    font-size: 1.3rem;
+  }
+  
+  .testim-box > p {
+    color: #555; /* Text color */
+    font-style: italic;
+    padding-bottom: 20px;
+  }
+  
+  .testim-box-content p {
+    color: var(--main-color); /* Text color */
+  }
+  
+ 
+
+
+
+  
+
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700,900');
+
+/* Base styling */
+
+body {
+    width: 430px;
+    margin: 0 auto;
+    background-color: #F7CAC9;
+    font-family: 'Raleway', sans-serif;
+}
+
+.search {
+    &__container {
+        padding-top: 64px;
+    }
+    
+    &__title {
+        font-size: 22px;
+        font-weight: 900;
+        text-align: center;
+        color: #ff8b88;
+    }
+    
+    &__input {
+        width: 73%;
+        padding: 12px 24px;
+
+        background-color: transparent;
+        transition: transform 250ms ease-in-out;
+        font-size: 14px;
+        line-height: 18px;
+        
+        color: #575756;
+        background-color: transparent;
+ 
+        background-repeat: no-repeat;
+        background-size: 18px 18px;
+        background-position: 95% center;
+        border-radius: 50px;
+        border: 1px solid #575756;
+        transition: all 250ms ease-in-out;
+        backface-visibility: hidden;
+        transform-style: preserve-3d;
+        
+        &::placeholder {
+            color: color(#575756 a(0.8));
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        
+        &:hover,
+        &:focus {
+            padding: 12px 0;
+            outline: 0;
+            border: 1px solid transparent;
+            border-bottom: 1px solid #575756;
+            border-radius: 0;
+            background-position: 100% center;
+        }
+    }
+}
+
+.credits {
+    &__container {
+        margin-top: 24px;
+    }
+    
+    &__text {
+        text-align: center;
+        font-size: 13px;
+        line-height: 18px;
+    }
+    
+    &__link {
+        color: #ff8b88;
+        text-decoration: none;
+        transition: color 250ms ease-in;
+        
+        &:hover,
+        &:focus {
+            color: color(#ff8b88 blackness(+25%));
+        }
+    }
+}
+
+

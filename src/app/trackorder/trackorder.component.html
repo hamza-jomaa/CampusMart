@@ -1,0 +1,65 @@
+<app-navbar-style-two></app-navbar-style-two>
+
+<div class="page-title-area page-title-img-one">
+    <div class="container">
+        <div class="page-title-item">
+            <h2>Track Order</h2>
+            <ul>
+                <li><a routerLink="/">Home</a></li>
+                <li><i class='bx bx-chevron-right'></i></li>
+                <li>Track Order</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+<google-map
+  height="400px"
+  width="1350px"
+  [center]="center"
+  [zoom]="zoom"
+  (mapClick)="moveMap($event)"
+  (mapMousemove)="move($event)"
+>
+</google-map>
+
+
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card p-4 mt-3">
+       <div class="first d-flex justify-content-between align-items-center mb-3">
+         <div class="info">
+             <span class="d-block name">Thank you, Hamza</span>
+             
+              
+         </div>
+        
+          <img src="assets/img/deliveryLogo.jpg" width="140" style="width: 120px; height: 120px;"/>
+           
+
+       </div>
+           <div class="detail">
+       <span class="d-block summery">Your order has been dispatched. we are delivering you order.</span>
+           </div>
+       <hr>
+       <div class="text">
+     <span class="d-block new mb-1" >Hamza Jomaa</span>
+      </div>
+     <span class="d-block address mb-3">Jordan University of Science and Technology, Teaching Halls Complex, 2nd Floor, Room NF39.</span>
+       <div class="  money d-flex flex-row mt-2 align-items-center">
+         <img src="https://i.imgur.com/ppwgjMU.png" width="20" />
+     
+         <span class="ml-2">Cash on Delivery</span> 
+
+            </div>
+            <div class="last d-flex align-items-center mt-3">
+             <span class="address-line">CHANGE MY DELIVERY ADDRESS</span>
+
+            </div>
+     </div>
+ </div>
+
+<br />
+
+<app-footer-style-two></app-footer-style-two>
