@@ -27,6 +27,7 @@ import { TrackorderComponent } from './trackorder/trackorder.component';
 import { TesimonalsComponent } from './tesimonals/tesimonals.component';
 import { SpecialRequestComponent } from './special-request/special-request.component';
 import { WritetestmonialComponent } from './writetestmonial/writetestmonial.component';
+import { ProviderComponent } from './components/pages/provider/provider.component';
 
 const routes: Routes = [
     {path: '', component: HomeTwoComponent},
@@ -56,6 +57,7 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'special-request', component: SpecialRequestComponent },
     { path: 'writetestmonial', component: WritetestmonialComponent },
+    { path: 'provider', component: ProviderComponent },
     {path:'admin', loadChildren:()=>import('./admin/admin.module').then((m)=>m.AdminModule)},
     {path: '**', component: ErrorComponent},
     
