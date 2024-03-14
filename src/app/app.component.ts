@@ -21,9 +21,24 @@ export class AppComponent implements OnInit {
 
     constructor(private router: Router) {
     }
-
+    lat: any;
+    lng: any;
+    map :any;
+    private ShowLocation(position: any, map: any): void {
+        this.lng = +position.coords.longitude;
+        this.lat = +position.coords.latitude;
+        sessionStorage.setItem('LAT', position.coords.latitude);
+        sessionStorage.setItem('LONG', position.coords.longitude);
+    }
     ngOnInit(){
         this.recallJsFuntions();
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+              this.ShowLocation(position, this.map);
+            });
+          } else {
+            alert("Geolocation is not supported by this browser.");
+          }      
     }
 
     recallJsFuntions() {

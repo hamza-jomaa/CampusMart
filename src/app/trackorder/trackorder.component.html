@@ -23,6 +23,9 @@
   (mapClick)="moveMap($event)"
   (mapMousemove)="move($event)"
 >
+<map-marker #marker="mapMarker" *ngFor="let marker of markers" [position]="marker.position"
+                [label]="marker.label" [title]="marker.title" [options]="marker.options"></map-marker>
+                
 </google-map>
 
 
