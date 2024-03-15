@@ -40,6 +40,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { TesimonalsComponent } from './tesimonals/tesimonals.component';
 import { SpecialRequestComponent } from './special-request/special-request.component';
 import { WritetestmonialComponent } from './writetestmonial/writetestmonial.component';
+import { ProviderComponent } from './components/pages/provider/provider.component';
 
 
 @NgModule({
@@ -78,6 +79,7 @@ import { WritetestmonialComponent } from './writetestmonial/writetestmonial.comp
     TesimonalsComponent,
     SpecialRequestComponent,
     WritetestmonialComponent,
+    ProviderComponent,
  
  
     

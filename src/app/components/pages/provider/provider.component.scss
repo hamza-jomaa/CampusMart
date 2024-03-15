@@ -1,0 +1,212 @@
+.black-table {
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.black-table th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 14px;
+    color: white;
+}
+.black-table td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 14px;
+    color: black;
+    max-width: 120px;
+    &.accepted {
+        color: #008428;
+        font-weight: bold;
+    }
+    &.declined {
+        color: #820000;
+        font-weight: bold;
+    }
+    &.pending {
+        color: #8b6800;
+        font-weight: bold;
+    }
+}
+
+.black-table th {
+    background-color: #0b0320;
+}
+
+.black-table tr:nth-child(even) {
+    td {
+        color: white;
+        &.accepted {
+            color: #00c13a;
+            font-weight: bold;
+        }
+        &.declined {
+            color: #c80000;
+            font-weight: bold;
+        }
+        &.pending {
+            color: #ffbe00;
+            font-weight: bold;
+        }
+    }
+    color: white;
+
+    background-color: #180647;
+}
+
+.black-table tr:hover {
+    td {
+        color: white;
+    }
+    background-color: #280580;
+}
+.black-table .edit {
+    background-color: #ffbe00;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 45%;
+}
+.black-table .add {
+    background-color: #00c13a;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 90%;
+}
+.black-table .remove {
+    background-color: #c80000;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 45%;
+}
+.black-table .edit:hover {
+    background-color: #c19100;
+}
+.black-table .remove:hover {
+    background-color: #9b0202;
+}
+.black-table td:nth-child(5) {
+    padding: 0;
+}
+.black-table td:nth-child(6) {
+    text-align: center;
+}
+@media only screen and (max-width: 600px) {
+    .black-table th,
+    .black-table td {
+        padding: 4px;
+        font-size: 12px;
+        max-width: none;
+    }
+
+    .black-table .edit,
+    .black-table .remove,
+    .black-table .add {
+        padding: 8px 6px;
+        font-size: 12px;
+        width: unset;
+    }
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 10px;
+    width: 50%;
+    max-width: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button[type="submit"] {
+    background-color: #ffbe00;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 45%;
+}
+
+button[type="submit"]:hover {
+    background-color: #c19100;
+}
+.modal-content .close {
+    background-color: #c80000;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 45%;
+}
+
+.modal-content .close:hover {
+    background-color: #9b0202;
+}
+.close {
+    background-color: #c80000;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 45%;
+}
+
+.close:hover {
+    background-color: #9b0202;
+}
+.hide {
+    display: none;
+}
