@@ -12,7 +12,7 @@
         <a routerLink="/admin/dashboard" class="navbar-brand d-flex d-lg-none me-4">
             <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
         </a>
-        <a href="#" class="sidebar-toggler flex-shrink-0">
+        <a  class="sidebar-toggler flex-shrink-0">
             <i class="fa fa-bars"></i>
         </a>
         <form class="d-none d-md-flex ms-4">
@@ -21,7 +21,7 @@
         <div class="navbar-nav align-items-center ms-auto">
            
             <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                <a href="#" class="nav-link " data-bs-toggle="dropdown">
                     <i class="fa fa-envelope me-lg-2"></i>
                     <span class="d-none d-lg-inline-flex">Message</span>
                 </a>
@@ -59,10 +59,10 @@
                     <a href="#" class="dropdown-item text-center">See all message</a>
                 </div>
             </div>
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+            <div class="nav-item dropdown me-3">
+                <a href="#" class="nav-link" data-bs-toggle="dropdown">
                     <i class="fa fa-bell me-lg-2"></i>
-                    <span class="d-none d-lg-inline-flex">Notificatin</span>
+                    <span class="d-none d-lg-inline-flex">Notification</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                     <a href="#" class="dropdown-item">
@@ -83,18 +83,16 @@
                     <a href="#" class="dropdown-item text-center">See all notifications</a>
                 </div>
             </div>
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                    <img class="rounded-circle me-lg-2" src="assets/img/c64a3102-e705-4d1c-92ac-d83c53327d21_admin.png" alt="" style="width: 40px; height: 40px;">
-                    <span class="d-none d-lg-inline-flex">Admin Hamza</span>
+            
+            <div class="nav-item">
+                <a class="btn btn-danger  py-0">
+                    <i class="bi bi-x-lg"></i> Logout
                 </a>
-                <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                    <a href="" class="dropdown-item">My Profile</a>
-                    <a href="#" class="dropdown-item">Settings</a>
-                    <a class="dropdown-item" asp-controller="LoginAndRegistr" asp-action="Logout">Log Out</a>
-                </div>
-
             </div>
+            
+            
+
+            
         </div>
     </nav>
     <!-- Navbar End -->
@@ -127,46 +125,19 @@
             <div class="bg-light rounded d-flex align-items-center justify-content-start p-4">
                 <i class="fa fa-box fa-3x text-primary me-3"></i>
                 <div>
-                    <p class="mb-0"><strong>Number of needed items:</strong></p>
+                    <p class="mb-0"><strong>Number of registered stores:</strong></p>
                     <h6 class="mb-0">12</h6>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-12">
-        <div class="bg-light rounded p-4">
-            <h3 style="color: #007bff;"><i class="fa fa-tags"></i> Offers per item:</h3>
-            <ul>
-                
-            </ul>
-        </div>
-    </div>
 
 
 
 
-    <div class="container-fluid pt-4 px-4">
-        <div class="bg-light rounded p-4">
-            <h3 style="color: #007bff;"><i class="fa fa-exclamation-circle"></i> Pending Items</h3>
-            <div class="table-responsive">
-                <table class="table text-start align-middle table-bordered table-hover mb-0">
-                    <thead>
-                        <tr class="text-dark">
-                            <th scope="col">Item ID</th>
-                            <th scope="col">Item Name</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                       
-                         
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+
+    
 
     <div class="container-fluid pt-4 px-4">
         <div class="bg-light rounded p-4">
@@ -177,14 +148,49 @@
                         <tr class="text-dark">
                             <th scope="col">Testimonial ID</th>
                             <th scope="col">Message</th>
+                            <th scope="col">User Name</th>
+                            <th scope="col">Store Name</th>
                             <th scope="col">Status</th>
-                            <th scope="col">User ID</th>
+                           
+
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                       
-                         
+                        <tr>
+                            <td>1</td>
+                            <td>This is a great product!</td>
+                            <td>Hamza</td>
+                            <td>Mart Hub</td>
+                            <td>Pending</td>
+                            
+
+                            <td>
+                                <a href="#" class="btn btn-success btn-sm">
+                                    <i class="bi bi-check-lg"></i> Approve
+                                </a>
+                                <a href="#" class="btn btn-danger btn-sm">
+                                    <i class="bi bi-x-lg"></i> Disapprove
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Excellent service!</td>
+                            <td>Tabark</td>
+                            <td>JUST</td>
+                            <td>Pending</td>
+                            
+                            <td>
+                                <a href="#" class="btn btn-success btn-sm">
+                                    <i class="bi bi-check-lg"></i> Approve
+                                </a>
+                                <a href="#" class="btn btn-danger btn-sm">
+                                    <i class="bi bi-x-lg"></i>   Disapprove
+                                </a>
+                            </td>
+                        </tr>
+                        <!-- Agrega más filas según sea necesario -->
                     </tbody>
                 </table>
             </div>
@@ -237,30 +243,7 @@
 </div>
 </div>
 <!-- Sale & Revenue End -->
-<!-- Sales Chart Start -->
-<div class="container-fluid pt-4 px-4">
-<div class="row g-4">
-    <div class="col-sm-12 col-xl-6">
-        <div class="bg-light text-center rounded p-4">
-            <div class="d-flex align-items-center justify-content-between mb-4">
-                <h6 class="mb-0">Worldwide Sales</h6>
-                <a href="">Show All</a>
-            </div>
-            <canvas id="worldwide-sales"></canvas>
-        </div>
-    </div>
-    <div class="col-sm-12 col-xl-6">
-        <div class="bg-light text-center rounded p-4">
-            <div class="d-flex align-items-center justify-content-between mb-4">
-                <h6 class="mb-0">Salse & Revenue</h6>
-                <a href="">Show All</a>
-            </div>
-            <canvas id="salse-revenue"></canvas>
-        </div>
-    </div>
-</div>
-</div>
-<!-- Sales Chart End -->
+
 <!-- Recent Sales Start -->
 <div class="container-fluid pt-4 px-4">
 <div class="bg-light text-center rounded p-4">
@@ -333,126 +316,7 @@
 </div>
 </div>
 <!-- Recent Sales End -->
-<!-- Widgets Start -->
-<div class="container-fluid pt-4 px-4">
-<div class="row g-4">
-    <div class="col-sm-12 col-md-6 col-xl-4">
-        <div class="h-100 bg-light rounded p-4">
-            <div class="d-flex align-items-center justify-content-between mb-2">
-                <h6 class="mb-0">Messages</h6>
-                <a href="">Show All</a>
-            </div>
-            <div class="d-flex align-items-center border-bottom py-3">
-                <img class="rounded-circle flex-shrink-0" src="assets/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                <div class="w-100 ms-3">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h6 class="mb-0">Jhon Doe</h6>
-                        <small>15 minutes ago</small>
-                    </div>
-                    <span>Short message goes here...</span>
-                </div>
-            </div>
-            <div class="d-flex align-items-center border-bottom py-3">
-                <img class="rounded-circle flex-shrink-0" src="assets/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                <div class="w-100 ms-3">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h6 class="mb-0">Jhon Doe</h6>
-                        <small>15 minutes ago</small>
-                    </div>
-                    <span>Short message goes here...</span>
-                </div>
-            </div>
-            <div class="d-flex align-items-center border-bottom py-3">
-                <img class="rounded-circle flex-shrink-0" src="assets/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                <div class="w-100 ms-3">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h6 class="mb-0">Jhon Doe</h6>
-                        <small>15 minutes ago</small>
-                    </div>
-                    <span>Short message goes here...</span>
-                </div>
-            </div>
-            <div class="d-flex align-items-center pt-3">
-                <img class="rounded-circle flex-shrink-0" src="assets/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                <div class="w-100 ms-3">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h6 class="mb-0">Jhon Doe</h6>
-                        <small>15 minutes ago</small>
-                    </div>
-                    <span>Short message goes here...</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-12 col-md-6 col-xl-4">
-        <div class="h-100 bg-light rounded p-4">
-            <div class="d-flex align-items-center justify-content-between mb-4">
-                <h6 class="mb-0">Calender</h6>
-                <a href="">Show All</a>
-            </div>
-            <div id="calender"></div>
-        </div>
-    </div>
-    <div class="col-sm-12 col-md-6 col-xl-4">
-        <div class="h-100 bg-light rounded p-4">
-            <div class="d-flex align-items-center justify-content-between mb-4">
-                <h6 class="mb-0">To Do List</h6>
-                <a href="">Show All</a>
-            </div>
-            <div class="d-flex mb-2">
-                <input class="form-control bg-transparent" type="text" placeholder="Enter task">
-                <button type="button" class="btn btn-primary ms-2">Add</button>
-            </div>
-            <div class="d-flex align-items-center border-bottom py-2">
-                <input class="form-check-input m-0" type="checkbox">
-                <div class="w-100 ms-3">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                        <span>Short task goes here...</span>
-                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="d-flex align-items-center border-bottom py-2">
-                <input class="form-check-input m-0" type="checkbox">
-                <div class="w-100 ms-3">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                        <span>Short task goes here...</span>
-                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="d-flex align-items-center border-bottom py-2">
-                <input class="form-check-input m-0" type="checkbox" checked>
-                <div class="w-100 ms-3">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                        <span><del>Short task goes here...</del></span>
-                        <button class="btn btn-sm text-primary"><i class="fa fa-times"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="d-flex align-items-center border-bottom py-2">
-                <input class="form-check-input m-0" type="checkbox">
-                <div class="w-100 ms-3">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                        <span>Short task goes here...</span>
-                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="d-flex align-items-center pt-2">
-                <input class="form-check-input m-0" type="checkbox">
-                <div class="w-100 ms-3">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                        <span>Short task goes here...</span>
-                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-<!-- Widgets End -->
+
 </div>
 </div>
 <!-- Content End -->

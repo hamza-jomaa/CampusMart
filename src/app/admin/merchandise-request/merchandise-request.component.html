@@ -1,2 +1,52 @@
 <app-sidebar></app-sidebar>
 <app-navbar></app-navbar>
+
+<div class="content">
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-light rounded p-4">
+            <h3 style="color: #007bff;"><i class="fa fa-exclamation-circle"></i> Pending Merchandise</h3>
+            <div class="table-responsive">
+                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                        <tr class="text-dark">
+                            <th scope="col">Merchandise ID</th>
+                            <th scope="col">Merchandise Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Store Name</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Merchandise ID</td>
+                            <td>Name</td>
+                            <td>Description</td>
+                            <td>Store Name</td>
+                            <td>Pending</td> <!-- Assuming this is the default status -->
+                            <td>
+                                <div class="d-flex gap-2">
+                                    <!-- Approve Form -->
+                                    <form method="post">
+                                        <button type="submit" class="btn btn-sm btn-success action-button">Approve</button>
+                                    </form>
+                                    <!-- Disapprove Form -->
+                                    <form method="post">
+                                        <button type="submit" class="btn btn-sm btn-danger action-button">Disapprove</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- If there are no pending items -->
+                        <!--
+                        <tr>
+                            <td colspan="5">No pending merchandise found.</td>
+                        </tr>
+                        -->
+                    </tbody>
+                </table>
+                <!-- Alternatively, you can handle the "No pending items found" message in your server-side code -->
+            </div>
+        </div>
+    </div>
+</div>

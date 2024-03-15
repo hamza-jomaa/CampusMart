@@ -1,73 +1,41 @@
 <app-sidebar></app-sidebar>
 <app-navbar></app-navbar>
-<style>
-    .profile-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        background-color: #f8f9fa;
-    }
 
-    .profile-details {
-        text-align: center;
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-        max-width: 400px;
-        width: 100%;
-        padding: 20px;
-    }
-
-    .profile-image {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        overflow: hidden;
-        margin: 0 auto;
-    }
-
-        .profile-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-    .profile-details .form-group {
-        margin-bottom: 15px;
-    }
-</style>
-
-<div class="profile-container">
-    <div class="profile-details">
-        <div class="profile-image">
-            <img src="~/images/c64a3102-e705-4d1c-92ac-d83c53327d21_admin.png" alt="Profile Image">
-        </div>
-        <div class="form-group">
-            <label for="fname">First Name:</label>
-            <input type="text" id="fname" class="form-control" value="@Model.Fname" readonly>
-        </div>
-        <div class="form-group">
-            <label for="lname">Last Name:</label>
-            <input type="text" id="lname" class="form-control" value="@Model.Lname" readonly>
-        </div>
-        <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" id="username" class="form-control" value="Admin" readonly>
-        </div>
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="text" id="email" class="form-control" value="@Model.Email" readonly>
-        </div>
-        <div class="form-group">
-            <label for="phone">Phone:</label>
-            <input type="text" id="phone" class="form-control" value="@Model.Phone" readonly>
-        </div>
-        <div class="form-group">
-            <label for="password">Change Password:</label>
-            <input type="password" id="password" class="form-control" placeholder="Enter new password">
-        </div>
-        <div class="text-center">
-        </div>
-    </div>
-</div>
+<div class="content">
+<div class="cart-table-area section-padding-100"> 
+    <div class="container-fluid"> 
+        <div class="profile-container" style="max-width: 800px; margin: 0 auto;"> 
+            <div class="profile-details" style="max-width: 800px; margin: 0 auto;"> 
+                <div class="profile-image"> 
+                    <img src="assets/img/profile.jpg" alt="Profile Image"> 
+                </div> 
+                <br /> 
+ 
+                <div class="form-group"> 
+                    <label for="Name">Full Name:</label> 
+                    <input type="text" id="Name" class="form-control" value="Tabarak Matalka" readonly> 
+                </div> 
+               
+                <div class="form-group"> 
+                    <label for="username">Username:</label> 
+                    <input type="text" id="username" class="form-control" value="Admin" readonly> 
+                </div> 
+                <div class="form-group"> 
+                    <label for="email">Email:</label> 
+                    <input type="text" id="email" class="form-control" value="tsamatalka19@cit.just.edu.jo" readonly> 
+                </div> 
+                <div class="form-group"> 
+                    <label for="phone">Phone:</label> 
+                    <input type="text" id="phone" class="form-control" value="079865432" readonly> 
+                </div> 
+         
+                <div class="text-center"> 
+                    
+                    <a class="btn btn-primary mt-3" href="/Home/EditProfile/@Model.Id" style="background: #007bff;"> Edit Profile</a> 
+                    
+                </div> 
+            </div> 
+        </div> 
+    </div> 
+</div> 
+</div> 

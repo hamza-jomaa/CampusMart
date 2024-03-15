@@ -1,72 +1,53 @@
 <app-sidebar></app-sidebar>
 <app-navbar></app-navbar>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-    <div class="content">
-        <div class="container">
-            <h1><span>Store Requests </span></h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Request ID</th>
-                        <th>User</th>
-                        <th>Store Name</th>
-                        <th>Description</th>
-                        <th>What it Sells</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Sample data (replace with dynamic data from backend) -->
-                    <tr>
-                        <td>1</td>
-                        <td>John Doe</td>
-                        <td>Electronics Store</td>
-                        <td>A store specializing in electronic gadgets.</td>
-                        <td>Laptops, smartphones, accessories</td>
-                        <td class="actions">
-                            <button class="approve" onclick="approveStore(1)">Approve</button>
-                            <button class="reject" onclick="rejectStore(1)">Reject</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jane Smith</td>
-                        <td>Fashion Boutique</td>
-                        <td>An upscale boutique offering trendy fashion items.</td>
-                        <td>Clothing, accessories, shoes</td>
-                        <td class="actions">
-                            <button class="approve" onclick="approveStore(2)">Approve</button>
-                            <button class="reject" onclick="rejectStore(2)">Reject</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>John Doe</td>
-                        <td>Electronics Store</td>
-                        <td>A store specializing in electronic gadgets.</td>
-                        <td>Laptops, smartphones, accessories</td>
-                        <td class="actions">
-                            <button class="approve" onclick="approveStore(1)">Approve</button>
-                            <button class="reject" onclick="rejectStore(1)">Reject</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jane Smith</td>
-                        <td>Fashion Boutique</td>
-                        <td>An upscale boutique offering trendy fashion items.</td>
-                        <td>Clothing, accessories, shoes</td>
-                        <td class="actions">
-                            <button class="approve" onclick="approveStore(2)">Approve</button>
-                            <button class="reject" onclick="rejectStore(2)">Reject</button>
-                        </td>
-                    </tr>
-                    
-                    <!-- Add more rows as needed -->
-                </tbody>
-            </table>
+<div class="content">
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-light rounded p-4">
+            <h3 style="color: #007bff;"><i class="fa fa-store"></i> Pending Stores</h3>
+            <div class="table-responsive">
+                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                        <tr class="text-dark">
+                            <th scope="col">Store ID</th>
+                            <th scope="col">User</th>
+                            <th scope="col">Store Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">What it Sells</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Sample store data (replace with dynamic data from backend) -->
+                        <tr>
+                            <td>1</td>
+                            <td>John Doe</td>
+                            <td>Electronics Store</td>
+                            <td>A store specializing in electronic gadgets.</td>
+                            <td>Laptops, smartphones, accessories</td>
+                            <td>
+                                <div class="d-flex gap-2">
+                                    <!-- Edit Form -->
+                                    <form method="post">
+                                        <button type="submit" class="btn btn-sm btn-primary action-button">Accept</button>
+                                    </form>
+                                    <!-- Delete Form -->
+                                    <form method="post">
+                                        <button type="submit" class="btn btn-sm btn-danger action-button">Reject</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                          
+                        </tr>
+                        <!-- Add more store rows as needed -->
+                    </tbody>
+                </table>
+                <!-- Alternatively, you can handle the "No stores found" message in your server-side code -->
+            </div>
         </div>
-       
+    </div>
 </div>
-
