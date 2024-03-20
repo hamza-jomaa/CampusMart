@@ -210,3 +210,69 @@ button[type="submit"]:hover {
 .hide {
     display: none;
 }
+
+
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    width: 350px;
+    border: 6px solid #ffbe00;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color:#ffbe0026 ;
+    border-bottom: 1px solid #ffbe00;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.card-footer {
+    background-color:#ffbe0026 ;
+    border-top: 1px solid #ffbe00;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.card-footer button {
+    padding: 5px 10px;
+    background-color: #ffbe00;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.card-footer button:hover {
+    background-color: #c19100;
+}
+.acceptedStyle{
+    background-color:  #00c13a36;
+    border: 2px solid #00c13a;
+}
+.declinedStyle{
+    background-color:#c800004d ;
+    border: 2px solid #c80000;
+}
+.pendingStyle{
+    background-color:#ffbe0026 ;
+}
+.accepted {
+    color: green;
+}
+
+.declined {
+    color: red;
+}
+
+.pending {
+    color: orange;
+}

@@ -27,10 +27,24 @@ export class ProviderComponent implements OnInit {
         date: "",
         orderStatus: null,
     };
+    specialRequest = {
+        id: null,
+        name: "",
+        providerId:null,
+        providerName: "",
+        providerPhone: "",
+        consumerId:null,
+        consumerName: "",
+        consumerPhone: "",
+        description: "",
+        date: "",
+        orderStatus: null,
+    };
     showForm = false;
     showOrder = false;
     editingItemIndex = null;
     editingOrderIndex = null;
+    editingSpecialRequestIndex = null;
     editingItem = false;
     merchandiseList = [
         {
@@ -179,6 +193,48 @@ export class ProviderComponent implements OnInit {
             orderStatus: 0,
         },
     ];
+
+    specialRequestsData =  [
+        {
+            id: 0,
+            name: "Request 1",
+            providerId:null,
+            providerName: "",
+            providerPhone: "",
+            consumerId:0,
+            consumerName: "First consumer",
+            consumerPhone: "0798765432",
+            description: "I want a pizza from Qaisar Pizza",
+            date: "",
+            orderStatus: 0,
+        },
+        {
+            id: 1,
+            name: "Request 2",
+            providerId:null,
+            providerName: "",
+            providerPhone: "",
+            consumerId:1,
+            consumerName: "Second consumer",
+            consumerPhone: "0787654321",
+            description: "I want a burger from Fire Fly",
+            date: "",
+            orderStatus: 0,
+        },
+        {
+            id: 2,
+            name: "Request 3",
+            providerId:null,
+            providerName: "",
+            providerPhone: "",
+            consumerId:2,
+            consumerName: "Third consumer",
+            consumerPhone: "0776543210",
+            description: "I want Hotdogs from Wazzap dog",
+            date: "",
+            orderStatus: 0,
+        },
+    ];
     constructor() {}
 
     ngOnInit(): void {}
@@ -236,6 +292,14 @@ export class ProviderComponent implements OnInit {
             this.newOrder = { ...this.orderData[index] };
         }
     }
+    viewSpecialRequest(id: any) {
+        this.toggleOrder();
+        const index = this.specialRequestsData.findIndex((item) => item.id === id);
+        if (index !== -1) {
+            this.editingSpecialRequestIndex = index;
+            this.specialRequest = { ...this.specialRequestsData[index] };
+        }
+    }
     submitOrder(formData) {
  
         
@@ -250,6 +314,20 @@ export class ProviderComponent implements OnInit {
           this.resetForm();
       
   }
+  submitSpecialRequest(formData) {
+ 
+        
+    if (this.editingSpecialRequestIndex !== null) {
+      this.specialRequest.providerId=this.providerData.id;
+      this.specialRequest.providerName=this.providerData.name;
+      this.specialRequest.providerPhone=this.providerData.phoneNumber;
+        this.specialRequestsData[this.editingSpecialRequestIndex] =
+            this.specialRequest;
+        this.editingSpecialRequestIndex = null;
+    }
+    this.resetForm();
+
+}
     onFileSelected(event: any) {
         const file: File = event.target.files[0];
         if (file) {
@@ -282,18 +360,18 @@ export class ProviderComponent implements OnInit {
             quantity: null,
             image: "",
         };
-        this.newOrder = {
-          id: null,
-          name: "",
-          providerId:null,
-          providerName: "",
-          providerPhone: "",
-          consumerId:null,
-          consumerName: "",
-          consumerPhone: "",
-          merchandises: [],
-          date: "",
-          orderStatus: null,
-      };
+    //     this.newOrder = {
+    //       id: null,
+    //       name: "",
+    //       providerId:null,
+    //       providerName: "",
+    //       providerPhone: "",
+    //       consumerId:null,
+    //       consumerName: "",
+    //       consumerPhone: "",
+    //       merchandises: [],
+    //       date: "",
+    //       orderStatus: null,
+    //   };
     }
 }

@@ -293,18 +293,140 @@
     <div class="container">
         <div class="story-head">
             <h2>Special Request</h2>
-            <p>
-                Welcome to CAMPUS MART, where we bridge the gap between
-                convenience and opportunity on your university campus. With
-                sprawling grounds and diverse faculties, our platform is
-                designed to bring students and staff closer to the services and
-                products they seek. At the heart of our mission is the
-                commitment to not only facilitate access but also to empower
-                students by creating job opportunities and providing a
-                marketplace for showcasing and selling their projects. Join us
-                in transforming campus life into a vibrant community of shared
-                services, products, and opportunities.
-            </p>
+            <div class="card-container">
+                <div class="card" *ngFor="let specialRequest of specialRequestsData">
+                    <div class="card-header" [ngClass]="{
+                        'acceptedStyle': specialRequest.orderStatus == 1,
+                        'declinedStyle': specialRequest.orderStatus == 2,
+                        'pendingStyle': specialRequest.orderStatus == 0
+                    }">
+                        <p>ID: {{ specialRequest.id }}</p>
+                        <h2>{{ specialRequest.name }}</h2>
+                    </div>
+                    <div style="text-align: left;" class="card-body">
+                        <p>Consumer Name: {{ specialRequest.consumerName }}</p>
+                        <p>Consumer Phone: {{ specialRequest.consumerPhone }}</p>
+                        <p>Date: {{ specialRequest.date }}</p>
+                        <p>Status:
+                            <span [ngClass]="{
+                                'accepted': specialRequest.orderStatus == 1,
+                                'declined': specialRequest.orderStatus == 2,
+                                'pending': specialRequest.orderStatus == 0
+                            }">
+                                {{ specialRequest.orderStatus == 0 ? 'Pending' : specialRequest.orderStatus == 1 ? 'Accepted' : 'Declined' }}
+                            </span>
+                        </p>
+                    </div>
+                    <div class="card-footer"[ngClass]="{
+                        'acceptedStyle': specialRequest.orderStatus == 1,
+                        'declinedStyle': specialRequest.orderStatus == 2,
+                        'pendingStyle': specialRequest.orderStatus == 0
+                    }">
+                        <button class="edit" (click)="viewSpecialRequest(specialRequest.id)">View</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div
+                class="modal"
+                [ngStyle]="{ display: showOrder ? 'block' : 'none' }"
+            >
+                <div class="modal-content" style="max-width: unset !important">
+                    <form
+                        style="
+                            text-align: left;
+                            border: solid #ffbe00;
+                            padding: 50px;
+                            margin: 20px 0;
+                            border-radius: 20px;
+                        "
+                        #specialRequestForm="ngForm"
+                        (ngSubmit)="submitSpecialRequest(specialRequestForm)"
+                    >
+                        <label disabled for="id">ID:</label>
+                        <input
+                            disabled
+                            type="number"
+                            id="id"
+                            name="id"
+                            [(ngModel)]="specialRequest.id"
+                        />
+
+                        <label disabled for="name">Name:</label>
+                        <input
+                            disabled
+                            type="text"
+                            id="name"
+                            name="name"
+                            [(ngModel)]="specialRequest.name"
+                            required
+                        />
+                        <label disabled for="consumerName"
+                            >Consumer Name:</label
+                        >
+                        <input
+                            disabled
+                            type="text"
+                            id="consumerName"
+                            name="consumerName"
+                            [(ngModel)]="specialRequest.consumerName"
+                            required
+                        />
+                        <label disabled for="consumerPhone">Consumer Phone:</label>
+                        <input
+                            disabled
+                            type="text"
+                            id="consumerPhone"
+                            name="consumerPhone"
+                            [(ngModel)]="specialRequest.consumerPhone"
+                            required
+                        />
+                       <div style="display: flex;flex-direction: column;">
+                        <label disabled for="description">Description:</label>
+                        <textarea
+                            disabled
+                            type="text"
+                            id="description"
+                            name="description" style="height: 150px;
+                            padding: 10px;"
+                            [(ngModel)]="specialRequest.description"
+                            required
+                        ></textarea>
+                       </div>
+                     
+
+                        <div
+                            style="
+                                display: flex;
+                                justify-content: center;
+                                margin-top: 10px;
+                            "
+                        >
+                            <button
+                                (click)="specialRequest.orderStatus = 1"
+                                style="margin: 0 30px"
+                                type="submit"
+                            >
+                                Accept Order
+                            </button>
+                            <button
+                                (click)="specialRequest.orderStatus = 2"
+                                style="margin: 0 30px"
+                                type="submit"
+                            >
+                                Decline Order
+                            </button>
+                            <button
+                                class="close"
+                                style="margin: 0 30px"
+                                (click)="resetForm()"
+                            >
+                                Dismiss
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </section>
