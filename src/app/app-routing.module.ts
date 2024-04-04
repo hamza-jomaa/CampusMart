@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './login/login.component';
+//import { LoginComponent } from './login/login.component';
 import { HomeOneComponent } from './components/pages/home-one/home-one.component';
 import { HomeTwoComponent } from './components/pages/home-two/home-two.component';
 import { HomeThreeComponent } from './components/pages/home-three/home-three.component';
@@ -28,6 +28,10 @@ import { TesimonalsComponent } from './tesimonals/tesimonals.component';
 import { SpecialRequestComponent } from './special-request/special-request.component';
 import { WritetestmonialComponent } from './writetestmonial/writetestmonial.component';
 import { ProviderComponent } from './components/pages/provider/provider.component';
+import { authorizationGuard } from './authorization.guard';
+import { AuthModule } from './auth/auth.module';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 const routes: Routes = [
     {path: '', component: HomeTwoComponent},
@@ -54,11 +58,22 @@ const routes: Routes = [
     { path: 'testimonals', component: TesimonalsComponent },
     { path: 'trackorder', component: TrackorderComponent },
     {path: 'apply-as-sp', component: ApplyAsSPComponent },
-    { path: 'login', component: LoginComponent },
+    {path: 'login', component: LoginComponent },
+    {path: 'signup', component : SignupComponent },
+
+
+    //{ path: 'login', component: LoginComponent },
+    //{ path: 'security', loadChildren : () =>import('./auth/auth.module').then((m) => m.AuthModule) },
+    // ,{
+
+    //     path:'securitys',
+    //     loadChildren:()=>import('./auth/auth.module').then(m=>m.AuthModule)
+    //   },
     { path: 'special-request', component: SpecialRequestComponent },
     { path: 'writetestmonial', component: WritetestmonialComponent },
     { path: 'provider', component: ProviderComponent },
     {path:'admin', loadChildren:()=>import('./admin/admin.module').then((m)=>m.AdminModule)},
+ 
     {path: '**', component: ErrorComponent},
     
 ];

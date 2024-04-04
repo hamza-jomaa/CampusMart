@@ -41,7 +41,9 @@ import { TesimonalsComponent } from './tesimonals/tesimonals.component';
 import { SpecialRequestComponent } from './special-request/special-request.component';
 import { WritetestmonialComponent } from './writetestmonial/writetestmonial.component';
 import { ProviderComponent } from './components/pages/provider/provider.component';
-
+import { AuthService } from './auth.service';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SignupComponent } from './signup/signup.component'; 
 
 @NgModule({
   declarations: [
@@ -80,6 +82,7 @@ import { ProviderComponent } from './components/pages/provider/provider.componen
     SpecialRequestComponent,
     WritetestmonialComponent,
     ProviderComponent,
+    SignupComponent,
  
  
     
@@ -89,7 +92,8 @@ import { ProviderComponent } from './components/pages/provider/provider.componen
     AppRoutingModule,
     FormsModule,
     FontAwesomeModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    ReactiveFormsModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
