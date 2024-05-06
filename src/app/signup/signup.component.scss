@@ -1,169 +1,132 @@
-body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    font-family: "Jost", sans-serif;
-    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
-  }
-  .main {
-    position: relative;
-    width: 600px; 
-    height: 600px;
-    background: red;
-    overflow: hidden;
-    background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38")
-      no-repeat center/ cover;
-    border-radius: 10px;
-    box-shadow: 5px 20px 50px #000;
-    margin: 0px auto 0;//Edit =0
-    
-  }
-  #chk {
-    display: none;
-  }
-  .signup {
-    position: relative;
-    width: 100%;
-    height: 100%; //Edit =100
-
-  }
-  label {
-    color: #fff;
-    font-size: 2.3em;
-    justify-content: center;
-    display: flex;
-    margin: 60px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.5s ease-in-out;
-  }
-  input {
-    width: 40%;
-    height: 22px;
-    background: #e0dede;
-    justify-content: center;
-    display: flex;
-    margin: 20px auto;
-    padding: 10px;
-    border: none;
-    outline: none;
-    border-radius: 5px;
-  }
-  button {
-    width: 40%;
-    height: 40px;
-    margin: 10px auto;
-    justify-content: center;
-    display: block;
-    color: #fff;
-    background: #1a1c3b;
-    font-size: 1em;
-    font-weight: bold;
-    margin-top: 20px;
-    outline: none;
-    border: none;
-    border-radius: 5px;
-    transition: 0.2s ease-in;
-    cursor: pointer;
-  }
-  button:hover {
-    background: #6d44b8;
-  }
-  .login {
-    
-    margin-top: 200px; 
-    background: #eee;
-    border-radius: 60% / 10%;
-    transform: translateY(-180px);
-    transition: 0.8s ease-in-out;
-  }
-  .login label {
-    color: #573b8a;
-    transform: scale(0.6);
-  }
-  
-  #chk:checked ~ .login {
-    transform: translateY(-500px);
-  }
-  #chk:checked ~ .login label {
-    transform: scale(1);
-  }
-  #chk:checked ~ .signup label {
-    transform: scale(0.6);
-  }
- 
-
-  .icons-container {
-    display: flex;
-    justify-content: center;
+.main-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.signup-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  text-align: center;
+  width: 100%;
 }
 
 .profile-image {
-  width: 200px;
-  height: 150px;
-  border-radius: 30%;
-  overflow: hidden;
-  margin: 20px auto 10px;
+  margin-bottom: 20px;
 }
 
-  .profile-image img  {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-  }
+.profile-image img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
 
-
-
-  /* CSS لتنسيق حقل كلمة المرور والأيقونة */
-.password-container {
+.input-container {
   position: relative;
+  margin-bottom: 15px;
+  text-align: left;
 }
 
-.password-container input[type="password"] {
-  padding-right: 30px; /* تخصيص هامش اليمين لتناسب الأيقونة */
+.input-container input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
 }
 
-.password-container .toggle-password {
+.error-message {
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  color: red;
+  font-size: 12px;
+}
+
+.toggle-password {
   position: absolute;
   top: 50%;
-  right: 415px; /* تحديد المسافة من اليمين للأيقونة */
+  right: 10px;
   transform: translateY(-50%);
   cursor: pointer;
 }
 
-/* CSS لتنسيق حقل كلمة المرور والأيقونة */
+button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.or-divider {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.or-divider span {
+  background-color: #fff;
+  padding: 0 10px;
+}
+
+.icons-container {
+  display: flex;
+  justify-content: center;
+}
+
+.social-icons a {
+  display: inline-block;
+  margin: 0 10px;
+  font-size: 20px;
+  color: #333;
+  text-decoration: none;
+}
+
+.social-icons a:hover {
+  color: #007bff;
+}
 .password-container {
   position: relative;
+  margin-bottom: 15px;
+  text-align: left;
 }
 
-.password-container input[type="password"] {
-  padding-right: 30px; /* تخصيص هامش اليمين لتناسب الأيقونة */
+.password-container input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
 }
 
-.password-container .toggle-password {
+.toggle-password {
   position: absolute;
   top: 50%;
-  right: 415px; /* تحديد المسافة من اليمين للأيقونة */
+  right: 10px;
   transform: translateY(-50%);
   cursor: pointer;
 }
 
-  
-button:disabled {
-  background-color: #ccc; /* Change this to your desired color */
-  color: #666; /* Change this to your desired color */
-}
-.error {
-  border: 1px solid red; /* تغيير لون الحدود إلى الأحمر */
+button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-.error-container {
-  
-  text-align: center; 
-  top: 50%; /* وضع العنصر عند منتصف الارتفاع العمودي للشاشة */
-  left: 50%; /* وضع العنصر عند منتصف العرض الأفقي للشاشة */
-  transform: translate(-50%, -50%); /* لتحريك العنصر إلى المركز */
-}
+/* Rest of the CSS remains the same */

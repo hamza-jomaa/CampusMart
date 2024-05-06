@@ -1,46 +1,77 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-//import jwt_decode from "jwt-decode";
-import { ToastrService } from 'ngx-toastr';
-import * as jwt_decode from 'jwt-decode';
+import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
+import { AngularFireAuth } from "@angular/fire/compat/auth";
+import { AngularFireDatabase } from "@angular/fire/compat/database";
 @Injectable({
-  providedIn: 'root'
+    providedIn: "root",
 })
 export class AuthService {
+    constructor(private router: Router, private fireAuth: AngularFireAuth,private db:AngularFireDatabase) {}
 
-  constructor(private http: HttpClient, private router: Router, private toastr: ToastrService) { }
-
-  Login(email: any, password: any) {
-    var body = {
-      username: email.value.toString(),
-      password: password.value.toString()
-    };
-
-    const headerDirc = {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    };
-
-    const requestOptions = {
-      headers: new HttpHeaders(headerDirc)
-    };
-
-    // Mock token based on email value (replace with actual authentication logic)
-    let token: any;
-    if (email.value == 'Dana@gmail.com')
-      token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkRhbmEiLCJpYXQiOjE1MTYyMzkwMjJ9.fV4Ral8mqGPVNPgY2RmbVvYJ_eb6wNno8odPBH0JpSY';
-    else if (email.value == 'Ahmad@gmail.com')
-      token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFobWFkIiwiaWF0IjoxNTE2MjM5MDIyfQ.Q1MFl2ZwEcrdlZMDCq-mR2gDTlLCeJUFGEYSHmEmz88';
-
-    // Save token in the local storage
-    localStorage.setItem('token', token);
-    let data: any = (jwt_decode as any)(token);    localStorage.setItem('user', JSON.stringify(data));
-
-    if (data.name == 'Dana')
-      this.router.navigate(['admin/dashboard']);
-    else if (data.name == 'Ahmad')
-      this.router.navigate(['courses']);
-  }
-
+    Login(email: any, password: any) {
+        this.fireAuth.signInWithEmailAndPassword(email, password).then(
+            (res) => {
+                console.log("res", res);
+                localStorage.setItem("token", "true");
+                if(res.user?.emailVerified==true){
+                  
+                  this.router.navigate(["/"]);
+                }else {
+                  this.router.navigate(["/verify-email"]);
+                }
+                
+            },
+            (err) => {
+                alert("something went wrong");
+                this.router.navigate(["/login"]);
+            }
+        );
+    }
+    register(username:any,email: any, password: any) {
+      
+        this.fireAuth.createUserWithEmailAndPassword(email, password).then(
+            (res) => {
+              //console.log('username',{id:res.user.uid,name:username})
+              this.db.object('users/consumers').set({id:res.user.uid,name:username})
+                this.router.navigate(["/login"]);
+                this.sendEmailVerification(res.user)
+            },
+            (err) => {
+                alert(err.message);
+                this.router.navigate(["/signup"]);
+            }
+        );
+    }
+    logout() {
+        this.fireAuth.signOut().then(
+            () => {
+                localStorage.removeItem("token");
+                this.router.navigate(["/login"]);
+            },
+            (err) => {
+                alert(err.message);
+            }
+        );
+    }
+    forgotPassword(email: any) {
+        this.fireAuth.sendPasswordResetEmail(email).then(
+            () => {
+                this.router.navigate(["/verify-email"], { queryParams: { forgotPassword: true } });
+            },
+            (err) => {
+                alert("Something went wrong");
+            }
+        );
+    }
+    sendEmailVerification(user:any){
+      user.sendEmailVerification().then((res:any)=>{
+this.router.navigate(['/verify-email'], { queryParams: { registration: true } });
+      }, (err) => {
+        alert("Something went wrong");
+    })
+    }
+    isLoggedIn() {
+        return localStorage.getItem('token') === 'true';
+      }
+      
 }

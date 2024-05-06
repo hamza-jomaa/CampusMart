@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ export class LoginComponent implements OnInit {
  isText :boolean =false;
  eyeIcon:string ="fa-eye-slash";
  loginForm! : FormGroup;
-  constructor(private fb:FormBuilder){}
+  constructor(private fb:FormBuilder,private auth:AuthService){}
  ngOnInit(): void {
      this.loginForm =this.fb.group({
       email : ['',Validators.required],
@@ -32,7 +33,11 @@ onSubmit(){
     alert("Your form is invalid");
   }
 }
-
+login(){
+  if(this.loginForm.valid){
+this.auth.Login(this.loginForm.controls['email'].value,this.loginForm.controls['password'].value);
+  }
+}
 private validateAllFormFields(formGroup: FormGroup) {
   Object.keys(formGroup.controls).forEach(field => {
     const control = formGroup.get(field);

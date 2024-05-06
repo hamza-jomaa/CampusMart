@@ -1,137 +1,33 @@
-<!-- <div class="out">
-    <div class="container">
-        <div class="row">
-            <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
-                <div class="panel border bg-white">
-                    <div class="panel-heading">
-                        <h3 class="pt-3 font-weight-bold">Login</h3>
-                    </div>
-                    <div class="panel-body p-3">
-                        <form>
-                            <div class="form-group pt-3">
-                                <div class="input-field">
-                                    <span class="fa fa-user p-2"></span>
-                                    <input type="text" placeholder="Username">
-                                </div>
-                            </div>
-                            <div class="form-group pt-3">
-                                <div class="input-field">
-                                    <span class="fa fa-lock p-2"></span>
-                                    <input type="text" placeholder="Password">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-<div class="login">
-    <form [formGroup]="loginForm">
-        <div class="profile-image">
-            <img src="assets/img/LogoProject.png" alt="Profile Image">
-        </div>
-        <!-- <label for="chk" aria-hidden="true">Login</label> -->
-      
-        <input [class.error]="loginForm.controls['email'].dirty && loginForm.hasError('required','email')" formControlName="email" type="email"  placeholder="Email" >
-        <!-- <small *ngIf="loginForm.controls['email'].dirty && loginForm.hasError('required','email')" class="text-danger error-container">*Email is required</small> -->
-    
-        <div class="password-container">
-            <input [class.error]="loginForm.controls['password'].dirty && loginForm.hasError('required','password')" formControlName="password" [type]="type" id="passwordInput"  placeholder="Password">
-            <span class="toggle-password" (click)="hideShowPass()">
-              <i class="fa {{eyeIcon}}"></i>
-            </span>
-        </div>
-
-        <!-- <small *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required','password')" class="text-danger error-container">*Password is required</small> -->
-
-        <div class="form-inline fr mt-4 text-center">
-            <a id="forget" class="font-weight-bold">Forget Password?</a>
-        </div>
-        <button (click)="onSubmit()" type="submit" >Login</button>
-        <div class="text-center pt-4 text-muted">Don't have account? <a id="forget" routerLink="/signup">Sign Up</a></div>
-        <br />
-        <p style="color: black; margin-top: 10px; text-align: center; font-weight: bold;">OR</p>       
-        <div class="icons-container">
-            <div class="chef-bottom" style="display: flex;">
-                <a target="_blank" href="#" style="margin-right: 75px; color: #4267B2;"><i class='bx bxl-facebook' style='font-size: 30px;'></i></a>
-                <a target="_blank" href="#" style="margin-right: 75px; color: #55ACEE;"><i class='bx bxl-twitter' style='font-size: 30px;'></i></a>
-                <a target="_blank" href="#" style="color: #dd4b39;"><i class='bx bxl-google' style='font-size: 30px;'></i></a>
-            </div>
-        </div>
-        
-        <div class="icons-container">
-            <a style="margin-right: 45px; color: #4267B2;">Facebook</a>
-            <a style="margin-right: 45px; color: #55ACEE;">Twitter</a>
-            <a style="color: #dd4b39;">Google+</a>
-        </div>
-        
-         
-        
-    </form>
-</div>
-
-
-<!-- 
-<div class="main">  	
-   
-    <input type="checkbox" id="chk" aria-hidden="true">
-
-    <div class="signup">
-        <form>
+<div class="main-container">
+    <div class="login-container">
+        <form class="login-form" [formGroup]="loginForm">
             <div class="profile-image">
                 <img src="assets/img/LogoProject.png" alt="Profile Image">
             </div>
-            <label for="chk" aria-hidden="true" style="margin: -13px;"></label>
-            <input type="text" name="full-name" placeholder="Full Name" required="">
-            <input type="email" name="email" placeholder="Email" required="">
-            <input type="password" name="password" placeholder="Password" required="">
-            <input type="password" name="repeat-password" placeholder="Repeat Password" required="">
-            <button routerLink="/">Sign up</button>
-            
-            <p style="color: black; margin-top: 10px; text-align: center; font-weight: bold;">Continue with</p>       
-            <div class="icons-container">
-                <div class="chef-bottom" style="display: flex;">
-                    <a target="_blank" href="#" style="margin-right: 75px; color: #4267B2;"><i class='bx bxl-facebook' style='font-size: 30px;'></i></a>
-                    <a target="_blank" href="#" style="margin-right: 75px; color: #55ACEE;"><i class='bx bxl-twitter' style='font-size: 30px;'></i></a>
-                    <a target="_blank" href="#" style="color: #dd4b39;"><i class='bx bxl-google' style='font-size: 30px;'></i></a>
-                </div>
+    
+            <div class="input-container">
+                <input [class.error]="loginForm.controls['email'].dirty && loginForm.hasError('required','email')" formControlName="email" type="email" placeholder="Email">
+                <small *ngIf="loginForm.controls['email'].dirty && loginForm.hasError('required','email')" class="error-message">* Email is required</small>
             </div>
-            
-            <div class="icons-container">
-                <a style="margin-right: 45px; color: #4267B2;">Facebook</a>
-                <a style="margin-right: 45px; color: #55ACEE;">Twitter</a>
-                <a style="color: #dd4b39;">Google+</a>
+    
+            <div class="input-container">
+                <input [class.error]="loginForm.controls['password'].dirty && loginForm.hasError('required','password')" formControlName="password" [type]="type" id="passwordInput" placeholder="Password">
+                <span class="toggle-password" (click)="hideShowPass()">
+                    <i class="fa {{eyeIcon}}"></i>
+                </span>
+                <small *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required','password')" class="error-message">* Password is required</small>
             </div>
+    
+            <div class="forgot-password">
+                <a href="/forgot-password" id="forget">Forget Password?</a>
+            </div>
+    
+            <button (click)="login()" type="submit">Login</button>
+    
+            <div class="signup-link">
+                <p>Don't have an account? <a routerLink="/signup">Sign Up</a></p>
+            </div>       
         </form>
     </div>
-
-    <div class="login">
-        <form>
-            <label for="chk" aria-hidden="true">Login</label>
-            <input type="email" name="email" placeholder="Email" required="">
-            <input type="password" name="password" placeholder="Password" required="">
-            <button routerLink="/" >Login</button>
-            <br />
-            <p style="color: black; margin-top: 10px; text-align: center; font-weight: bold;">OR</p>       
-            <div class="icons-container">
-                <div class="chef-bottom" style="display: flex;">
-                    <a target="_blank" href="#" style="margin-right: 75px; color: #4267B2;"><i class='bx bxl-facebook' style='font-size: 30px;'></i></a>
-                    <a target="_blank" href="#" style="margin-right: 75px; color: #55ACEE;"><i class='bx bxl-twitter' style='font-size: 30px;'></i></a>
-                    <a target="_blank" href="#" style="color: #dd4b39;"><i class='bx bxl-google' style='font-size: 30px;'></i></a>
-                </div>
-            </div>
-            
-            <div class="icons-container">
-                <a style="margin-right: 45px; color: #4267B2;">Facebook</a>
-                <a style="margin-right: 45px; color: #55ACEE;">Twitter</a>
-                <a style="color: #dd4b39;">Google+</a>
-            </div>
-            
-             
-            
-        </form>
-    </div>
-</div> -->
+    
+</div>

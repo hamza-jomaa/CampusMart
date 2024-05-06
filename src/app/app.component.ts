@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationStart, NavigationCancel, NavigationEnd } from '@angular/router';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { filter } from 'rxjs/operators';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 declare let $: any;
 
 @Component({
@@ -19,7 +20,7 @@ export class AppComponent implements OnInit {
     location: any;
     routerSubscription: any;
 
-    constructor(private router: Router) {
+    constructor(private router: Router,private db:AngularFireDatabase) {
     }
     lat: any;
     lng: any;
@@ -31,6 +32,7 @@ export class AppComponent implements OnInit {
         sessionStorage.setItem('LONG', position.coords.longitude);
     }
     ngOnInit(){
+this.db.object
         this.recallJsFuntions();
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {

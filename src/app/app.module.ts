@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { PreloaderComponent } from './components/common/preloader/preloader.component';
 import { NavbarStyleOneComponent } from './components/common/navbar-style-one/navbar-style-one.component';
 import { HomeOneComponent } from './components/pages/home-one/home-one.component';
-import { HomeTwoComponent } from './components/pages/home-two/home-two.component';
+import { HomeComponent } from './components/pages/home/home.component';
 import { HomeThreeComponent } from './components/pages/home-three/home-three.component';
 import { FooterStyleOneComponent } from './components/common/footer-style-one/footer-style-one.component';
 import { FooterStyleTwoComponent } from './components/common/footer-style-two/footer-style-two.component';
@@ -44,14 +44,18 @@ import { ProviderComponent } from './components/pages/provider/provider.componen
 import { AuthService } from './auth.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './signup/signup.component'; 
-
+import {AngularFireModule} from '@angular/fire/compat'
+import {AngularFireDatabaseModule} from '@angular/fire/compat/database';
+import { environment } from 'src/environments/environment';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
 @NgModule({
   declarations: [
     AppComponent,
     PreloaderComponent,
     NavbarStyleOneComponent,
     HomeOneComponent,
-    HomeTwoComponent,
+    HomeComponent,
     HomeThreeComponent,
     FooterStyleOneComponent,
     FooterStyleTwoComponent,
@@ -83,6 +87,8 @@ import { SignupComponent } from './signup/signup.component';
     WritetestmonialComponent,
     ProviderComponent,
     SignupComponent,
+    ForgotPasswordComponent,
+    VerifyEmailComponent,
  
  
     
@@ -93,7 +99,9 @@ import { SignupComponent } from './signup/signup.component';
     FormsModule,
     FontAwesomeModule,
     GoogleMapsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],

@@ -1,5 +1,6 @@
 import { Component ,OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -11,12 +12,11 @@ export class SignupComponent implements OnInit {
   isText :boolean =false;
   eyeIcon:string ="fa-eye-slash";
   signUpForm! :FormGroup;
-   constructor(private fb:FormBuilder){}
+   constructor(private fb:FormBuilder,private auth:AuthService){}
   ngOnInit(): void {
       this.signUpForm=this.fb.group({
         fullName : ['',Validators.required],
         email : ['',Validators.required],
-        userName : ['',Validators.required],
         password : ['',Validators.required],
 
       })
@@ -29,6 +29,7 @@ export class SignupComponent implements OnInit {
 
   onSignup(){
     if(this.signUpForm.valid){
+      this.auth.register(this.signUpForm.controls['fullName'].value, this.signUpForm.controls['email'].value,this.signUpForm.controls['password'].value);
       console.log(this.signUpForm.value);
     }else{
        this.validateAllFormFields(this.signUpForm);
