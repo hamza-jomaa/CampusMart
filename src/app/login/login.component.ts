@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { CitEmailValidatorDirective } from '../email.validator';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
   constructor(private fb:FormBuilder,private auth:AuthService){}
  ngOnInit(): void {
      this.loginForm =this.fb.group({
-      email : ['',Validators.required],
+      email: ['',[Validators.required, this.citEmailValidator]],
       password: ['', Validators.required]
      })
  }
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
 onSubmit(){
   if(this.loginForm.valid){
     console.log(this.loginForm.value);
+    this.login();
   }else{
     this.validateAllFormFields(this.loginForm);
     alert("Your form is invalid");
@@ -48,7 +50,12 @@ private validateAllFormFields(formGroup: FormGroup) {
     }
   });
 }
-
+citEmailValidator(control: AbstractControl): { [key: string]: any } | null {
+  if (!control.value || control.value.endsWith('@cit.just.edu.jo')) {
+    return null; // Valid email
+  }
+  return { 'invalidEmail': true }; // Invalid email
+}
 
 
 

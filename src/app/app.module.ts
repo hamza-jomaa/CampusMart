@@ -49,6 +49,7 @@ import {AngularFireDatabaseModule} from '@angular/fire/compat/database';
 import { environment } from 'src/environments/environment';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
+import { CitEmailValidatorDirective } from './email.validator';
 @NgModule({
   declarations: [
     AppComponent,
@@ -89,7 +90,7 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
     SignupComponent,
     ForgotPasswordComponent,
     VerifyEmailComponent,
- 
+    CitEmailValidatorDirective
  
     
   ],
@@ -101,8 +102,10 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
     GoogleMapsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+     
   ],
+  exports:[CitEmailValidatorDirective],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
   bootstrap: [AppComponent]

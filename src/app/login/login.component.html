@@ -1,13 +1,14 @@
 <div class="main-container">
     <div class="login-container">
-        <form class="login-form" [formGroup]="loginForm">
+        <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <div class="profile-image">
                 <img src="assets/img/LogoProject.png" alt="Profile Image">
             </div>
     
             <div class="input-container">
-                <input [class.error]="loginForm.controls['email'].dirty && loginForm.hasError('required','email')" formControlName="email" type="email" placeholder="Email">
+                <input [class.error]="loginForm.controls['email'].dirty && (loginForm.hasError('required','email') || loginForm.controls['email'].errors?.invalidEmail)" formControlName="email" type="email" placeholder="Email">
                 <small *ngIf="loginForm.controls['email'].dirty && loginForm.hasError('required','email')" class="error-message">* Email is required</small>
+                <small *ngIf="loginForm.controls['email'].errors?.invalidEmail" class="error-message">* Invalid email. Must end with @cit.just.edu.jo</small>
             </div>
     
             <div class="input-container">
@@ -22,12 +23,11 @@
                 <a href="/forgot-password" id="forget">Forget Password?</a>
             </div>
     
-            <button (click)="login()" type="submit">Login</button>
+            <button type="submit">Login</button>
     
             <div class="signup-link">
                 <p>Don't have an account? <a routerLink="/signup">Sign Up</a></p>
             </div>       
         </form>
     </div>
-    
 </div>

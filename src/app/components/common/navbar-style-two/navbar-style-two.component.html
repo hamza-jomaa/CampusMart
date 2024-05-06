@@ -31,12 +31,12 @@
 
                             <ul class="dropdown-menu">
 
-                                <li class="nav-item"><a routerLink="/cart" class="nav-link" routerLinkActive="active"
-                                        [routerLinkActiveOptions]="{exact: true}">Cart</a></li>
+                                <!-- <li class="nav-item"><a routerLink="/cart" class="nav-link" routerLinkActive="active"
+                                        [routerLinkActiveOptions]="{exact: true}">Cart</a></li> -->
 
-                                <li class="nav-item"><a routerLink="/checkout" class="nav-link"
+                                <!-- <li class="nav-item"><a routerLink="/checkout" class="nav-link"
                                         routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Checkout</a>
-                                </li>
+                                </li> -->
                                 <li class="nav-item"><a routerLink="/trackorder" class="nav-link"
                                         routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Track Order
                                     </a></li>
@@ -76,7 +76,7 @@
                         <!-- Login button will be shown only if user is logged out -->
                         <a *ngIf="!isLoggedIn" routerLink="/login" class="nav-tel"> Login</a>
                         <!-- Logout button will be shown only if user is logged in -->
-                        <a *ngIf="isLoggedIn" class="nav-tel" (click)="logout()">Logout</a>
+                        <a *ngIf="isLoggedIn" routerLink="/login" class="nav-tel" (click)="logout()">Logout</a>
                         <!-- User's name will be shown only if user is logged in -->
                         <span *ngIf="isLoggedIn">{{ userName }}</span>
                     </div>
