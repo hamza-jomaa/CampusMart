@@ -16,9 +16,12 @@ export class VerifyEmailComponent implements OnInit {
     // Check query params to determine message
     this.route.queryParams.subscribe(params => {
       if (params['registration']) {
+
         this.message = 'An email has been sent to verify your account.';
         this.info = 'Please check your email inbox and follow the instructions to activate your account.';
+        
       } else if (params['forgotPassword']) {
+
         this.message = 'An email has been sent to reset your password.';
         this.info = 'Please check your email inbox and follow the instructions to reset your password.';
       }

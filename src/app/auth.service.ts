@@ -65,7 +65,7 @@ export class AuthService {
     }
     sendEmailVerification(user:any){
       user.sendEmailVerification().then((res:any)=>{
-this.router.navigate(['/verify-email'], { queryParams: { registration: true } });
+        this.router.navigate(['/verify-email'], { queryParams: { registration: true } });
       }, (err) => {
         alert("Something went wrong");
     })

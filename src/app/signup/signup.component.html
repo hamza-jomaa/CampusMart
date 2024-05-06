@@ -13,6 +13,7 @@
             <div class="input-container">
                 <input [class.error]="signUpForm.controls['email'].dirty && signUpForm.hasError('required','email')" formControlName="email" type="email" placeholder="Email">
                 <small *ngIf="signUpForm.controls['email'].dirty && signUpForm.hasError('required','email')" class="error-message">* Email is required</small>
+                <small *ngIf="signUpForm.controls['email'].errors?.invalidEmail" class="error-message">* Invalid email. Must end with @cit.just.edu.jo</small>
             </div>
     
             <div class="password-container">
