@@ -1,4 +1,69 @@
 <app-navbar-style-two></app-navbar-style-two>
+<div class="page-title-area page-title-img-one">
+    <div class="container">
+        <div class="page-title-item">
+            <h2>Apply As Service Provider</h2>
+            <ul>
+                <li><a routerLink="/">Home</a></li>
+                <li><i class='bx bx-chevron-right' ></i></li>
+                <li>Apply As Service Provider</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="container">
+    <form (ngSubmit)="submitServiceProviderForm()" [formGroup]="providerForm">
+        <fieldset>
+            <legend><span class="number">1</span>Your basic details</legend>
+            <label for="contactNumber">Contact Number:</label>
+            <input type="tel" id="phone" placeholder="Enter your contact number" formControlName="phone">
+            <input type="hidden" formControlName="status" value="Pending">
+        </fieldset>
+        <fieldset>
+            <legend><span class="number">2</span>Motivation</legend>
+            <textarea id="motivation" placeholder="Write your motivation here..." formControlName="motivation"></textarea>
+    
+            <button type="submit" [disabled]="providerForm.invalid">Submit Details</button>
+        </fieldset>
+    </form>
+</div>
+<app-footer-style-two></app-footer-style-two>
+
+
+
+
+<!-- <div id="container">
+    <form action="index.html" method="post">
+        <fieldset>
+            <legend><span class="number">1</span>Your basic details</legend>
+            <label for="projectName">Store Name:</label>
+            <input type="text" id="projectName" name="project_name" placeholder="" required pattern="[a-zA-Z0-9]+">
+            
+            <div style="display: flex; flex-direction: column">
+                <label for="image">Image:</label>
+                <input
+                    type="file"
+                    id="imageInput"
+                    name="imageInput"
+                />
+            </div>
+            
+        </fieldset>
+
+        <fieldset>
+            <legend><span class="number">2</span>Store Details</legend>
+
+            <label for="projectDescription">Store Description:</label>
+            <textarea id="projectDescription" name="project_description" placeholder="Write your project description here..."></textarea>
+
+            <button type="submit">Submit Store Details</button>
+        </fieldset>
+    </form>
+</div> -->
+
+<!------------------------------------------------------------------------------------------------------------------------------------------->
+
+<!-- <app-navbar-style-two></app-navbar-style-two>
 
 <div class="page-title-area page-title-img-one">
     <div class="container">
@@ -38,4 +103,4 @@
     </form>
 </div>
 
-<app-footer-style-two></app-footer-style-two>
+<app-footer-style-two></app-footer-style-two> -->

@@ -25,11 +25,15 @@
     <!-- Custom Stylesheet -->
     <style>
         .sidebar {
-            width: 330px; /* Increased width for the sidebar */
+            width: 330px; 
         }
         .nav-item i {
-            margin-right: 10px; /* Adjusted margin for icons */
+            margin-right: 10px; 
         }
+        .nav-item {
+            margin-bottom: 10px; 
+         }
+
     </style>
 </head>
 <body>
@@ -41,18 +45,10 @@
                 <a routerLink="/admin/dashboard" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary">Campus Mart</h3>
                 </a>
-                <div class="d-flex align-items-center ms-4 mb-4">
-                    <div class="position-relative">
-                        <img class="rounded-circle" src="assets/img/user-1.jpg" alt="" style="width: 40px; height: 40px;">
-                        <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
-                    </div>
-                    <div class="ms-3">
-                        <h6 class="mb-0">Hamza</h6>
-                        <span>Admin</span>
-                    </div>
-                </div>
+               
                 <div class="navbar-nav w-100">
                     <a routerLink="/admin/dashboard" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a routerLink="/admin/providerRequest" class="nav-item nav-link"><i class="fa fa-user-circle me-2"></i>Provider Request</a>
                     <a routerLink="/admin/storeRequest" class="nav-item nav-link"><i class="fa fa-shopping-bag me-2"></i>Store Request</a>
                     <a routerLink="/admin/merchandiseRequest"class="nav-item nav-link"><i class="fa fa-box me-2"></i>Merchandise Request</a>
                     
@@ -61,8 +57,7 @@
                 
                     <a routerLink="/admin/storeInfo" class="nav-item nav-link"><i class="fa fa-store-alt me-2"></i>Store Info</a>
                     <a routerLink="/admin/report" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Reports</a>
-                    <a routerLink="/admin/profile" class="nav-item nav-link"><i class="fa fa-user-circle me-2"></i>Profile</a>
-                    <a routerLink="/admin/contactusReq" class="nav-item nav-link"><i class="fa fa-envelope me-2"></i>Contact Us Request</a>
+                    <a routerLink="/admin/contactusReq" class="nav-item nav-link"><i class="fa fa-envelope me-2"></i>Contact Us</a>
                 </div>
             </nav>
         </div>

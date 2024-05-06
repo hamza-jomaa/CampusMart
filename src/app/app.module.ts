@@ -41,10 +41,15 @@ import { TesimonalsComponent } from './tesimonals/tesimonals.component';
 import { SpecialRequestComponent } from './special-request/special-request.component';
 import { WritetestmonialComponent } from './writetestmonial/writetestmonial.component';
 import { ProviderComponent } from './components/pages/provider/provider.component';
-import { AuthService } from './auth.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './signup/signup.component'; 
-
+import { HttpClientModule } from '@angular/common/http';
+import{NgConfirmModule} from 'ng-confirm-box';
+import { ToastrModule } from 'ngx-toastr'; // Import ToastrModule
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,6 +88,8 @@ import { SignupComponent } from './signup/signup.component';
     WritetestmonialComponent,
     ProviderComponent,
     SignupComponent,
+    MatConfirmDialogComponent
+   
  
  
     
@@ -93,7 +100,14 @@ import { SignupComponent } from './signup/signup.component';
     FormsModule,
     FontAwesomeModule,
     GoogleMapsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    NgConfirmModule,
+    ToastrModule.forRoot({positionClass: 'toast-top-right',}), 
+    BrowserAnimationsModule ,
+    MatDialogModule,
+    MatIconModule
+    
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],

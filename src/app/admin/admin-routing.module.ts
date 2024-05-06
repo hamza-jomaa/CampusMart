@@ -9,7 +9,7 @@ import { StoreInfoComponent } from './store-info/store-info.component';
 import { ReportComponent } from './report/report.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ContactusReqComponent } from './contactus-req/contactus-req.component';
-
+import { ProviderRequestComponent } from './provider-request/provider-request.component';
 const routes: Routes = [
   {
     path:'dashboard',component:AdminDashboardComponent
@@ -32,7 +32,7 @@ const routes: Routes = [
     path:'report', component:ReportComponent
   },
   {
-    path:'profile', component:ProfileComponent
+    path:'providerRequest', component:ProviderRequestComponent
   },
   {
     path:'contactusReq', component:ContactusReqComponent

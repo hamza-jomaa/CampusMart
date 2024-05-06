@@ -28,8 +28,7 @@ import { TesimonalsComponent } from './tesimonals/tesimonals.component';
 import { SpecialRequestComponent } from './special-request/special-request.component';
 import { WritetestmonialComponent } from './writetestmonial/writetestmonial.component';
 import { ProviderComponent } from './components/pages/provider/provider.component';
-import { authorizationGuard } from './authorization.guard';
-import { AuthModule } from './auth/auth.module';
+
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 
@@ -61,14 +60,6 @@ const routes: Routes = [
     {path: 'login', component: LoginComponent },
     {path: 'signup', component : SignupComponent },
 
-
-    //{ path: 'login', component: LoginComponent },
-    //{ path: 'security', loadChildren : () =>import('./auth/auth.module').then((m) => m.AuthModule) },
-    // ,{
-
-    //     path:'securitys',
-    //     loadChildren:()=>import('./auth/auth.module').then(m=>m.AuthModule)
-    //   },
     { path: 'special-request', component: SpecialRequestComponent },
     { path: 'writetestmonial', component: WritetestmonialComponent },
     { path: 'provider', component: ProviderComponent },

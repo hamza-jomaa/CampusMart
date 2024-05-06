@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'ngx-toastr/toastr';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
 $common-font: 'Poppins', sans-serif;
 $heading-font: 'Playfair Display', serif;
 $transition: .5s all ease;
@@ -3855,6 +3858,7 @@ button {
     box-shadow: 0px 0px 14px 0px $black-color;
 }
 /*----- End Back to Top CSS -----*/
+
 
 
 

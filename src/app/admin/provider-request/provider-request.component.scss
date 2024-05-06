@@ -1,3 +1,25 @@
+.content {
+    width: calc(100% - 330px); /* Calculate the remaining width after the sidebar width */
+    margin-left: 330px; /* Set the margin-left to match the sidebar width */
+}
+
+
+.consumer-info-title {
+    background-color: #f4f4f4; /* Gray background color */
+    padding: 17px; /* Padding around the title */
+    border-radius: 5px; /* Rounded corners */
+    margin-bottom: 20px; /* Bottom margin */
+}
+
+.consumer-info-title h3 {
+    color: #007bff;
+    margin: 0;
+}
+
+.consumer-info-title h3 i {
+    margin-right: 10px; /* تحديد مسافة بين الأيقونة والنص */
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;

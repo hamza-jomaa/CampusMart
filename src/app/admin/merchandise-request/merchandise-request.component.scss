@@ -2,3 +2,8 @@
     width: calc(100% - 330px); /* Calculate the remaining width after the sidebar width */
     margin-left: 330px; /* Set the margin-left to match the sidebar width */
 }
+
+
+td.text-center .d-flex {
+    gap: 10px; /* Adjust the gap as needed */
+}

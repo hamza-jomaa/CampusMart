@@ -1,0 +1,12 @@
+<div style="border-radius: .25em .25em .4em .4em; padding: 10px; display: flex; flex-direction: column; align-items: center; height: 130px; width:360px;">
+    <div style="display: flex; align-items: center; justify-content: flex-end; width: 100%;">
+        <mat-icon style="font-weight: bolder;" (click)="closeDialog()">close</mat-icon>
+    </div>
+    <span class="content-span full-width" style="text-align: left; color: #333; font-size: 16px; margin-right: 25px; font-weight: bolder;">{{ data.message }}</span>
+
+    <br />
+    <div style="display: flex; flex-direction: row; width: 100%;">
+        <button style="margin-right: 5px; background-color: #f44336; color: #ffffff; flex: 1; height: 35px;" mat-flat-button [mat-dialog-close]="true">Yes</button>
+        <button style="margin-left: 5px; background-color: #607d8b; color: #ffffff; flex: 1; height: 35px;" mat-flat-button [mat-dialog-close]="false">No</button>
+    </div>
+</div>

@@ -10,68 +10,18 @@
         </div>
         <br><br>
         <div class="row">
-            <!-- Store Card 1 -->
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100"> <!-- h-100 تحديد الارتفاع -->
-                    <img src="assets/img/shops/shop1.jpg" class="card-img-top" alt="Store 1 Image">
-                    <div class="card-body">
-                        <h5 class="card-title">Store 1</h5>
-                        <p class="card-text">Owner: John Doe</p>
-                        <p class="card-text">Status: <span style="color: red;">Closed</span></p> <!-- تغيير لون النص هنا -->
-                        <hr>
-                        <h6 class="card-subtitle mb-2 text-muted">Merchandise</h6>
-                        <ul class="list-unstyled">
-                            <li>Product A</li>
-                            <li>Product B</li>
-                            <li>Product C</li>
-                            <!-- Add more products here -->
-                        </ul>
-                    </div>
+            <div class="col-lg-4 col-md-6 mb-4" *ngFor="let store of storesInfo">
+              <div class="card h-100">
+                <img [src]="store.image" class="card-img-top" alt="Store Image">
+                <div class="card-body">
+                  <p class="card-title"><i class="fas fa-store" style="font-size: 18px; color: #007bff;"></i> Store Name: {{ store.storename }}</p>
+                  <p class="card-text"><i class="fas fa-info-circle" style="font-size: 18px; color: #28a745;"></i> Description: {{ store.description }}</p>
+                  <p class="card-text"><i class="fas fa-door-open" style="font-size: 18px; color: {{ store.isopen === 1 ? '#28a745' : '#dc3545' }};"></i> Is Open: <span [style.color]="store.isopen === 1 ? '#28a745' : '#dc3545'">{{ store.isopen === 1 ? 'Yes' : 'No' }}</span></p>
+                  <p class="card-text"><i class="fas fa-star" style="font-size: 18px; color: #ffc107;"></i> Rate: {{ store.rate }}</p>
                 </div>
+              </div>
             </div>
-
-            <!-- Store Card 2 -->
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100"> <!-- h-100 تحديد الارتفاع -->
-                    <img src="assets/img/shops/shop2.jpg" class="card-img-top" alt="Store 2 Image">
-                    <div class="card-body">
-                        <h5 class="card-title">Store 2</h5>
-                        <p class="card-text">Owner: Jane Doe</p>
-                        <p class="card-text">Status: <span style="color: green;">Open</span></p> <!-- تغيير لون النص هنا -->
-                        <hr>
-                        <h6 class="card-subtitle mb-2 text-muted">Merchandise</h6>
-                        <ul class="list-unstyled">
-                            <li>Product A</li>
-                            <li>Product B</li>
-                            <li>Product C</li>
-                            <!-- Add more products here -->
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Store Card 3 -->
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100"> <!-- h-100 تحديد الارتفاع -->
-                    <img src="assets/img/shops/shop4.jpg" class="card-img-top" alt="Store 3 Image">
-                    <div class="card-body">
-                        <h5 class="card-title">Store 3</h5>
-                        <p class="card-text">Owner: Alice Smith</p>
-                        <p class="card-text">Status: <span style="color: red;">Closed</span></p> <!-- تغيير لون النص هنا -->
-
-                        <hr>
-                        <h6 class="card-subtitle mb-2 text-muted">Merchandise</h6>
-                        <ul class="list-unstyled">
-                            <li>Product A</li>
-                            <li>Product B</li>
-                            <li>Product C</li>
-                            <!-- Add more products here -->
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Add more store cards as needed -->
-        </div>
+          </div>
+          
     </div>
 </div>

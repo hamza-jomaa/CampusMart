@@ -11,42 +11,33 @@
                 <table class="table text-start align-middle table-bordered table-hover mb-0">
                     <thead>
                         <tr class="text-dark">
-                            <th scope="col">Store ID</th>
-                            <th scope="col">User</th>
+                            <!-- <th scope="col">Store ID</th> -->
+                            <!-- <th scope="col">Provider Name</th> -->
                             <th scope="col">Store Name</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">What it Sells</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Image</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Sample store data (replace with dynamic data from backend) -->
-                        <tr>
-                            <td>1</td>
-                            <td>John Doe</td>
-                            <td>Electronics Store</td>
-                            <td>A store specializing in electronic gadgets.</td>
-                            <td>Laptops, smartphones, accessories</td>
-                            <td>
-                                <div class="d-flex gap-2">
-                                    <!-- Edit Form -->
-                                    <form method="post">
-                                        <button type="submit" class="btn btn-sm btn-primary action-button">Accept</button>
-                                    </form>
-                                    <!-- Delete Form -->
-                                    <form method="post">
-                                        <button type="submit" class="btn btn-sm btn-danger action-button">Reject</button>
-                                    </form>
+                        <tr *ngFor="let store of admin.storerequests">
+                            <!-- <td>{{ store.storeid }}</td> -->
+                            <td>{{ store.storename }}</td>
+                            <td>{{store.approvalstatus}}</td>
+                            <td><img [src]="store.Image" alt="Store Image" style="width: 50px; height: 50px;"></td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center">
+                                    <button type="button" class="btn btn-sm btn-primary action-button" (click)="acceptStore(store.storeid)">Accept</button>
+                                    <button type="button" class="btn btn-sm btn-danger action-button" (click)="rejectStore(store.storeid)">Reject</button>
                                 </div>
                             </td>
+                            
                         </tr>
                         <tr>
                           
                         </tr>
-                        <!-- Add more store rows as needed -->
                     </tbody>
                 </table>
-                <!-- Alternatively, you can handle the "No stores found" message in your server-side code -->
             </div>
         </div>
     </div>

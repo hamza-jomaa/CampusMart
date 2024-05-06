@@ -1,0 +1,43 @@
+<app-sidebar></app-sidebar>
+<app-navbar></app-navbar>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="consumer-info-title">
+            <h3><i class="fas fa-users"></i> Provider Request</h3>
+        </div>
+        <div class="container-fluid pt-4 px-4">
+            <div class="bg-light rounded p-4">
+                <div class="table-responsive">
+                    <table class="table text-start align-middle table-bordered table-hover mb-0">
+                        <thead>
+                            <tr class="text-dark">
+                                <th scope="col">Consumer ID</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Motivation</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let request of admin.providerequests">
+                                <td>{{ request.consumerid }}</td>  <!--convert to consumer name later-->
+                                <td>{{ request.phone }}</td>
+                                <td>{{ request.motivation }}</td>
+                                <td>{{ request.status }}</td>
+                                <!-- <td>{{request.providerid}}</td> -->
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center">
+                                        <button type="button" class="btn btn-sm btn-primary action-button" (click)="acceptProvider(request.consumerid, request.providerid)">Accept</button>
+                                        <button type="button" class="btn btn-sm btn-danger action-button" (click)="rejectProvider(request.consumerid, request.providerid)">Reject</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

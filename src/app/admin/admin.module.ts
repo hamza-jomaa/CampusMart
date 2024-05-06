@@ -12,6 +12,7 @@ import { ReportComponent } from './report/report.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ContactusReqComponent } from './contactus-req/contactus-req.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { ProviderRequestComponent } from './provider-request/provider-request.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     ReportComponent,
     ProfileComponent,
     ContactusReqComponent,
-    NavbarComponent
+    NavbarComponent,
+    ProviderRequestComponent
   ],
   imports: [
     CommonModule,
