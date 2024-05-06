@@ -29,7 +29,7 @@ import { PrivacyPolicyComponent } from './components/pages/privacy-policy/privac
 import { ErrorComponent } from './components/pages/error/error.component';
 import { ContactComponent } from './components/pages/contact/contact.component';
 import { NavbarStyleThreeComponent } from './components/common/navbar-style-three/navbar-style-three.component';
-import { LoginComponent } from './login/login.component';
+//mport { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -41,9 +41,13 @@ import { TesimonalsComponent } from './tesimonals/tesimonals.component';
 import { SpecialRequestComponent } from './special-request/special-request.component';
 import { WritetestmonialComponent } from './writetestmonial/writetestmonial.component';
 import { ProviderComponent } from './components/pages/provider/provider.component';
-import { AuthService } from './auth.service';
+//import { AuthService } from './auth.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './signup/signup.component'; 
+import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from './shared/shared.module';
+import { AuthModule } from './auth/auth.module';
+//import { LoginComponent } from './components/pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +79,6 @@ import { SignupComponent } from './signup/signup.component';
     ErrorComponent,
     ContactComponent,
     NavbarStyleThreeComponent,
-    LoginComponent,
     ApplyAsSPComponent,
     TrackorderComponent,
     TesimonalsComponent,
@@ -83,6 +86,7 @@ import { SignupComponent } from './signup/signup.component';
     WritetestmonialComponent,
     ProviderComponent,
     SignupComponent,
+   // LoginComponent,
  
  
     
@@ -93,7 +97,9 @@ import { SignupComponent } from './signup/signup.component';
     FormsModule,
     FontAwesomeModule,
     GoogleMapsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,HttpClientModule,
+    SharedModule,
+    AuthModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],

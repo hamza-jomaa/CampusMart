@@ -30,7 +30,6 @@ import { WritetestmonialComponent } from './writetestmonial/writetestmonial.comp
 import { ProviderComponent } from './components/pages/provider/provider.component';
 import { authorizationGuard } from './authorization.guard';
 import { AuthModule } from './auth/auth.module';
-import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 
 const routes: Routes = [
@@ -58,17 +57,15 @@ const routes: Routes = [
     { path: 'testimonals', component: TesimonalsComponent },
     { path: 'trackorder', component: TrackorderComponent },
     {path: 'apply-as-sp', component: ApplyAsSPComponent },
-    {path: 'login', component: LoginComponent },
+    //{path: 'loginnn', component: LoginComponent },
     {path: 'signup', component : SignupComponent },
-
-
-    //{ path: 'login', component: LoginComponent },
     //{ path: 'security', loadChildren : () =>import('./auth/auth.module').then((m) => m.AuthModule) },
-    // ,{
+    // ,
+    {
 
-    //     path:'securitys',
-    //     loadChildren:()=>import('./auth/auth.module').then(m=>m.AuthModule)
-    //   },
+        path: 'auth',
+        loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+       },
     { path: 'special-request', component: SpecialRequestComponent },
     { path: 'writetestmonial', component: WritetestmonialComponent },
     { path: 'provider', component: ProviderComponent },

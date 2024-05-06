@@ -16,26 +16,26 @@
 <div class="feature-area pt-100 pb-70"> 
     <div class="container"> 
         <div class="row"> 
-            <div class="col-sm-6 col-lg-4"> 
+            <div class="col-sm-6 col-lg-4" *ngFor="let store of storeService.All_Stores_From_All_Providers"> 
                 <div class="feature-item"> 
                     <img src="assets/img/shops/shop2.jpg" alt="Feature"> 
              
                     <div class="feature-inner"> 
                         <ul> 
-                            <li><span>Book Planet</span></li> 
+                            <li><span>{{store.storename}}</span></li> 
                             <li><a routerLink="/merchindise1"><i class='bx bx-right-arrow-alt'></i></a></li> 
                         </ul> 
                     </div> 
                 </div> 
             </div> 
- 
+ <!--
             <div class="col-sm-6 col-lg-4"> 
                 <div class="feature-item"> 
                     <img src="assets/img/shops/shop4.jpg" alt="Feature"> 
  
                     <div class="feature-inner"> 
                         <ul> 
-                           <!-- /// <li><img src="assets/img/home-one/feature2.png" alt="Feature"></li> --> 
+                          
                             <li><span>Food Space</span></li> 
                             <li><a routerLink="/"><i class='bx bx-right-arrow-alt'></i></a></li> 
                         </ul> 
@@ -49,14 +49,13 @@
  
                     <div class="feature-inner"> 
                         <ul> 
-                            <!-- <li><img src="assets/img/home-one/feature3.png" alt="Feature"></li> --> 
                             <li><span>Market Place</span></li> 
                             <li><a routerLink="/food-collection"><i class='bx bx-right-arrow-alt'></i></a></li> 
                         </ul> 
                     </div> 
                 </div> 
             </div> 
- 
+        -->
             <!-- <div class="col-sm-6 col-lg-4"> 
                 <div class="feature-item"> 
                     <img src="assets/img/shops/shop3.jpg" alt="Feature"> 
