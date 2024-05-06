@@ -29,7 +29,7 @@ import { PrivacyPolicyComponent } from './components/pages/privacy-policy/privac
 import { ErrorComponent } from './components/pages/error/error.component';
 import { ContactComponent } from './components/pages/contact/contact.component';
 import { NavbarStyleThreeComponent } from './components/common/navbar-style-three/navbar-style-three.component';
-import { LoginComponent } from './login/login.component';
+//mport { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -41,15 +41,13 @@ import { TesimonalsComponent } from './tesimonals/tesimonals.component';
 import { SpecialRequestComponent } from './special-request/special-request.component';
 import { WritetestmonialComponent } from './writetestmonial/writetestmonial.component';
 import { ProviderComponent } from './components/pages/provider/provider.component';
-import { AuthService } from './auth.service';
+//import { AuthService } from './auth.service';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SignupComponent } from './signup/signup.component'; 
-import {AngularFireModule} from '@angular/fire/compat'
-import {AngularFireDatabaseModule} from '@angular/fire/compat/database';
-import { environment } from 'src/environments/environment';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { VerifyEmailComponent } from './verify-email/verify-email.component';
-import { CitEmailValidatorDirective } from './email.validator';
+import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from './shared/shared.module';
+import { AuthModule } from './auth/auth.module';
+//import { LoginComponent } from './components/pages/login/login.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -80,17 +78,15 @@ import { CitEmailValidatorDirective } from './email.validator';
     ErrorComponent,
     ContactComponent,
     NavbarStyleThreeComponent,
-    LoginComponent,
     ApplyAsSPComponent,
     TrackorderComponent,
     TesimonalsComponent,
     SpecialRequestComponent,
     WritetestmonialComponent,
     ProviderComponent,
-    SignupComponent,
-    ForgotPasswordComponent,
-    VerifyEmailComponent,
-    CitEmailValidatorDirective
+    //SignupComponent,
+   // LoginComponent,
+ 
  
     
   ],
@@ -100,12 +96,11 @@ import { CitEmailValidatorDirective } from './email.validator';
     FormsModule,
     FontAwesomeModule,
     GoogleMapsModule,
-    ReactiveFormsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireDatabaseModule,
-     
+    ReactiveFormsModule,HttpClientModule,
+    SharedModule,
+    AuthModule
   ],
-  exports:[CitEmailValidatorDirective],
+ // exports:[CitEmailValidatorDirective],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
   bootstrap: [AppComponent]
