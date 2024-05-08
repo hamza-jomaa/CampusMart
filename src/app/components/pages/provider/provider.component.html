@@ -296,40 +296,48 @@
         </div>
     </div>
 </section>
-<section *ngIf="navIndex == 2" class="story-area pt-100 pb-70">
+
+
+
+
+
+
+
+
+<!-- <section *ngIf="navIndex == 2" class="story-area pt-100 pb-70">
     <div class="container">
         <div class="story-head">
             <h2>Special Request</h2>
             <div class="card-container">
-                <div class="card" *ngFor="let specialRequest of specialRequestsData">
+                <div class="card" *ngFor="let specialRequest of pendingSpecialRequests">
                     <div class="card-header" [ngClass]="{
                         'acceptedStyle': specialRequest.orderStatus == 1,
                         'declinedStyle': specialRequest.orderStatus == 2,
                         'pendingStyle': specialRequest.orderStatus == 0
                     }">
-                        <p>ID: {{ specialRequest.id }}</p>
-                        <h2>{{ specialRequest.name }}</h2>
+                        <p>ID: {{ specialRequest.requestid }}</p>
+                        <h2>{{ specialRequest.requesttitle }}</h2>
                     </div>
                     <div style="text-align: left;" class="card-body">
                         <p>Consumer Name: {{ specialRequest.consumerName }}</p>
                         <p>Consumer Phone: {{ specialRequest.consumerPhone }}</p>
-                        <p>Date: {{ specialRequest.date }}</p>
+                        <p>Date: {{ specialRequest.date }}</p> 
                         <p>Status:
                             <span [ngClass]="{
-                                'accepted': specialRequest.orderStatus == 1,
-                                'declined': specialRequest.orderStatus == 2,
-                                'pending': specialRequest.orderStatus == 0
+                                'accepted': specialRequest.requeststatus == 1,
+                                'declined': specialRequest.requeststatus == 2,
+                                'pending': specialRequest.requeststatus == 0
                             }">
                                 {{ specialRequest.orderStatus == 0 ? 'Pending' : specialRequest.orderStatus == 1 ? 'Accepted' : 'Declined' }}
                             </span>
                         </p>
                     </div>
                     <div class="card-footer"[ngClass]="{
-                        'acceptedStyle': specialRequest.orderStatus == 1,
-                        'declinedStyle': specialRequest.orderStatus == 2,
-                        'pendingStyle': specialRequest.orderStatus == 0
+                        'acceptedStyle': specialRequest.requeststatus == 1,
+                        'declinedStyle': specialRequest.requeststatus == 2,
+                        'pendingStyle': specialRequest.requeststatus == 0
                     }">
-                        <button class="edit" (click)="viewSpecialRequest(specialRequest.id)">View</button>
+                        <button class="edit" (click)="viewSpecialRequest(specialRequest.requestid)">View</button>
                     </div>
                 </div>
             </div>
@@ -436,7 +444,56 @@
             </div>
         </div>
     </div>
+</section> -->
+
+<section *ngIf="navIndex == 2" class="story-area pt-100 pb-70">
+    <div class="container">
+        <div class="story-head">
+            <h2>Special Request</h2>
+            <div class="card-container">
+                <div class="card" *ngFor="let specialRequest of pendingSpecialRequests">
+                    <div class="card-header" [ngClass]="{
+                        'acceptedStyle': specialRequest.requeststatus === 'Accepted',
+                        'declinedStyle': specialRequest.requeststatus === 'Declined',
+                        'pendingStyle': specialRequest.requeststatus === 'Pending'
+                    }">
+                        <p>ID: {{ specialRequest.requestid }}</p>
+                        <h2>{{ specialRequest.requesttitle }}</h2>
+                    </div>
+                    <div style="text-align: left;" class="card-body">
+                        <p>Details: {{ specialRequest.requestdetails }}</p>
+                        <p>Status:
+                            <span [ngClass]="{
+                                'accepted': specialRequest.requeststatus === 'Accepted',
+                                'declined': specialRequest.requeststatus === 'Declined',
+                                'pending': specialRequest.requeststatus === 'Pending'
+                            }">
+                                {{ specialRequest.requeststatus }}
+                            </span>
+                        </p>
+                        <p>Consumer ID: {{ specialRequest.consumerid }}</p>
+                        <p>Provider ID: {{ specialRequest.providerid }}</p>
+                    </div>
+                    <div class="card-footer"[ngClass]="{
+                        'acceptedStyle': specialRequest.requeststatus === 'Accepted',
+                        'declinedStyle': specialRequest.requeststatus === 'Declined',
+                        'pendingStyle': specialRequest.requeststatus === 'Pending'
+                    }">
+                        <button class="edit" (click)="viewSpecialRequest(specialRequest.requestid)">View</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+
+
+
+
+
+
+
+
 <section *ngIf="navIndex == 3" class="story-area pt-100 pb-70">
     <div class="container">
         <div class="story-head">

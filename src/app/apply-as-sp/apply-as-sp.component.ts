@@ -22,6 +22,7 @@ export class ApplyAsSPComponent implements OnInit {
   initForm(): void {
     this.providerForm = this.fb.group({
       phone: ['', Validators.required],
+      //consumerId: [''], 
       motivation: ['', Validators.required],
       status: ['Pending']
     });
@@ -32,6 +33,7 @@ export class ApplyAsSPComponent implements OnInit {
       this.toastr.error('Please fill out all required fields.', 'Error');
       return;
     }
+
     this.adminService.createServiceProvider(this.providerForm.value).subscribe(
       () => {
         this.toastr.success('ServiceProvider request submitted successfully', 'Success');

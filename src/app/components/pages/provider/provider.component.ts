@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-
+import { map } from "rxjs/operators";
+import { AdminService } from 'src/app/services/admin.service';
 @Component({
     selector: "app-provider",
     templateUrl: "./provider.component.html",
@@ -17,10 +18,10 @@ export class ProviderComponent implements OnInit {
     newOrder = {
         id: null,
         name: "",
-        providerId:null,
+        providerId: null,
         providerName: "",
         providerPhone: "",
-        consumerId:null,
+        consumerId: null,
         consumerName: "",
         consumerPhone: "",
         merchandises: [],
@@ -30,10 +31,10 @@ export class ProviderComponent implements OnInit {
     specialRequest = {
         id: null,
         name: "",
-        providerId:null,
+        providerId: null,
         providerName: "",
         providerPhone: "",
-        consumerId:null,
+        consumerId: null,
         consumerName: "",
         consumerPhone: "",
         description: "",
@@ -97,10 +98,10 @@ export class ProviderComponent implements OnInit {
         {
             id: 0,
             name: "order 1",
-            providerId:null,
+            providerId: null,
             providerName: "",
             providerPhone: "",
-            consumerId:0,
+            consumerId: 0,
             consumerName: "First consumer",
             consumerPhone: "0798765432",
             merchandises: [
@@ -132,10 +133,10 @@ export class ProviderComponent implements OnInit {
         {
             id: 1,
             name: "order 2",
-            providerId:null,
+            providerId: null,
             providerName: "",
             providerPhone: "",
-            consumerId:1,
+            consumerId: 1,
             consumerName: "Second consumer",
             consumerPhone: "0787654321",
             merchandises: [
@@ -167,10 +168,10 @@ export class ProviderComponent implements OnInit {
         {
             id: 2,
             name: "order 3",
-            providerId:null,
+            providerId: null,
             providerName: "",
             providerPhone: "",
-            consumerId:2,
+            consumerId: 2,
             consumerName: "Third consumer",
             consumerPhone: "0776543210",
             merchandises: [
@@ -194,50 +195,62 @@ export class ProviderComponent implements OnInit {
         },
     ];
 
-    specialRequestsData =  [
-        {
-            id: 0,
-            name: "Request 1",
-            providerId:null,
-            providerName: "",
-            providerPhone: "",
-            consumerId:0,
-            consumerName: "First consumer",
-            consumerPhone: "0798765432",
-            description: "I want a pizza from Qaisar Pizza",
-            date: "",
-            orderStatus: 0,
-        },
-        {
-            id: 1,
-            name: "Request 2",
-            providerId:null,
-            providerName: "",
-            providerPhone: "",
-            consumerId:1,
-            consumerName: "Second consumer",
-            consumerPhone: "0787654321",
-            description: "I want a burger from Fire Fly",
-            date: "",
-            orderStatus: 0,
-        },
-        {
-            id: 2,
-            name: "Request 3",
-            providerId:null,
-            providerName: "",
-            providerPhone: "",
-            consumerId:2,
-            consumerName: "Third consumer",
-            consumerPhone: "0776543210",
-            description: "I want Hotdogs from Wazzap dog",
-            date: "",
-            orderStatus: 0,
-        },
-    ];
-    constructor() {}
+    // specialRequestsData = [
+    //     {
+    //         id: 0,
+    //         name: "Request 1",
+    //         providerId: null,
+    //         providerName: "",
+    //         providerPhone: "",
+    //         consumerId: 0,
+    //         consumerName: "First consumer",
+    //         consumerPhone: "0798765432",
+    //         description: "I want a pizza from Qaisar Pizza",
+    //         date: "",
+    //         orderStatus: 0,
+    //     },
+    //     {
+    //         id: 1,
+    //         name: "Request 2",
+    //         providerId: null,
+    //         providerName: "",
+    //         providerPhone: "",
+    //         consumerId: 1,
+    //         consumerName: "Second consumer",
+    //         consumerPhone: "0787654321",
+    //         description: "I want a burger from Fire Fly",
+    //         date: "",
+    //         orderStatus: 0,
+    //     },
+    //     {
+    //         id: 2,
+    //         name: "Request 3",
+    //         providerId: null,
+    //         providerName: "",
+    //         providerPhone: "",
+    //         consumerId: 2,
+    //         consumerName: "Third consumer",
+    //         consumerPhone: "0776543210",
+    //         description: "I want Hotdogs from Wazzap dog",
+    //         date: "",
+    //         orderStatus: 0,
+    //     },
+    // ];
 
-    ngOnInit(): void {}
+    pendingSpecialRequests: any[] = [];
+
+    constructor(public admin: AdminService){}
+
+    ngOnInit(): void {
+        
+        this.admin.getAllRequests().pipe(
+            map((requests: any[]) => requests.filter(request => request.requeststatus === 'Pending'))
+        ).subscribe((pendingRequests: any[]) => {
+            this.pendingSpecialRequests = pendingRequests;
+        });
+    }
+
+ 
     navDashboard(index: any) {
         this.navIndex = index;
     }
@@ -294,40 +307,36 @@ export class ProviderComponent implements OnInit {
     }
     viewSpecialRequest(id: any) {
         this.toggleOrder();
-        const index = this.specialRequestsData.findIndex((item) => item.id === id);
+        const index = this.pendingSpecialRequests.findIndex(
+            (item) => item.id === id
+        );
         if (index !== -1) {
             this.editingSpecialRequestIndex = index;
-            this.specialRequest = { ...this.specialRequestsData[index] };
+            this.specialRequest = { ...this.pendingSpecialRequests[index] };
         }
     }
     submitOrder(formData) {
- 
-        
-          if (this.editingOrderIndex !== null) {
-            this.newOrder.providerId=this.providerData.id;
-            this.newOrder.providerName=this.providerData.name;
-            this.newOrder.providerPhone=this.providerData.phoneNumber;
-              this.orderData[this.editingOrderIndex] =
-                  this.newOrder;
-              this.editingOrderIndex = null;
-          }
-          this.resetForm();
-      
-  }
-  submitSpecialRequest(formData) {
- 
-        
-    if (this.editingSpecialRequestIndex !== null) {
-      this.specialRequest.providerId=this.providerData.id;
-      this.specialRequest.providerName=this.providerData.name;
-      this.specialRequest.providerPhone=this.providerData.phoneNumber;
-        this.specialRequestsData[this.editingSpecialRequestIndex] =
-            this.specialRequest;
-        this.editingSpecialRequestIndex = null;
+        if (this.editingOrderIndex !== null) {
+            this.newOrder.providerId = this.providerData.id;
+            this.newOrder.providerName = this.providerData.name;
+            this.newOrder.providerPhone = this.providerData.phoneNumber;
+            this.orderData[this.editingOrderIndex] = this.newOrder;
+            this.editingOrderIndex = null;
+        }
+        this.resetForm();
     }
-    this.resetForm();
-
-}
+    submitSpecialRequest(formData) {
+        if (this.editingSpecialRequestIndex !== null) {
+            this.specialRequest.providerId = this.providerData.id;
+            this.specialRequest.providerName = this.providerData.name;
+            this.specialRequest.providerPhone = this.providerData.phoneNumber;
+            this.pendingSpecialRequests[
+                this.editingSpecialRequestIndex
+            ] = this.specialRequest;
+            this.editingSpecialRequestIndex = null;
+        }
+        this.resetForm();
+    }
     onFileSelected(event: any) {
         const file: File = event.target.files[0];
         if (file) {
@@ -352,7 +361,7 @@ export class ProviderComponent implements OnInit {
     }
     resetForm() {
         this.showForm = false;
-        this.showOrder=false;
+        this.showOrder = false;
         this.newMerchandise = {
             id: null,
             name: "",
@@ -360,18 +369,5 @@ export class ProviderComponent implements OnInit {
             quantity: null,
             image: "",
         };
-    //     this.newOrder = {
-    //       id: null,
-    //       name: "",
-    //       providerId:null,
-    //       providerName: "",
-    //       providerPhone: "",
-    //       consumerId:null,
-    //       consumerName: "",
-    //       consumerPhone: "",
-    //       merchandises: [],
-    //       date: "",
-    //       orderStatus: null,
-    //   };
     }
 }

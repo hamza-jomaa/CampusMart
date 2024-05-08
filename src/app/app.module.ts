@@ -56,6 +56,7 @@ import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './auth/auth.module';
 //import { LoginComponent } from './components/pages/login/login.component';
 
+import { NgxSpinnerModule } from 'ngx-spinner';
 @NgModule({
   declarations: [
     AppComponent,
@@ -113,6 +114,9 @@ import { AuthModule } from './auth/auth.module';
     MatDialogModule,
     MatIconModule,
     SharedModule,
+    NgxSpinnerModule,
+    MatIconModule
+    
   ],
  // exports:[CitEmailValidatorDirective],
   providers: [],

@@ -21,60 +21,24 @@
                 <div class="contact-item">
                     <h6 style="color: #000;">Order from any<span style="color: #ffbe00; font-weight: bold;">  campus cafeteria</span> by filling out this form.</h6>
 <br />
-                    <form id="contactForm">
+                    <form id="contactForm"  [formGroup]="requestForm" (ngSubmit)="submitRequestForm()">
                         
 
     <div class="row"> 
 
         <div class="col-sm-6 col-lg-12"> 
             <div class="form-group"> 
-                <label for="cafeteria">Title:</label>
-                <input type="text" name="name" id="name" class="form-control" required placeholder="Enter Title"> 
+                <label for="title">Title:</label>
+                <input type="text" formControlName="title" id="title" class="form-control" required placeholder="Enter Title">
             </div> 
         </div> 
-
-        <div class="col-sm-6 col-lg-12">
-            <div class="form-group">
-                <label for="cafeteria">Choose Cafeteria:</label>
-                <div class="input-group">
-                    <select id="cafeteria" name="cafeteria" class="form-control" required>
-                        <option value="" disabled selected>Select Cafeteria</option>
-                        <option value="engineering">Engineering Cafeteria</option>
-                        <option value="lecture-halls">Lecture Halls Cafeteria (Mall)</option>
-                        <option value="medical">Medical Cafeteria</option>
-                        <option value="bus-stations">Bus Stations Kiosks</option>
-                        
-                    </select>
-                    
-                </div>
-            </div>
-        </div>
         
-        <div class="col-sm-6 col-lg-12">
-            <div class="form-group">
-                <label for="products">Choose Product:</label>
-                <select id="products" name="products" class="form-control" required>
-                    <option value="" disabled selected>Select Product</option>
-                    <optgroup label="Sandwiches">
-                        <option value="sandwich1">Sandwich 1</option>
-                        <option value="sandwich2">Sandwich 2</option>
-                    </optgroup>
-                    <optgroup label="Juices">
-                        <option value="juice1">Juice 1</option>
-                        <option value="juice2">Juice 2</option>
-                    </optgroup>
-                    <optgroup label="Books">
-                        <option value="book1">Book 1</option>
-                        <option value="book2">Book 2</option>
-                    </optgroup>
-                </select>
-            </div>
-        </div>
-        
+       
        
         <div class="col-md-12 col-lg-12"> 
             <div class="form-group"> 
-                <textarea name="message" class="form-control" id="message" cols="30" rows="6" required placeholder="Add Note"></textarea> 
+                <label for="details">Details:</label>
+                <textarea formControlName="message" class="form-control" id="message" cols="30" rows="6" required placeholder="Add Note"></textarea>
             </div> 
         </div> 
 
@@ -82,6 +46,7 @@
             <button type="submit" class="cmn-btn btn" >Submit Request</button> 
         </div> 
     </div> 
+    <ngx-spinner [fullScreen]="false" [type]="'ball-clip-rotate'" [size]="'medium'" [color]="'#ffbe00'" [overlayColor]="'rgba(0, 0, 0, 0.8)'" [cdkSpinner]="submittingRequest"></ngx-spinner>
 
 </form>
 
