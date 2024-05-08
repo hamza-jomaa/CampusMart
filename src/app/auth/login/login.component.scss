@@ -42,7 +42,7 @@ body {
   }
   input {
     width: 40%;
-    height: 22px;
+    height: 30px;
     background: #e0dede;
     justify-content: center;
     display: flex;
@@ -75,8 +75,7 @@ body {
   .login {
     
     margin-top: 200px; 
-    background: #eee;
-    border-radius: 60% / 10%;
+    
     transform: translateY(-180px);
     transition: 0.8s ease-in-out;
   }
@@ -118,23 +117,6 @@ body {
 
 
   /* CSS لتنسيق حقل كلمة المرور والأيقونة */
-.password-container {
-  position: relative;
-}
-
-.password-container input[type="password"] {
-  padding-right: 30px; /* تخصيص هامش اليمين لتناسب الأيقونة */
-}
-
-.password-container .toggle-password {
-  position: absolute;
-  top: 50%;
-  right: 415px; /* تحديد المسافة من اليمين للأيقونة */
-  transform: translateY(-50%);
-  cursor: pointer;
-}
-
-/* CSS لتنسيق حقل كلمة المرور والأيقونة */
 .password-container {
   position: relative;
 }

@@ -35,14 +35,12 @@
         </div>
         <!-- <label for="chk" aria-hidden="true">Login</label> -->
       
-        <input [class.error]="loginForm.controls['email'].dirty && loginForm.hasError('required','email')" formControlName="email" type="email"  placeholder="Email" >
+        <input  formControlName="username" type="email"  placeholder="Email" >
         <!-- <small *ngIf="loginForm.controls['email'].dirty && loginForm.hasError('required','email')" class="text-danger error-container">*Email is required</small> -->
     
         <div class="password-container">
-            <input [class.error]="loginForm.controls['password'].dirty && loginForm.hasError('required','password')" formControlName="password" [type]="type" id="passwordInput"  placeholder="Password">
-            <span class="toggle-password" (click)="hideShowPass()">
-              <i class="fa {{eyeIcon}}"></i>
-            </span>
+            <input type="password" formControlName="password"  id="passwordInput"  placeholder="Password">
+           
         </div>
 
         <!-- <small *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required','password')" class="text-danger error-container">*Password is required</small> -->
@@ -50,8 +48,8 @@
         <div class="form-inline fr mt-4 text-center">
             <a id="forget" class="font-weight-bold">Forget Password?</a>
         </div>
-        <button (click)="onSubmit()" type="submit" >Login</button>
-        <div class="text-center pt-4 text-muted">Don't have account? <a id="forget" routerLink="/signup">Sign Up</a></div>
+        <button (click)="Login()" type="submit" >Login</button>
+        <div class="text-center pt-4 text-muted">Don't have account? <a id="forget" routerLink="/auth/register">Sign Up</a></div>
         <br />
         <p style="color: black; margin-top: 10px; text-align: center; font-weight: bold;">OR</p>       
         <div class="icons-container">

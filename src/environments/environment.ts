@@ -3,7 +3,20 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+
+ 
+
+  backendAPI:"https://localhost:7173/api/",
+
+  
+  CampusConsumer:{
+    base:"CampusConsumer",
+    CreateCampusConsumerLogin:"/CreateCampusConsumerLogin"
+  }
+  // const app = initializeApp(firebaseConfig);
+  
+  // const analytics = getAnalytics(app);
 };
 
 /*
@@ -14,3 +27,4 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
+

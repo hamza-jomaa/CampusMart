@@ -1,8 +1,7 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
 //import { LoginComponent } from './login/login.component';
 import { HomeOneComponent } from './components/pages/home-one/home-one.component';
-import { HomeTwoComponent } from './components/pages/home-two/home-two.component';
 import { HomeThreeComponent } from './components/pages/home-three/home-three.component';
 import { AboutComponent } from './components/pages/about/about.component';
 import { CategoriesComponent } from './components/pages/categories/categories.component';
@@ -29,12 +28,16 @@ import { SpecialRequestComponent } from './special-request/special-request.compo
 import { WritetestmonialComponent } from './writetestmonial/writetestmonial.component';
 import { ProviderComponent } from './components/pages/provider/provider.component';
 
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
+// import { LoginComponent } from './login/login.component';
+// import { SignupComponent } from './signup/signup.component';
+// import { authorizationGuard } from './authorization.guard';
+import { AuthModule } from './auth/auth.module';
+
+import { HomeComponent } from "./components/pages/home/home.component";
 
 const routes: Routes = [
-    {path: '', component: HomeTwoComponent},
-    {path: 'home-two', component: HomeTwoComponent},
+    {path: '', component: HomeComponent},
+    {path: 'home', component: HomeComponent},
     {path: 'home-three', component: HomeThreeComponent},
     {path: 'about', component: AboutComponent},
     {path: 'categories', component: CategoriesComponent},
@@ -57,9 +60,18 @@ const routes: Routes = [
     { path: 'testimonals', component: TesimonalsComponent },
     { path: 'trackorder', component: TrackorderComponent },
     {path: 'apply-as-sp', component: ApplyAsSPComponent },
-    {path: 'login', component: LoginComponent },
-    {path: 'signup', component : SignupComponent },
+    // {path: 'login', component: LoginComponent },
+    // {path: 'signup', component : SignupComponent },
 
+    //{path: 'loginnn', component: LoginComponent },
+ 
+    //{ path: 'security', loadChildren : () =>import('./auth/auth.module').then((m) => m.AuthModule) },
+    // ,
+    {
+
+        path: 'auth',
+        loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+       },
     { path: 'special-request', component: SpecialRequestComponent },
     { path: 'writetestmonial', component: WritetestmonialComponent },
     { path: 'provider', component: ProviderComponent },
@@ -71,6 +83,6 @@ const routes: Routes = [
 
 @NgModule({
     imports: [RouterModule.forRoot(routes, {})],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class AppRoutingModule {}

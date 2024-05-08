@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { PreloaderComponent } from './components/common/preloader/preloader.component';
 import { NavbarStyleOneComponent } from './components/common/navbar-style-one/navbar-style-one.component';
 import { HomeOneComponent } from './components/pages/home-one/home-one.component';
-import { HomeTwoComponent } from './components/pages/home-two/home-two.component';
+import { HomeComponent } from './components/pages/home/home.component';
 import { HomeThreeComponent } from './components/pages/home-three/home-three.component';
 import { FooterStyleOneComponent } from './components/common/footer-style-one/footer-style-one.component';
 import { FooterStyleTwoComponent } from './components/common/footer-style-two/footer-style-two.component';
@@ -29,7 +29,7 @@ import { PrivacyPolicyComponent } from './components/pages/privacy-policy/privac
 import { ErrorComponent } from './components/pages/error/error.component';
 import { ContactComponent } from './components/pages/contact/contact.component';
 import { NavbarStyleThreeComponent } from './components/common/navbar-style-three/navbar-style-three.component';
-import { LoginComponent } from './login/login.component';
+//mport { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -42,7 +42,7 @@ import { SpecialRequestComponent } from './special-request/special-request.compo
 import { WritetestmonialComponent } from './writetestmonial/writetestmonial.component';
 import { ProviderComponent } from './components/pages/provider/provider.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SignupComponent } from './signup/signup.component'; 
+//import { SignupComponent } from './signup/signup.component'; 
 import { HttpClientModule } from '@angular/common/http';
 import{NgConfirmModule} from 'ng-confirm-box';
 import { ToastrModule } from 'ngx-toastr'; // Import ToastrModule
@@ -50,13 +50,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+//import { AuthService } from './auth.service';
+
+import { SharedModule } from './shared/shared.module';
+import { AuthModule } from './auth/auth.module';
+//import { LoginComponent } from './components/pages/login/login.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     PreloaderComponent,
     NavbarStyleOneComponent,
     HomeOneComponent,
-    HomeTwoComponent,
+    HomeComponent,
     HomeThreeComponent,
     FooterStyleOneComponent,
     FooterStyleTwoComponent,
@@ -80,16 +86,16 @@ import { MatIconModule } from '@angular/material/icon';
     ErrorComponent,
     ContactComponent,
     NavbarStyleThreeComponent,
-    LoginComponent,
     ApplyAsSPComponent,
     TrackorderComponent,
     TesimonalsComponent,
     SpecialRequestComponent,
     WritetestmonialComponent,
     ProviderComponent,
-    SignupComponent,
     MatConfirmDialogComponent
    
+    //SignupComponent,
+   // LoginComponent,
  
  
     
@@ -102,15 +108,15 @@ import { MatIconModule } from '@angular/material/icon';
     GoogleMapsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgConfirmModule,
     ToastrModule.forRoot({positionClass: 'toast-top-right',}), 
     BrowserAnimationsModule ,
     MatDialogModule,
-    MatIconModule
-    
+    MatIconModule,
+    SharedModule,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+ // exports:[CitEmailValidatorDirective],
   providers: [],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
