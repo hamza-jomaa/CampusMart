@@ -472,12 +472,12 @@
                         'declinedStyle': specialRequest.requeststatus === 'Declined',
                         'pendingStyle': specialRequest.requeststatus === 'Pending'
                     }">
-                        <p>ID: {{ specialRequest.requestid }}</p>
-                        <h2>{{ specialRequest.requesttitle }}</h2>
+                    <h3 style="font-size: 20px; font-weight: bold;">Request Number: {{ specialRequest.requestid }}</h3>
                     </div>
                     <div style="text-align: left;" class="card-body">
-                        <p>Details: {{ specialRequest.requestdetails }}</p>
-                        <p>Status:
+                        <p style="font-size: 17px; "> Title: {{ specialRequest.requesttitle }}</p>
+                        <p style="font-size: 17px; ">Details: {{ specialRequest.requestdetails }}</p>
+                        <p style="font-size: 17px; ">Status:
                             <span [ngClass]="{
                                 'accepted': specialRequest.requeststatus === 'Accepted',
                                 'declined': specialRequest.requeststatus === 'Declined',
@@ -486,24 +486,47 @@
                                 {{ specialRequest.requeststatus }}
                             </span>
                         </p>
-                        <p>Consumer ID: {{ specialRequest.consumerid }}</p>
-                        <p>Provider ID: {{ specialRequest.providerid }}</p>
                     </div>
                     <div class="card-footer"[ngClass]="{
                         'acceptedStyle': specialRequest.requeststatus === 'Accepted',
                         'declinedStyle': specialRequest.requeststatus === 'Declined',
                         'pendingStyle': specialRequest.requeststatus === 'Pending'
                     }">
-                        <button class="edit" (click)="viewSpecialRequest(specialRequest.requestid)">View</button>
+                        <button class="edit" (click)="viewSpecialRequest(specialRequest)">View</button>
                     </div>
+                </div>
+            </div>
+            <div class="modal" [ngStyle]="{ display: showOrder ? 'block' : 'none' }">
+                <div class="modal-content" style="max-width: unset !important">
+                    <form style="text-align: left; border: solid #ffbe00; padding: 50px; margin: 20px 0; border-radius: 20px;"
+                          #specialRequestForm="ngForm" (ngSubmit)="submitSpecialRequest(specialRequestForm)">
+                        <div>
+                            <label disabled for="requestid">Request Number:</label>
+                            <input disabled type="number" id="requestid" name="requestid" value="{{ selectedSpecialRequest?.requestid }}" />
+                            
+                            <label disabled for="requesttitle">Title:</label>
+                            <input disabled type="text" id="requesttitle" name="requesttitle" value="{{ selectedSpecialRequest?.requesttitle }}" required />
+                            
+                            <label disabled for="requestdetails">Details:</label>
+                            <input disabled type="text" id="requestdetails" name="requestdetails" value="{{ selectedSpecialRequest?.requestdetails }}" required />
+                            
+                            <label disabled for="consumerName">Consumer Name:</label>
+                            <input disabled type="text" id="consumerName" name="consumerName" value="{{ selectedSpecialRequest?.consumerName }}" required />
+                            
+                            <label disabled for="consumerPhone">Consumer Phone:</label>
+                            <input disabled type="text" id="consumerPhone" name="consumerPhone" value="{{ selectedSpecialRequest?.consumerPhone }}" required />
+                        </div>
+                        <div style="display: flex; justify-content: center; margin-top: 10px;">
+                            <button (click)="selectedSpecialRequest.orderStatus = 1" style="margin: 0 30px" type="submit">Accept Order</button>
+                            <button (click)="selectedSpecialRequest.orderStatus = 2" style="margin: 0 30px" type="submit">Decline Order</button>
+                            <button class="close" style="margin: 0 30px" (click)="resetForm()">Dismiss</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-
-
 
 
 

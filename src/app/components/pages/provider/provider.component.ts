@@ -233,8 +233,8 @@ export class ProviderComponent implements OnInit {
     // ];
 
     pendingSpecialRequests: any[] = [];
-
-    constructor(public admin: AdminService,private providerService:ProviderService){}
+    selectedSpecialRequest: any;
+    constructor(public admin: AdminService , private providerService:ProviderService){}
 
     ngOnInit(): void {
         
@@ -244,7 +244,7 @@ export class ProviderComponent implements OnInit {
             this.pendingSpecialRequests = pendingRequests;
         });
     }
-
+   
  
     navDashboard(index: any) {
         this.navIndex = index;
@@ -302,16 +302,12 @@ this.providerService.createMerchandise(this.newMerchandise);
             this.newOrder = { ...this.orderData[index] };
         }
     }
-    viewSpecialRequest(id: any) {
+    viewSpecialRequest(specialRequest: any) {
         this.toggleOrder();
-        const index = this.pendingSpecialRequests.findIndex(
-            (item) => item.id === id
-        );
-        if (index !== -1) {
-            this.editingSpecialRequestIndex = index;
-            this.specialRequest = { ...this.pendingSpecialRequests[index] };
-        }
+        this.selectedSpecialRequest = { ...specialRequest };
     }
+    
+    
     submitOrder(formData) {
         if (this.editingOrderIndex !== null) {
             this.newOrder.providerId = this.providerData.id;
