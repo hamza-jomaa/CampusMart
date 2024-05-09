@@ -13,6 +13,10 @@ export const environment = {
   CampusConsumer:{
     base:"CampusConsumer",
     CreateCampusConsumerLogin:"/CreateCampusConsumerLogin"
+  },
+  Merchandise:{
+    base:"Merchandise",
+    CreateMerchandise:"/CreateMerchandise"
   }
   // const app = initializeApp(firebaseConfig);
   

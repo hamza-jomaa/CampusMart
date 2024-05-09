@@ -163,7 +163,7 @@
                             type="number"
                             id="id"
                             name="id"
-                            [(ngModel)]="newMerchandise.id"
+                            [(ngModel)]="newMerchandise.productid"
                         />
 
                         <label for="name">Name:</label>
@@ -171,15 +171,15 @@
                             type="text"
                             id="name"
                             name="name"
-                            [(ngModel)]="newMerchandise.name"
+                            [(ngModel)]="newMerchandise.m_Name"
                             required
                         />
-                        <label for="name">DESCRIPTION:</label>
+                        <label for="name">Description:</label>
                         <input
                             type="text"
                             id="name"
                             name="description"
-                            [(ngModel)]="newMerchandise.name"
+                            [(ngModel)]="newMerchandise.m_Description"
                             required
                         />
                         <label for="price">Price:</label>
@@ -187,7 +187,7 @@
                             type="number"
                             id="price"
                             name="price"
-                            [(ngModel)]="newMerchandise.price"
+                            [(ngModel)]="newMerchandise.m_Price"
                             required
                         />
 
@@ -196,10 +196,25 @@
                             type="number"
                             id="quantity"
                             name="quantity"
-                            [(ngModel)]="newMerchandise.quantity"
+                            [(ngModel)]="newMerchandise.m_Quantity"
                             required
                         />
-
+                        <label for="quantity">Category:</label>
+                        <input
+                            type="text"
+                            id="quantity"
+                            name="quantity"
+                            [(ngModel)]="newMerchandise.m_Category"
+                            required
+                        />
+                        <!-- <label for="quantity">Status:</label>
+                        <input
+                            type="text"
+                            id="quantity"
+                            name="quantity"
+                            [(ngModel)]="newMerchandise.status"
+                            required
+                        /> -->
                         <label for="image">Image:</label>
                         <input
                             type="file"
@@ -208,8 +223,8 @@
                             (change)="onFileSelected($event)"
                         />
                         <img
-                            *ngIf="newMerchandise.image"
-                            [src]="newMerchandise.image"
+                            *ngIf="newMerchandise.m_Image"
+                            [src]="newMerchandise.m_Image"
                             alt="Selected Image"
                             width="200"
                         />

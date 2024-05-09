@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { map } from "rxjs/operators";
 import { AdminService } from 'src/app/services/admin.service';
+import { ProviderService } from "src/app/services/provider.service";
 @Component({
     selector: "app-provider",
     templateUrl: "./provider.component.html",
@@ -8,13 +9,7 @@ import { AdminService } from 'src/app/services/admin.service';
 })
 export class ProviderComponent implements OnInit {
     navIndex = 0;
-    newMerchandise = {
-        id: null,
-        name: "",
-        price: null,
-        quantity: null,
-        image: "",
-    };
+    newMerchandise:any;
     newOrder = {
         id: null,
         name: "",
@@ -239,7 +234,7 @@ export class ProviderComponent implements OnInit {
 
     pendingSpecialRequests: any[] = [];
 
-    constructor(public admin: AdminService){}
+    constructor(public admin: AdminService,private providerService:ProviderService){}
 
     ngOnInit(): void {
         
@@ -270,11 +265,13 @@ export class ProviderComponent implements OnInit {
     submitForm(formData) {
         if (formData.valid) {
             if (this.editingItemIndex !== null) {
-                this.merchandiseList[this.editingItemIndex] =
+             //   this.merchandiseList[this.editingItemIndex] =
                     this.newMerchandise;
                 this.editingItemIndex = null;
             } else {
-                this.merchandiseList.push(this.newMerchandise);
+                this.newMerchandise.m_Status='pending'
+this.providerService.createMerchandise(this.newMerchandise);
+             //   this.merchandiseList.push(this.newMerchandise);
             }
             this.resetForm();
         }
@@ -285,7 +282,7 @@ export class ProviderComponent implements OnInit {
         const index = this.merchandiseList.findIndex((item) => item.id === id);
         if (index !== -1) {
             this.editingItemIndex = index;
-            this.newMerchandise = { ...this.merchandiseList[index] };
+          //  this.newMerchandise = { ...this.merchandiseList[index] };
         }
     }
     removeItem(id: any) {
@@ -344,7 +341,7 @@ export class ProviderComponent implements OnInit {
             reader.readAsDataURL(file);
 
             reader.onload = (e: any) => {
-                this.newMerchandise.image = e.target.result;
+                this.newMerchandise.m_Image = e.target.result;
             };
         }
     }
@@ -363,11 +360,16 @@ export class ProviderComponent implements OnInit {
         this.showForm = false;
         this.showOrder = false;
         this.newMerchandise = {
-            id: null,
-            name: "",
-            price: null,
-            quantity: null,
-            image: "",
-        };
+            "m_Name": '',
+            "m_Rate": '',
+            "m_Description": '',
+            "m_Category": '',
+            "m_Price": '',
+            "m_Quantity": '',
+            "m_Image": '',
+            "m_Status": '',
+            "m_StoreID": ''
+          
+            };
     }
 }
