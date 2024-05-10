@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { map } from "rxjs/operators";
-import { AdminService } from 'src/app/services/admin.service';
+import { AdminService } from "src/app/services/admin.service";
 import { ProviderService } from "src/app/services/provider.service";
 @Component({
     selector: "app-provider",
@@ -9,7 +9,9 @@ import { ProviderService } from "src/app/services/provider.service";
 })
 export class ProviderComponent implements OnInit {
     navIndex = 0;
-    newMerchandise:any;
+    newMerchandise: any={
+        productid:null||'',
+    };
     newOrder = {
         id: null,
         name: "",
@@ -42,43 +44,7 @@ export class ProviderComponent implements OnInit {
     editingOrderIndex = null;
     editingSpecialRequestIndex = null;
     editingItem = false;
-    merchandiseList = [
-        {
-            id: 0,
-            name: "Burger",
-            price: 3,
-            quantity: 10,
-            image: "./assets/img/items/merchandises/burger.png",
-        },
-        {
-            id: 1,
-            name: "Fajita",
-            price: 5,
-            quantity: 15,
-            image: "./assets/img/items/merchandises/fajita.png",
-        },
-        {
-            id: 2,
-            name: "Pizza",
-            price: 6,
-            quantity: 19,
-            image: "./assets/img/items/merchandises/pizza.png",
-        },
-        {
-            id: 3,
-            name: "Shawarma",
-            price: 5,
-            quantity: 16,
-            image: "./assets/img/items/merchandises/shwarma.png",
-        },
-        {
-            id: 4,
-            name: "Turkey",
-            price: 2,
-            quantity: 18,
-            image: "./assets/img/items/merchandises/turkey.png",
-        },
-    ];
+    merchandiseList: any = [];
     storeData = {
         id: 0,
         name: "mainStore",
@@ -237,11 +203,20 @@ export class ProviderComponent implements OnInit {
     constructor(public admin: AdminService , private providerService:ProviderService){}
 
     ngOnInit(): void {
-        
-        this.admin.getAllRequests().pipe(
-            map((requests: any[]) => requests.filter(request => request.requeststatus === 'Pending'))
-        ).subscribe((pendingRequests: any[]) => {
-            this.pendingSpecialRequests = pendingRequests;
+        this.admin
+            .getAllRequests()
+            .pipe(
+                map((requests: any[]) =>
+                    requests.filter(
+                        (request) => request.requeststatus === "Pending"
+                    )
+                )
+            )
+            .subscribe((pendingRequests: any[]) => {
+                this.pendingSpecialRequests = pendingRequests;
+            });
+        this.providerService.getAllMerchandise().subscribe((res) => {
+            this.merchandiseList = res;
         });
     }
    
@@ -250,11 +225,13 @@ export class ProviderComponent implements OnInit {
         this.navIndex = index;
     }
     addItem() {
-        this.editingItem = false;
+        console.log('clicked')
         this.toggleModal();
+        this.editingItem = false;
+        
     }
     toggleModal() {
-        this.showForm = !this.showForm;
+        this.showForm = true;
     }
     toggleOrder() {
         this.showOrder = !this.showOrder;
@@ -263,35 +240,42 @@ export class ProviderComponent implements OnInit {
         this.storeData = storeForm;
     }
     submitForm(formData) {
+        this.showForm=false;
         if (formData.valid) {
-            if (this.editingItemIndex !== null) {
-             //   this.merchandiseList[this.editingItemIndex] =
-                    this.newMerchandise;
+            if (this.editingItem !== null) {
+                //edit merchandise
+                   this.merchandiseList[this.editingItemIndex] = this.newMerchandise;
+                   this.newMerchandise.status = "pending";
+                   this.providerService.updateMerchandise(this.newMerchandise);
                 this.editingItemIndex = null;
             } else {
-                this.newMerchandise.m_Status='pending'
-this.providerService.createMerchandise(this.newMerchandise);
-             //   this.merchandiseList.push(this.newMerchandise);
+                //add merchandise
+                this.newMerchandise.status = "pending";
+                this.providerService.createMerchandise(this.newMerchandise);
+                //   this.merchandiseList.push(this.newMerchandise);
             }
             this.resetForm();
         }
     }
+    
     editItem(id: any) {
         this.toggleModal();
         this.editingItem = true;
-        const index = this.merchandiseList.findIndex((item) => item.id === id);
+        const index = this.merchandiseList.findIndex((item) => item.productid === id);
         if (index !== -1) {
             this.editingItemIndex = index;
-          //  this.newMerchandise = { ...this.merchandiseList[index] };
+            
+              this.newMerchandise = { ...this.merchandiseList[index] };
         }
     }
     removeItem(id: any) {
-        const index = this.merchandiseList.findIndex((item) => item.id === id);
+        const index = this.merchandiseList.findIndex((item) => item.productid === id);
         if (
             index !== -1 &&
             confirm("Are you sure you want to remove this item?")
         ) {
             this.merchandiseList.splice(index, 1);
+            this.providerService.deleteMerchandise(id);
         }
     }
     viewOrder(id: any) {
@@ -323,9 +307,8 @@ this.providerService.createMerchandise(this.newMerchandise);
             this.specialRequest.providerId = this.providerData.id;
             this.specialRequest.providerName = this.providerData.name;
             this.specialRequest.providerPhone = this.providerData.phoneNumber;
-            this.pendingSpecialRequests[
-                this.editingSpecialRequestIndex
-            ] = this.specialRequest;
+            this.pendingSpecialRequests[this.editingSpecialRequestIndex] =
+                this.specialRequest;
             this.editingSpecialRequestIndex = null;
         }
         this.resetForm();
@@ -355,17 +338,6 @@ this.providerService.createMerchandise(this.newMerchandise);
     resetForm() {
         this.showForm = false;
         this.showOrder = false;
-        this.newMerchandise = {
-            "m_Name": '',
-            "m_Rate": '',
-            "m_Description": '',
-            "m_Category": '',
-            "m_Price": '',
-            "m_Quantity": '',
-            "m_Image": '',
-            "m_Status": '',
-            "m_StoreID": ''
-          
-            };
+        this.newMerchandise = {};
     }
 }

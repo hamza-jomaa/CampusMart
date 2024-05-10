@@ -74,9 +74,9 @@
                         <!-- Cart button will be shown only if user is logged in -->
                         <a *ngIf="isLoggedIn" class="nav-cart" routerLink="/cart"><i class='bx bxs-cart'></i> <span>1</span></a>
                         <!-- Login button will be shown only if user is logged out -->
-                        <a *ngIf="!isLoggedIn" routerLink="/login" class="nav-tel"> Login</a>
+                        <a *ngIf="!isLoggedIn" routerLink="/auth/login" class="nav-tel"> Login</a>
                         <!-- Logout button will be shown only if user is logged in -->
-                        <a *ngIf="isLoggedIn" routerLink="/login" class="nav-tel" (click)="logout()">Logout</a>
+                        <a *ngIf="isLoggedIn" routerLink="/auth/login" class="nav-tel" (click)="logout()">Logout</a>
                         <!-- User's name will be shown only if user is logged in -->
                         <span *ngIf="isLoggedIn">{{ userName }}</span>
                     </div>

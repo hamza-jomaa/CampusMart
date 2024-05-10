@@ -9,19 +9,21 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent {
 
-  constructor(private auth:AuthService){
+  constructor(private auth: AuthService) {}
 
-  }
-  loginForm:FormGroup= new FormGroup({
-    username: new FormControl("", Validators.required),
+  loginForm: FormGroup = new FormGroup({
+    username: new FormControl("", [Validators.required, this.citEmailValidator]),
     password: new FormControl("", Validators.required)
-  })
+  });
 
   Login() {
- 
-    console.log(this.loginForm.value)
-    debugger
     this.auth.Login(this.loginForm.value);
   } 
-  
+
+  citEmailValidator(control: FormControl): { [key: string]: any } | null {
+    if (!control.value || control.value.endsWith('@cit.just.edu.jo')) {
+      return null; // Valid email
+    }
+    return { 'invalidEmail': true }; // Invalid email
+  }
 }

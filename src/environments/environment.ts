@@ -16,11 +16,11 @@ export const environment = {
   },
   Merchandise:{
     base:"Merchandise",
-    CreateMerchandise:"/CreateMerchandise"
+    CreateMerchandise:"/CreateMerchandise",
+    GetAllMerchandise:"/GetAllMerchandise",
+    UpdateMerchandise:"/UpdateMerchandise",
+    DeleteMerchandise:"/DeleteMerchandise"
   }
-  // const app = initializeApp(firebaseConfig);
-  
-  // const analytics = getAnalytics(app);
 };
 
 /*

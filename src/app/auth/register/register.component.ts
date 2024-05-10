@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CampusConsumerService } from 'src/app/services/campus-consumer.service';
@@ -9,21 +9,35 @@ import { CampusConsumerService } from 'src/app/services/campus-consumer.service'
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-  constructor(private spinner:NgxSpinnerService, private campusConsumer:CampusConsumerService){}
+  registerForm: FormGroup;
+  constructor(private spinner:NgxSpinnerService, private campusConsumer:CampusConsumerService,private fb: FormBuilder){
+    this.registerForm = this.fb.group({
+      fullname: ['', Validators.required],
+      email: ['', [Validators.required, this.citEmailValidator]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', Validators.required],
+      imagepath: ['', Validators.required],
+      phone: ['', Validators.required],
+      isprovider: [''],
+      roleid: [''],
+      status: ['']
+    }, { validators: this.passwordMatchValidator() });
+  }
  
-  registerForm:FormGroup= new FormGroup({
-    fullname:new FormControl(' ', Validators.required),
-    email : new FormControl('ex@ex.just.edu.jo',[Validators.required,Validators.email]),
-    password:new FormControl('*********',[Validators.required,Validators.minLength(8)]),
-    confirmPassword:new FormControl(''),
-    imagepath:new FormControl("", Validators.required),
-    phone: new FormControl("", Validators.required),
-    isprovider:new FormControl(),
-    roleid:new FormControl(),
-    status:new FormControl()
-  })
 
-  
+  passwordMatchValidator(): ValidatorFn {
+    return (formGroup: FormGroup): ValidationErrors | null => {
+      const password = formGroup.get('password')?.value;
+      const confirmPassword = formGroup.get('confirmPassword')?.value;
+      return password === confirmPassword ? null : { passwordMismatch: true };
+    };
+  }
+  citEmailValidator(control: FormControl): { [key: string]: any } | null {
+    if (!control.value || control.value.endsWith('@cit.just.edu.jo')) {
+      return null; 
+    }
+    return { 'invalidEmail': true };
+  }
  
   uploadImage(file: any) {
     if (file.length === 0)

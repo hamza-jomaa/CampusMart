@@ -118,7 +118,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let merchandise of merchandiseList">
-                        <td>{{ merchandise.id }}</td>
+                        <td>{{ merchandise.productid }}</td>
                         <td>{{ merchandise.name }}</td>
                         <td>{{ merchandise.price }}</td>
                         <td>{{ merchandise.quantity }}</td>
@@ -131,12 +131,12 @@
                         <td>
                             <button
                                 class="edit"
-                                (click)="editItem(merchandise.id)"
+                                (click)="editItem(merchandise.productid)"
                             >
                                 edit</button
                             ><button
                                 class="remove"
-                                (click)="removeItem(merchandise.id)"
+                                (click)="removeItem(merchandise.productid)"
                             >
                                 remove
                             </button>
@@ -144,7 +144,7 @@
                     </tr>
                 </tbody>
             </table>
-            <div
+            <div 
                 class="modal"
                 [ngStyle]="{ display: showForm ? 'block' : 'none' }"
             >
@@ -154,15 +154,15 @@
                         #formData="ngForm"
                         (ngSubmit)="submitForm(formData)"
                     >
-                        <label [class.hide]="!editingItem" disabled for="id"
+                        <label [class.hide]="!editingItem" disabled for="productid"
                             >ID:</label
                         >
                         <input
                             [class.hide]="!editingItem"
                             disabled
                             type="number"
-                            id="id"
-                            name="id"
+                            id="productid"
+                            name="productid"
                             [(ngModel)]="newMerchandise.productid"
                         />
 
@@ -171,15 +171,15 @@
                             type="text"
                             id="name"
                             name="name"
-                            [(ngModel)]="newMerchandise.m_Name"
+                            [(ngModel)]="newMerchandise.name"
                             required
                         />
-                        <label for="name">Description:</label>
+                        <label for="description">Description:</label>
                         <input
                             type="text"
-                            id="name"
+                            id="description"
                             name="description"
-                            [(ngModel)]="newMerchandise.m_Description"
+                            [(ngModel)]="newMerchandise.description"
                             required
                         />
                         <label for="price">Price:</label>
@@ -187,7 +187,7 @@
                             type="number"
                             id="price"
                             name="price"
-                            [(ngModel)]="newMerchandise.m_Price"
+                            [(ngModel)]="newMerchandise.price"
                             required
                         />
 
@@ -196,15 +196,15 @@
                             type="number"
                             id="quantity"
                             name="quantity"
-                            [(ngModel)]="newMerchandise.m_Quantity"
+                            [(ngModel)]="newMerchandise.quantity"
                             required
                         />
-                        <label for="quantity">Category:</label>
+                        <label for="m_Category">Category:</label>
                         <input
                             type="text"
-                            id="quantity"
-                            name="quantity"
-                            [(ngModel)]="newMerchandise.m_Category"
+                            id="category"
+                            name="category"
+                            [(ngModel)]="newMerchandise.category"
                             required
                         />
                         <!-- <label for="quantity">Status:</label>
@@ -218,13 +218,13 @@
                         <label for="image">Image:</label>
                         <input
                             type="file"
-                            id="imageInput"
-                            name="imageInput"
+                            id="image"
+                            name="image"
                             (change)="onFileSelected($event)"
                         />
                         <img
-                            *ngIf="newMerchandise.m_Image"
-                            [src]="newMerchandise.m_Image"
+                            *ngIf="newMerchandise.image"
+                            [src]="newMerchandise.image"
                             alt="Selected Image"
                             width="200"
                         />
