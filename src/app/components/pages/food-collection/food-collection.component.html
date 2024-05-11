@@ -30,8 +30,8 @@
         </div> 
  
         <div id="Container" class="row"> 
-            <div class="col-sm-6 col-lg-3 mix ui"> 
-                <div class="collection-item"> 
+            <div class="col-sm-6 col-lg-3 mix ui" *ngFor="let merchandise of allMerchandise"> 
+                <div class="collection-item" > 
                     <div class="collection-top"> 
                         <img src="assets/img/items/shopsItems/Calculators .jpg" alt="Collection"> 
                         <ul> 
@@ -47,9 +47,9 @@
                     </div> 
  
                     <div class="collection-bottom"> 
-                        <h3>Calculator</h3> 
+                        <h3>{{merchandise.name}}</h3> 
                         <ul> 
-                            <li><span>$12</span></li> 
+                            <li><span>${{merchandise.price}}</span></li> 
                             <li> 
                                 <div class="number"> 
                                     <span class="minus">-</span> 
@@ -62,7 +62,7 @@
                 </div> 
             </div> 
  
-            <div class="col-sm-6 col-lg-3 mix ui"> 
+         <!--   <div class="col-sm-6 col-lg-3 mix ui"> 
                 <div class="collection-item"> 
                     <div class="collection-top"> 
                         <img src="assets/img/items/shopsItems/pen.jpg" alt="Collection"> 
@@ -154,8 +154,8 @@
                     </div> 
                 </div> 
             </div> 
- 
-            
+      
+            -->
  
             
         </div> 

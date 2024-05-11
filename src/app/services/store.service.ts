@@ -15,7 +15,6 @@ export class StoreService {
    
   this.http.get('https://localhost:7173/api/Store/GetAllStoresFromAllProviders').subscribe((resp:any) => { 
         this.All_Stores_From_All_Providers = resp;
-        console.log(this.All_Stores_From_All_Providers);
       },
       (error) => {
         console.error("Failed to fetch GetAllStoresFromAllProviders: ", error); 
