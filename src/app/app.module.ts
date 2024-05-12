@@ -84,7 +84,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     FaqComponent,
     TermsConditionsComponent,
     PrivacyPolicyComponent,
-    ErrorComponent,
     ContactComponent,
     NavbarStyleThreeComponent,
     ApplyAsSPComponent,
@@ -93,7 +92,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     SpecialRequestComponent,
     WritetestmonialComponent,
     ProviderComponent,
-    MatConfirmDialogComponent
+    MatConfirmDialogComponent,
+    ErrorComponent
+   
    
     //SignupComponent,
    // LoginComponent,
@@ -115,7 +116,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     MatIconModule,
     SharedModule,
     NgxSpinnerModule,
-    MatIconModule
+    MatIconModule,
+    NgConfirmModule
     
   ],
  // exports:[CitEmailValidatorDirective],

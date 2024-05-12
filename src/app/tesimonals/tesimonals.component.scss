@@ -89,9 +89,6 @@ gap: 30px;
   
 
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,700,900');
-
-/* Base styling */
-
 body {
     width: 430px;
     margin: 0 auto;
@@ -172,5 +169,27 @@ body {
         }
     }
 }
-
-
+.search-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+.highlighted-text {
+  color: #ffbe00; 
+}
+.testim-box {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  position: relative;
+}
+.testim-icon {
+  position: absolute;
+  top: -20px;
+  left: 20px;
+  font-size: 30px;
+  color: #ffbe00; 
+}
+.post-date {
+  font-style: italic;
+}
