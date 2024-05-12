@@ -45,7 +45,10 @@ const routes: Routes = [
     {path: 'services-details', component: ServicesDetailsComponent},
     {path: 'sidebar', component: BlogComponent},
     {path: 'blog-details', component: BlogDetailsComponent},
-    {path: 'food-collection', component: FoodCollectionComponent},
+    {
+        path: 'food-collection/:storeId',
+        component: FoodCollectionComponent
+     },
     {path: 'online-order', component: OnlineOrderComponent},
     {path: 'chefs', component: ChefsComponent},
     {path: 'faq', component: FaqComponent},
