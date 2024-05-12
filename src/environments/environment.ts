@@ -12,15 +12,16 @@ export const environment = {
   
   CampusConsumer:{
     base:"CampusConsumer",
-    CreateCampusConsumerLogin:"/CreateCampusConsumerLogin"
+    CreateCampusConsumerLogin:"/CreateCampusConsumerLogin",
+    UpdateConsumer:"/UpdateConsumer"
   },
   Merchandise:{
     base:"Merchandise",
-    CreateMerchandise:"/CreateMerchandise"
+    CreateMerchandise:"/CreateMerchandise",
+     GetAllMerchandise:"/GetAllMerchandise",
+    UpdateMerchandise:"/UpdateMerchandise",
+    DeleteMerchandise:"/DeleteMerchandise"
   }
-  // const app = initializeApp(firebaseConfig);
-  
-  // const analytics = getAnalytics(app);
 };
 
 /*

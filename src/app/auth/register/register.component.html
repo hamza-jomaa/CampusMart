@@ -1,66 +1,64 @@
-
-<div class="signup">
-  <form [formGroup]="registerForm" (ngSubmit)="Register()">
-    <div class="form-fields">
-      <div class="form-group">
-    <div class="profile-image">
-      <img src="assets/img/LogoProject.png" alt="Profile Image">
-    </div>
-    <label for="chk" aria-hidden="true" style="margin: -13px;"></label>
-    <input formControlName="fullname" type="text" placeholder="Full Name">
-    <span style="color: red;" *ngIf="registerForm.controls['fullname'].hasError('required')">name
-      is required </span>
-    <input formControlName="email" type="email" placeholder="Email" (change)="eduJoValidator()">
-    <span style="color: red;" *ngIf="registerForm.get('email').hasError('required')">Email is required</span>
-    <span style="color: red;" *ngIf="registerForm.get('email').hasError('email')">Invalid email format</span>
-    <span style="color: red;" *ngIf="registerForm.get('email').hasError('missMatch')">Email must end with just.edu.jo</span>
-
-  <input formControlName="phone" type="text" placeholder="Phone Number">
-    <span style="color: red;" *ngIf="registerForm.get('phone').hasError('required')">Number is required</span>
-
-    <div class="password-container">
-      <input formControlName="password" type="password" placeholder="Password" (change)="MatchError()">
-      <span style="color: red;" *ngIf="registerForm.controls['password'].hasError('required')">password
-        is required </span>
-      <span style="color: red;" *ngIf="registerForm.controls['password'].hasError('minlength')">Please
-        enter a strong password </span>
-    </div>
-    <div class="password-container">
-      <input formControlName="confirmPassword" type="password" placeholder="Confirm Password" (change)="MatchError()">
-      <span style="color: red;"
-      *ngIf="registerForm.controls['confirmPassword'].hasError('misMatch')">confirmPassword should
-      match password value </span>
-    </div>
-
-    <div class="mb-2">
-        <input type="file" #file formControlName="book_Img_Path" (change)="uploadImage(file.files)" />
-    </div>
-    <button type="submit" [disabled]="!registerForm.invalid">Sign Up</button>
-
-    <div class="text-center pt-4 text-muted">Already have an account?    <a class="txt2" href="/auth/login">
-      Login
-  </a></div>
-    <br />
-    <p style="color: black; margin-top: 10px; text-align: center; font-weight: bold;">Continue with</p>
-    <div class="icons-container">
-      <div class="chef-bottom" style="display: flex;">
-        <a target="_blank" href="#" style="margin-right: 75px; color: #4267B2;"><i class='bx bxl-facebook'
-                                                                                      style='font-size: 30px;'></i></a>
-        <a target="_blank" href="#" style="margin-right: 75px; color: #55ACEE;"><i class='bx bxl-twitter'
-                                                                                    style='font-size: 30px;'></i></a>
-        <a target="_blank" href="#" style="color: #dd4b39;"><i class='bx bxl-google' style='font-size: 30px;'></i></a>
+<div class="signup-container">
+  <form class="signup-form" [formGroup]="registerForm" (ngSubmit)="Register()">
+    <img class="logo" src="assets/img/LogoProject.png" alt="Logo">
+    
+    <!-- Full Name input with validation -->
+    <div class="input-field">
+      <input formControlName="fullname" type="text" placeholder="Full Name">
+      <div *ngIf="registerForm.get('fullname').invalid && (registerForm.get('fullname').dirty || registerForm.get('fullname').touched)" class="error-message">
+        Full name is required
       </div>
     </div>
-  
-    <div class="icons-container">
-      <a style="margin-right: 45px; color: #4267B2;">Facebook</a>
-      <a style="margin-right: 45px; color: #55ACEE;">Twitter</a>
-      <a style="color: #dd4b39;">Google+</a>
+    
+    <!-- Email input with validation -->
+    <div class="input-field">
+      <input formControlName="email" type="email" placeholder="Email">
+      <div *ngIf="registerForm.get('email').errors?.required && (registerForm.get('email').dirty || registerForm.get('email').touched)" class="error-message">
+        Email is required
+      </div>
+      <div *ngIf="registerForm.get('email').errors?.email && (registerForm.get('email').dirty || registerForm.get('email').touched)" class="error-message">
+        Invalid email format
+      </div>
+      <div *ngIf="registerForm.get('email').hasError('invalidEmail') && (registerForm.get('email').dirty || registerForm.get('email').touched)" class="error-message">
+        Invalid email. Must a university email ex. @cit.just.edu.jo
+      </div>
     </div>
+    
+    <!-- Phone Number input with validation -->
+    <div class="input-field">
+      <input formControlName="phone" type="text" placeholder="Phone Number" [maxlength]="10">
+      <div *ngIf="registerForm.get('phone').invalid && (registerForm.get('phone').dirty || registerForm.get('phone').touched)" class="error-message">
+        Phone number is required
+      </div>
+      
     </div>
+    
+    <!-- Password input with validation -->
+    <div class="input-field">
+      <input formControlName="password" type="password" placeholder="Password">
+      <div *ngIf="registerForm.get('password').errors?.required && (registerForm.get('password').dirty || registerForm.get('password').touched)" class="error-message">
+        Password is required
+      </div>
+      <div *ngIf="registerForm.get('password').hasError('minlength') && (registerForm.get('password').dirty || registerForm.get('password').touched)" class="error-message">
+        Password must be at least 8 characters long
+      </div>
+    </div>
+    
+    <!-- Confirm Password input with validation -->
+    <div class="input-field">
+      <input formControlName="confirmPassword" type="password" placeholder="Confirm Password">
+      <div *ngIf="registerForm.hasError('passwordMismatch') && (registerForm.get('confirmPassword').dirty || registerForm.get('confirmPassword').touched)" class="error-message">
+        Passwords do not match
+      </div>
+    </div>
+    
+    <!-- Signup button -->
+    <button type="submit" [disabled]="registerForm.invalid" class="signup-button">Sign Up</button>
+    
+    <!-- Login link -->
+    <div class="login-link">
+      <span>Already have an account?</span>
+      <a routerLink="/auth/login">Login</a>
     </div>
   </form>
-  
 </div>
-
-
