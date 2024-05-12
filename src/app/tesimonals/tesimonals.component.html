@@ -1,70 +1,45 @@
 <app-navbar-style-two></app-navbar-style-two>
-
 <div class="page-title-area page-title-img-one">
-    <div class="container">
-        <div class="page-title-item">
-            <h2>Testimonals</h2>
-            <ul>
-                <li><a routerLink="/">Home</a></li>
-                <li><i class='bx bx-chevron-right' ></i></li>
-                <li>testimonals</li>
-            </ul>
-        </div>
-    </div>
+  <div class="container">
+      <div class="page-title-item">
+          <h2>Testimonals</h2>
+          <ul>
+              <li><a routerLink="/">Home</a></li>
+              <li><i class='bx bx-chevron-right' ></i></li>
+              <li>testimonals</li>
+          </ul>
+      </div>
+  </div>
 </div>
 
-    <div class="container" style="display: flex; justify-content: center; align-items: center; ">
-        <div class="search__container">
-          <div class="row" style="display: flex; justify-content: center; align-items: center; ">
-            <h6 style="display: flex; justify-content: center; align-items: center;">
-              To quickly discover<span style="color: #ffbe00; font-weight: bold;">&nbsp;testimonials&nbsp;</span>about a particular store, search here.
-          </h6>
-          
-          
-            <br />
-            <input class="search__input" type="text" placeholder="Enter shop name...">
-          </div>
-        </div>
-    </div>
 
-<div class="testim">
-    <div class="container" >
-       
-     
-      <div class="testim-content">
-  
-        <div class="testim-box">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae iure non reiciendis reprehenderit? Dicta eaque illo ut beatae alias quod, distinctio ad, asperiores vitae culpa qui nisi rerum debitis modi.</p>
-          <div class="testim-box-content">
-            <img src="https://i.postimg.cc/rpRQv1sc/3.jpg" alt="">
-            <h3>Mahmoud Mohamed</h3>
-            
-          </div>
-        </div>
-        <div class="testim-box">
-  
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae iure non reiciendis reprehenderit? Dicta eaque illo ut beatae alias quod, distinctio ad, asperiores vitae culpa qui nisi rerum debitis modi.</p>
-          <div class="testim-box-content">
-            <img src="https://i.postimg.cc/rpRQv1sc/3.jpg" alt="">
-            <h3>Mahmoud Mohamed</h3>
-            
-          </div>
-        </div>
-        <div class="testim-box">
-  
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae iure non reiciendis reprehenderit? Dicta eaque illo ut beatae alias quod, distinctio ad, asperiores vitae culpa qui nisi rerum debitis modi.</p>
-          <div class="testim-box-content">
-            <img src="https://i.postimg.cc/rpRQv1sc/3.jpg" alt="">
-            <h3>Mahmoud Mohamed</h3>
-           
-          </div>
-        </div>
-  
+<div class="container" style="display: flex; justify-content: center; align-items: center;">
+  <div class="search__container">
+    <div class="row" style="display: flex; justify-content: center; align-items: center;">
+      <h6 style="display: flex; justify-content: center; align-items: center; font-size: 16px;">
+        To quickly discover<span style="color: #ffbe00; font-weight: bold; font-size: 16px;">&nbsp;testimonials&nbsp;</span>about a particular date, search here.
+      </h6>
+      <br />
+      <input class="search__input" type="text" placeholder="Enter date..." [(ngModel)]="searchedDate" (keyup.enter)="searchTestimonialsByDate()">
+    </div>
+  </div>
+</div>
+
+<br><br>
+
+<div class="container">
+  <div class="testim-content">
+    <div class="testim-box" *ngFor="let testimonial of acceptedTestimonials">
+      <p>{{ testimonial.testimonialtext }}</p>
+      <div class="testim-box-content">
+        <p class="post-date">Posted on {{ testimonial.dateposted | date: 'longDate' }}</p>
       </div>
     </div>
   </div>
-  
-  <div style="text-align: center; margin: 20px;">
+</div>
+
+<div style="text-align: center; margin-top: 20px;">
     <p>If you'd like to add your own testimonial, press here to navigate to the <a routerLink="/writetestmonial">Write Testimonial</a> page.</p>
 </div>
-  <app-footer-style-two></app-footer-style-two>
+
+<app-footer-style-two></app-footer-style-two>

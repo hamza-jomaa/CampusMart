@@ -114,6 +114,15 @@ export class AdminService {
   getAllRequests(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/SpecialRequest/GetAllRequests`);
   }
+  createContact(formData: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/ContactUs/CreateContact`, formData);
+  }
+  createTestimonial(formData: any) {
+    return this.http.post<any>(`${this.baseUrl}/Testimonial/CreateTestimonial`, formData);
+  }
+  getAllTestimonials(): Observable<any> { 
+    return this.http.get<any>(`${this.baseUrl}/Testimonial/GetAllTestimonials`);
+  }
 }
 
 
