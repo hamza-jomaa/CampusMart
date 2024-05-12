@@ -45,4 +45,38 @@ export class ProviderService {
         }
       );
   }
+
+  createStore(Store:any){
+    this.http.post(environment.backendAPI+environment.Store.base+environment.Store.CreateStore, Store).subscribe(
+      (resp: any) => {
+        this.toastr.success('Store added successfully', resp);
+      },
+      (error: any) => {
+        this.toastr.error('Error Occurred');
+      }
+    );
+  }
+  getAllStores(): Observable<any> {
+    return this.http.get<any>(environment.backendAPI+environment.Store.base+environment.Store.GetAllStores);
+  }
+  updateStore(Store:any){
+    this.http.post(environment.backendAPI+environment.Store.base+environment.Store.UpdateStore, Store).subscribe(
+        (res: any) => {
+          this.toastr.success('Store updated successfully', res);
+        },
+        (error: any) => {
+          this.toastr.error('Error Occurred');
+        }
+      );
+  }
+  deleteStore(id:any){
+    this.http.delete(environment.backendAPI+environment.Store.base+environment.Store.DeleteStore+'/'+id).subscribe(
+        (res: any) => {
+          this.toastr.success('Store deleted successfully', res);
+        },
+        (error: any) => {
+          this.toastr.error('Error Occurred');
+        }
+      );
+  }
 }

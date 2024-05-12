@@ -26,29 +26,30 @@
                 </div> 
                 <br /> 
  
-                <div class="form-group"> 
-                    <label for="Name">First Name:</label> 
-                    <input type="text" id="Name" class="form-control" value="Tabarak Matalka" readonly> 
-                </div> 
-               
-                <div class="form-group"> 
-                    <label for="username">Username:</label> 
-                    <input type="text" id="username" class="form-control" value="tabarak_matalak" readonly> 
-                </div> 
-                <div class="form-group"> 
-                    <label for="email">Email:</label> 
-                    <input type="text" id="email" class="form-control" value="tsamatalka19@cit.just.edu.jo" readonly> 
-                </div> 
-                <div class="form-group"> 
-                    <label for="phone">Phone:</label> 
-                    <input type="text" id="phone" class="form-control" value="079865432" readonly> 
-                </div> 
-         
-                <div class="text-center"> 
-                    
-                    <a class="btn btn-primary mt-3" href="/Home/EditProfile/@Model.Id" style="background: #ffbe00;"> Edit Profile</a> 
-                    
-                </div> 
+                <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="Name">Name:</label>
+                        <input placeholder="Consumer Name" type="text" id="Name" class="form-control" formControlName="name">
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input placeholder="Username" type="text" id="username" class="form-control" formControlName="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input placeholder="Consumer@cit.just.edu.jo" type="text" id="email" class="form-control" formControlName="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone:</label>
+                        <input placeholder="07XXXXXXXX" type="text" id="phone" class="form-control" formControlName="phone">
+                    </div>
+            
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary mt-3" [disabled]="!profileForm.valid"
+                            style="background: #ffbe00;">Update Profile</button>
+                    </div>
+                </form>
             </div> 
         </div> 
     </div> 

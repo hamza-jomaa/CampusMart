@@ -12,14 +12,22 @@ export const environment = {
   
   CampusConsumer:{
     base:"CampusConsumer",
-    CreateCampusConsumerLogin:"/CreateCampusConsumerLogin"
+    CreateCampusConsumerLogin:"/CreateCampusConsumerLogin",
+    UpdateConsumer:"/UpdateConsumer"
   },
   Merchandise:{
     base:"Merchandise",
     CreateMerchandise:"/CreateMerchandise",
-    GetAllMerchandise:"/GetAllMerchandise",
+     GetAllMerchandise:"/GetAllMerchandise",
     UpdateMerchandise:"/UpdateMerchandise",
     DeleteMerchandise:"/DeleteMerchandise"
+  },
+  Store:{
+    base:"Store",
+    GetAllStores:"/GetAllStores",
+    CreateStore:"/CreateStore",
+    UpdateStore:"/UpdateStore",
+    DeleteStore:"/DeleteStore"
   }
 };
 

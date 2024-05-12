@@ -257,7 +257,22 @@ export class ProviderComponent implements OnInit {
             this.resetForm();
         }
     }
-    
+    submitStore(storeForm){
+        this.providerService.createStore(storeForm.value);
+        if (storeForm.valid) {
+          //  if (this.editingItem !== null) {
+                //edit store
+                 //  this.providerService.updateStore(storeForm);
+                // this.editingItemIndex = null;
+          //  } else {
+                //add merchandise
+                this.newMerchandise.status = "pending";
+                this.providerService.createStore(storeForm.value);
+                //   this.merchandiseList.push(this.newMerchandise);
+          //  }
+            this.resetForm();
+        }
+    }
     editItem(id: any) {
         this.toggleModal();
         this.editingItem = true;

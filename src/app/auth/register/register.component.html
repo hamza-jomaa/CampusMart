@@ -51,7 +51,12 @@
         Passwords do not match
       </div>
     </div>
-    
+    <div class="input-field">
+      <input type="file" #file formControlName="imageFile" (change)="uploadImage(file.files)" />
+      <div *ngIf="registerForm.get('imageFile').errors?.required && (registerForm.get('imageFile').dirty || registerForm.get('imageFile').touched)" class="error-message">
+        image File is required
+      </div>
+    </div>
     <!-- Signup button -->
     <button type="submit" [disabled]="registerForm.invalid" class="signup-button">Sign Up</button>
     

@@ -13,7 +13,6 @@ export class CampusConsumerService {
   display_image: any;
 
   CreateCampusConsumer(body:any){
-    debugger
     body.imagepath=this.display_image
     this.http.post(environment.backendAPI+environment.CampusConsumer.base+environment.CampusConsumer.CreateCampusConsumerLogin, body).subscribe(
       (resp: any) => {
