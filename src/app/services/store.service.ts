@@ -9,7 +9,7 @@ export class StoreService {
   constructor(private http: HttpClient) { }
 
   All_Stores_From_All_Providers: any=[{}]; 
-  
+  display_image: any;
 
   GetAllStoresFromAllProviders() {
    
@@ -25,4 +25,13 @@ export class StoreService {
 
   }
 
+  uploadStoreImage(file: FormData) {
+    this.http.post('https://localhost:7173/api/Store/uploadStoreImage', file).subscribe((resp: any) => {
+  this.display_image = resp.image;
+//   this.toastr.success("Image Uploaded Successfully");
+},
+  (error: any) => {
+   // this.toastr.error("Error Occured");
+  })
+}
 }
