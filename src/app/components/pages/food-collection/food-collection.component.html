@@ -42,7 +42,7 @@
                             <li><i class='bx bxs-star '></i></li> 
                         </ul> 
                         <div class="add-cart"> 
-                            <a routerLink="/cart"><i class='bx bxs-cart'></i> Add to Cart</a> 
+                            <a routerLink="/cart" (click)="addToCart(merchandise.productid)"><i class='bx bxs-cart'></i> Add to Cart</a> 
                         </div> 
                     </div> 
  
@@ -52,112 +52,16 @@
                             <li><span>${{merchandise.price}}</span></li> 
                             <li> 
                                 <div class="number"> 
-                                    <span class="minus">-</span> 
-                                    <input type="text" class="form-control" value="1"/> 
-                                    <span class="plus">+</span> 
+                                    <span class="minus" (click)="decreaseQuantity(merchandise.productid)">-</span> 
+                                    <input type="number"  [placeholder]="quantity" class="form-control" [(ngModel)]="quantities[merchandise.productid]" /> 
+                                    <span class="plus" (click)="increaseQuantity(merchandise.productid)">+</span> 
                                 </div> 
                             </li> 
                         </ul> 
                     </div> 
                 </div> 
             </div> 
- 
-         <!--   <div class="col-sm-6 col-lg-3 mix ui"> 
-                <div class="collection-item"> 
-                    <div class="collection-top"> 
-                        <img src="assets/img/items/shopsItems/pen.jpg" alt="Collection"> 
-                        <ul> 
-                            <li><i class='bx bxs-star checked'></i></li> 
-                            <li><i class='bx bxs-star checked'></i></li> 
-                            <li><i class='bx bxs-star checked'></i></li> 
-                            <li><i class='bx bxs-star checked'></i></li> 
-                            <li><i class='bx bxs-star checked'></i></li> 
-                        </ul> 
-                        <div class="add-cart"> 
-                            <a routerLink="/cart"><i class='bx bxs-cart'></i> Add to Cart</a> 
-                        </div> 
-                    </div> 
-                    <div class="collection-bottom"> 
-                        <h3>Pens</h3> 
-                        <ul> 
-                            <li><span>$1</span></li> 
-                            <li> 
-                                <div class="number"> 
-                                    <span class="minus">-</span> 
-                                    <input type="text" class="form-control" value="1"/> 
-                                    <span class="plus">+</span> 
-                                </div> 
-                            </li> 
-                        </ul> 
-                    </div> 
-                </div> 
-            </div> 
- 
-            <div class="col-sm-6 col-lg-3 mix ux" > 
-                <div class="collection-item"> 
-                    <div class="collection-top"> 
-                        <img src="assets/img/items/shopsItems/cookies.png" alt="Collection"> 
-                        <ul> 
-                            <li><i class='bx bxs-star checked'></i></li> 
-                            <li><i class='bx bxs-star checked'></i></li> 
-                            <li><i class='bx bxs-star checked'></i></li> 
-                            <li><i class='bx bxs-star checked'></i></li> 
-                            <li><i class='bx bxs-star checked'></i></li> 
-                        </ul> 
-                        <div class="add-cart"> 
-                            <a routerLink="/cart"><i class='bx bxs-cart'></i> Add to Cart</a> 
-                        </div> 
-                    </div> 
-                    <div class="collection-bottom"> 
-                        <h3>Cookies</h3> 
-                        <ul> 
-                            <li><span>$0.5</span></li> 
-                            <li> 
-                                <div class="number"> 
-                                    <span class="minus">-</span> 
-                                    <input type="text" class="form-control" value="1"/> 
-                                    <span class="plus">+</span> 
-                                </div> 
-                            </li> 
-                        </ul> 
-                    </div> 
-                </div> 
-            </div> 
- 
-            <div class="col-sm-6 col-lg-3  mix branding "> 
-                <div class="collection-item"> 
-                    <div class="collection-top"> 
-                        <img src="assets/img/items/shopsItems/juice.png" alt="Collection"> 
-                        <ul> 
-                            <li><i class='bx bxs-star checked'></i></li> 
-                            <li><i class='bx bxs-star checked'></i></li> 
-                            <li><i class='bx bxs-star checked'></i></li> 
-                            <li><i class='bx bxs-star checked'></i></li> 
-                            <li><i class='bx bxs-star checked'></i></li> 
-                        </ul> 
-                        <div class="add-cart"> 
-                            <a routerLink="/cart"><i class='bx bxs-cart'></i> Add to Cart</a> 
-                        </div> 
-                    </div> 
-                    <div class="collection-bottom"> 
-                        <h3> Al Rabie Juice</h3> 
-                        <ul> 
-                            <li><span>$0.65</span></li> 
-                            <li> 
-                                <div class="number"> 
-                                    <span class="minus">-</span> 
-                                    <input type="text" class="form-control" value="1"/> 
-                                    <span class="plus">+</span> 
-                                </div> 
-                            </li> 
-                        </ul> 
-                    </div> 
-                </div> 
-            </div> 
-      
-            -->
- 
-            
+
         </div> 
     </div> 
 </section> 

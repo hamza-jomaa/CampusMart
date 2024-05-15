@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminService } from 'src/app/services/admin.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { HttpClient } from '@angular/common/http'; // Import HttpClient
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-special-request',
@@ -13,25 +13,37 @@ import { HttpClient } from '@angular/common/http'; // Import HttpClient
 export class SpecialRequestComponent implements OnInit {
   requestForm: FormGroup;
   submittingRequest: boolean = false;
-  localData: any; // Variable to store local user data
-  emailInfo: any; // Variable to store email information
+  localData: any; 
+  emailInfo: any; 
 
   constructor(
     private fb: FormBuilder,
     private adminService: AdminService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
-    private http: HttpClient // Inject HttpClient
+    private http: HttpClient 
   ) {}
 
   ngOnInit(): void {
+    this.initLocalData();
     this.initForm();
+  }
+
+  initLocalData(): void {
+    const localDataString = localStorage.getItem('user');
+    if (localDataString) {
+      this.localData = JSON.parse(localDataString);
+      console.log(this.localData.login_ConsumerID);
+    } else {
+      console.error('No local data found');
+    }
   }
 
   initForm(): void {
     this.requestForm = this.fb.group({
       title: ['', Validators.required],
-      message: ['', Validators.required]
+      message: ['', Validators.required],
+      consumerid: ['']
     });
   }
 
@@ -44,19 +56,13 @@ export class SpecialRequestComponent implements OnInit {
     this.spinner.show();
     this.submittingRequest = true;
 
-    // Get consumer ID from local storage
-    this.localData = localStorage.getItem('user');
-    this.localData = JSON.parse(this.localData);
-    const consumerId = this.localData.userID;
-
     const formData = {
       requesttitle: this.requestForm.value.title,
       requestdetails: this.requestForm.value.message,
       requeststatus: 'Pending',
-      consumerid: consumerId
+      consumerid: this.localData?.login_ConsumerID || ''
     };
 
-    // Call your service method to submit the request
     this.adminService.createRequest(formData).subscribe(
       () => {
         this.toastr.success('Special request submitted successfully', 'Success');
@@ -72,18 +78,3 @@ export class SpecialRequestComponent implements OnInit {
     });
   }
 }
-
-
-
-// GetBorrowedBooksDetailsByUserIdAndBookID(bookID: any) {
-//   this.localData = localStorage.getItem("user");
-//   this.localData = JSON.parse(this.localData);
-//   this.http.get(https://localhost:7131/api/BorrowedBook/GetBorrowedBooksDetailsByUserIdAndBookID?userID=${this.localData.userID}&bookID=${bookID}).subscribe((resp: any) => {
-//   this.emailInfo = resp;  
-//   this.emailService.SendEmail(this.emailInfo);
-    
-//   },
-//     (error: any) => {
-     
-//     })
-// } 

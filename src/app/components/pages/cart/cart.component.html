@@ -14,52 +14,40 @@
 </div>
 
 <section class="cart-area ptb-100">
+    <!-- <div class="refresh-cart">
+        <p class="refresh-message">If you make any changes to the cart, click here to update it.    </p>
+        <button class="refresh-button" (click)="refreshPage()">Refresh Cart</button>
+    </div> -->
     <div class="container">
         <div class="cart-wrap">
+            
+           
             <table class="table">
                 <thead class="thead">
                     <tr>
                         <th class="table-head" scope="col">Images</th>
                         <th class="table-head" scope="col">Items</th>
                         <th class="table-head" scope="col">Prices</th>
+                        <th class="table-head" scope="col">Quantity</th> 
                         <th class="table-head" scope="col">Remove</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr>
+                    <tr *ngFor="let merchandise of allMerchandiseInCart ">
                         <th class="table-item" scope="row"><img src="assets/img/Burger.png" alt="Menu"></th>
-                        <td>Burger</td>
-                        <td>$10.00</td>
-                        <td><a routerLink="/cart"><i class='bx bx-x'></i></a></td>
+                        <td>{{merchandise.name}}</td>
+                        <td>${{merchandise.price}}</td>
+                        <td>{{ merchandise.quantity }}</td>
+                        <td><a (click)="deleteItem(merchandise.cartID)"><i class='bx bx-x'></i></a></td>
+
+            
                     </tr>
-                    <tr>
-                        <th class="table-item" scope="row"><img src="assets/img/Pizza.png" alt="Image"></th>
-                        <td>Pizza</td>
-                        <td>$15.00</td>
-                        <td><a routerLink="/cart"><i class='bx bx-x'></i></a></td>
-                    </tr>
-                    <tr>
-                        <th class="table-item" scope="row"><img src="assets/img/Calculeter.png" alt="Image"></th>
-                        <td>Calculator</td>
-                        <td>$7.00</td>
-                        <td><a routerLink="/cart"><i class='bx bx-x'></i></a></td>
-                    </tr>
-                    <tr>
-                        <th class="table-item" scope="row"><img src="assets/img/Book.jpg" alt="Image"></th>
-                        <td>Return To Haifa</td>
-                        <td>$15.00</td>
-                        <td><a routerLink="/cart"><i class='bx bx-x'></i></a></td>
-                    </tr>
-                    <tr>
-                        <th class="table-item" scope="row"><img src="assets/img/Drink.png" alt="Image"></th>
-                        <td>Bubble tea drink</td>
-                        <td>$5.00</td>
-                        <td><a routerLink="/cart"><i class='bx bx-x'></i></a></td>
-                    </tr>
+                  
                 </tbody>
             </table>
-
+        
+            
             <div class="shop-back">
                 <a routerLink="/checkout">Go for Order?</a>
             </div>
