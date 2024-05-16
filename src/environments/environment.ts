@@ -13,7 +13,8 @@ export const environment = {
   CampusConsumer:{
     base:"CampusConsumer",
     CreateCampusConsumerLogin:"/CreateCampusConsumerLogin",
-    UpdateConsumer:"/UpdateConsumer"
+    UpdateConsumer:"/UpdateConsumer",
+    GetConsumerById:'/GetConsumerById'
   },
   Merchandise:{
     base:"Merchandise",
@@ -27,7 +28,17 @@ export const environment = {
     GetAllStores:"/GetAllStores",
     CreateStore:"/CreateStore",
     UpdateStore:"/UpdateStore",
-    DeleteStore:"/DeleteStore"
+    DeleteStore:"/DeleteStore",
+    GetStoreById:"/GetStoreById"
+  },
+  CampusServiceProvider:{
+    base:'CampusServiceProvider',
+    GetServiceProviderById:'/GetServiceProviderById',
+    GetAllServiceProviders:'/GetAllServiceProviders'
+  },
+  Order:{
+    base:'Order',
+    GetAllOrders:'/GetAllOrders'
   }
 };
 

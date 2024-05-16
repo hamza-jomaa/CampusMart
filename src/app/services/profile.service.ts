@@ -23,5 +23,9 @@ export class ProfileService {
         }
       );
   }
-  
+  getConsumerById(id:any){
+    return this.http.get(environment.backendAPI+environment.CampusConsumer.base+environment.CampusConsumer.GetConsumerById+'/'+id);
+  }
 }
+
+

@@ -9,8 +9,8 @@ import { ProviderService } from "src/app/services/provider.service";
 })
 export class ProviderComponent implements OnInit {
     navIndex = 0;
-    newMerchandise: any={
-        productid:null||'',
+    newMerchandise: any = {
+        productid: null || "",
     };
     newOrder = {
         id: null,
@@ -46,16 +46,24 @@ export class ProviderComponent implements OnInit {
     editingItem = false;
     merchandiseList: any = [];
     storeData = {
-        id: 0,
-        name: "mainStore",
-        image: "./assets/img/items/store/storetemp.png",
+        id: "",
+        name: "",
+        image: "",
     };
-    providerData = {
-        id: 0,
-        phoneNumber: "07987654321",
-        name: "First Provider",
+    providerData:any = {
+        "providerid": '',
+        "phone": '',
+        "locationLatitude": '',
+        "locationLongitude": '',
+        "consumerid": '',
+        "motivation": '',
+        "status": '',
+        "consumer": '',
+        "orders": [],
+        "specialrequests": [],
+        "stores": []
     };
-    orderData = [
+    orderData: any = [
         {
             id: 0,
             name: "order 1",
@@ -200,9 +208,17 @@ export class ProviderComponent implements OnInit {
 
     pendingSpecialRequests: any[] = [];
     selectedSpecialRequest: any;
-    constructor(public admin: AdminService , private providerService:ProviderService){}
+    filteredOrdersById: any;
+    //providerId: any;
+    constructor(
+        public admin: AdminService,
+        private providerService: ProviderService
+    ) {}
 
     ngOnInit(): void {
+        let userData: any = localStorage.getItem("user");
+        userData = JSON.parse(userData);
+       
         this.admin
             .getAllRequests()
             .pipe(
@@ -218,17 +234,55 @@ export class ProviderComponent implements OnInit {
         this.providerService.getAllMerchandise().subscribe((res) => {
             this.merchandiseList = res;
         });
+        this.providerService.GetAllServiceProviders().subscribe((res: any) => {
+            this.providerData = res.filter(
+                (provider) => provider.consumerid == userData.login_ConsumerID
+            )[0];
+            console.log('this.providerData',this.providerData)
+        });
+        this.providerService.getStore(this.providerData.providerid).subscribe((res) => {
+            if (res) {
+                this.storeData = {
+                    id: res.storeId,
+                    name: res.storename,
+                    image: res.image,
+                };
+            }
+        });
+        this.providerService.GetAllOrders().subscribe((res: any) => {
+            this.filteredOrdersById = res.filter(
+                (order) => order.providerId == this.providerData.providerid
+            );
+            this.orderData = this.filteredOrdersById.map((order) => {
+                return {
+                    id: order.orderid,
+                    providerId: order.provider.providerid,
+                    providerPhone: order.provider.phone,
+                    consumerId: order.consumer.consumerid,
+                    consumerName: order.consumer.fullname,
+                    consumerPhone: order.consumer.phone,
+                    merchandises: order.carts.map((cart) => {
+                        return {
+                            id: cart.product.productid,
+                            name: cart.product.name,
+                            price: cart.total,
+                            quantity: cart.quantity,
+                        };
+                    }),
+                    date: order.orderdate,
+                    orderStatus: order.orderstatus,
+                };
+            });
+        });
     }
-   
- 
+
     navDashboard(index: any) {
         this.navIndex = index;
     }
     addItem() {
-        console.log('clicked')
+        console.log("clicked");
         this.toggleModal();
         this.editingItem = false;
-        
     }
     toggleModal() {
         this.showForm = true;
@@ -240,13 +294,14 @@ export class ProviderComponent implements OnInit {
         this.storeData = storeForm;
     }
     submitForm(formData) {
-        this.showForm=false;
+        this.showForm = false;
         if (formData.valid) {
             if (this.editingItem !== null) {
                 //edit merchandise
-                   this.merchandiseList[this.editingItemIndex] = this.newMerchandise;
-                   this.newMerchandise.status = "pending";
-                   this.providerService.updateMerchandise(this.newMerchandise);
+                this.merchandiseList[this.editingItemIndex] =
+                    this.newMerchandise;
+                this.newMerchandise.status = "pending";
+                this.providerService.updateMerchandise(this.newMerchandise);
                 this.editingItemIndex = null;
             } else {
                 //add merchandise
@@ -257,34 +312,38 @@ export class ProviderComponent implements OnInit {
             this.resetForm();
         }
     }
-    submitStore(storeForm){
+    submitStore(storeForm) {
         this.providerService.createStore(storeForm.value);
         if (storeForm.valid) {
-          //  if (this.editingItem !== null) {
-                //edit store
-                 //  this.providerService.updateStore(storeForm);
-                // this.editingItemIndex = null;
-          //  } else {
-                //add merchandise
-                this.newMerchandise.status = "pending";
-                this.providerService.createStore(storeForm.value);
-                //   this.merchandiseList.push(this.newMerchandise);
-          //  }
+            //  if (this.editingItem !== null) {
+            //edit store
+            //  this.providerService.updateStore(storeForm);
+            // this.editingItemIndex = null;
+            //  } else {
+            //add merchandise
+            this.newMerchandise.status = "pending";
+            this.providerService.createStore(storeForm.value);
+            //   this.merchandiseList.push(this.newMerchandise);
+            //  }
             this.resetForm();
         }
     }
     editItem(id: any) {
         this.toggleModal();
         this.editingItem = true;
-        const index = this.merchandiseList.findIndex((item) => item.productid === id);
+        const index = this.merchandiseList.findIndex(
+            (item) => item.productid === id
+        );
         if (index !== -1) {
             this.editingItemIndex = index;
-            
-              this.newMerchandise = { ...this.merchandiseList[index] };
+
+            this.newMerchandise = { ...this.merchandiseList[index] };
         }
     }
     removeItem(id: any) {
-        const index = this.merchandiseList.findIndex((item) => item.productid === id);
+        const index = this.merchandiseList.findIndex(
+            (item) => item.productid === id
+        );
         if (
             index !== -1 &&
             confirm("Are you sure you want to remove this item?")
@@ -305,8 +364,7 @@ export class ProviderComponent implements OnInit {
         this.toggleOrder();
         this.selectedSpecialRequest = { ...specialRequest };
     }
-    
-    
+
     submitOrder(formData) {
         if (this.editingOrderIndex !== null) {
             this.newOrder.providerId = this.providerData.id;
