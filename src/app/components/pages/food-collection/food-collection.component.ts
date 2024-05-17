@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
 import { MerchandiseService } from 'src/app/services/merchandise.service';
+import { FormControl, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-food-collection',
@@ -24,7 +25,7 @@ export class FoodCollectionComponent implements OnInit {
     private router: Router,
     private merchandiseService: MerchandiseService, 
     private cartService: CartService,
-   // private toastr: ToastrService
+    private toastr: ToastrService
   ) {
     this.itemFromGroup = new FormGroup({
       productid: new FormControl(""),
