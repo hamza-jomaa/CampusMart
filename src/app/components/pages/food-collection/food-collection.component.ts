@@ -16,11 +16,15 @@ export class FoodCollectionComponent implements OnInit {
   localData: any;
   quantity: number = 1;
   quantities: { [productId: number]: number } = {};
+
+  itemFromGroup: FormGroup;
+
   constructor(
     private route: ActivatedRoute, 
     private router: Router,
-    private merchandise: MerchandiseService, 
-    private cartService: CartService
+    private merchandiseService: MerchandiseService, 
+    private cartService: CartService,
+   // private toastr: ToastrService
   ) {
     this.itemFromGroup = new FormGroup({
       productid: new FormControl(""),
@@ -28,33 +32,27 @@ export class FoodCollectionComponent implements OnInit {
       quantity: new FormControl("")
     });
   }
-  itemFromGroup: FormGroup;
   
   ngOnInit(): void {
     this.initLocalData();
     this.route.params.subscribe(params => {
       this.storeId = +params['storeId'];
-
-      console.log('storeId:', this.storeId);
-
       if (this.storeId) {
         this.getAllMerchandiseByStoreId();
       } else {
         console.error('Store ID is not defined');
       }
     });
-    
     this.getCartItems();
   }
 
   getAllMerchandiseByStoreId() {
-    this.merchandise.getAllMerchandiseByStoreId(this.storeId).subscribe(
+    this.merchandiseService.getAllMerchandiseByStoreId(this.storeId).subscribe(
       (data) => {
-        console.log('All Merchindise:', data);
         this.allMerchandise = data;
       },
       (error) => {
-        console.error('Error fetching All Merchindise:', error);
+        console.error('Error fetching All Merchandise:', error);
       }
     );
   }
@@ -63,7 +61,6 @@ export class FoodCollectionComponent implements OnInit {
     const localDataString = localStorage.getItem('user');
     if (localDataString) {
       this.localData = JSON.parse(localDataString);
-      console.log(this.localData.login_ConsumerID);
     } else {
       console.error('No local data found');
     }
@@ -77,45 +74,62 @@ export class FoodCollectionComponent implements OnInit {
     const existingQuantity = this.quantities[merchandiseId];
     const quantity = existingQuantity != null ? existingQuantity : this.quantity;
     const updatedQuantity = existingQuantity != null ? quantity : this.itemFromGroup.value.quantity;
-    this.itemFromGroup.patchValue({
-      productid: productId,
-      consumerId: consumerId,
-      quantity: updatedQuantity
-    });
 
-    this.cartService.GetMerchanidseInCart(consumerId).subscribe(
-      (cartItems: any[]) => {
-        const existingCartItem = cartItems.find(item => item.productID === productId);
-        if (existingCartItem) {
-          const updatedQuantity = quantity + 1; //existingCartItem.quantity +
-          this.cartService.updateCartItem(existingCartItem.cartID, updatedQuantity, existingCartItem.consumerID, existingCartItem.productID).subscribe(
-            (resp: any) => {
-              console.log(resp);
-              window.location.reload();
-            },
-            (error: any) => {
-              console.error(error);
-            }
-          );
+    // Find the merchandise item to get the price
+    const merchandiseItem = this.allMerchandise.find(item => item.productid === productId);
+
+    if (merchandiseItem && merchandiseItem.price !== undefined) {
+      const price = merchandiseItem.price;
+      const total = updatedQuantity * price;
+
+      this.itemFromGroup.patchValue({
+        productid: productId,
+        consumerId: consumerId,
+        quantity: updatedQuantity
+      });
+
+      this.cartService.GetMerchanidseInCart(consumerId).subscribe(
+        (cartItems: any[]) => {
+          const existingCartItem = cartItems.find(item => item.productID === productId);
+
+          if (existingCartItem) {
+            const updatedQuantity = quantity + 1;
+            const updatedTotal = updatedQuantity * price;
+
+            this.cartService.updateCartItem(existingCartItem.cartID, updatedQuantity, updatedTotal, existingCartItem.consumerID, existingCartItem.productID).subscribe(
+              (resp: any) => {
+                console.log(resp);
+                window.location.reload();
+              },
+              (error: any) => {
+                console.error(error);
+              }
+            );
+          } else {
+            const newCartItem = {
+              ...this.itemFromGroup.value,
+              total: total
+            };
+
+            this.cartService.CreateCartRecord(newCartItem).subscribe(
+              (resp: any) => {
+                console.log(resp);
+                window.location.reload();
+              },
+              (error: any) => {
+                console.error(error);
+              }
+            );
+          }
+        },
+        (error) => {
+          console.error('Error fetching cart items:', error);
         }
-        else {
-          this.cartService.CreateCartRecord(this.itemFromGroup.value).subscribe(
-            (resp: any) => {
-              console.log(resp);
-              window.location.reload();
-            },
-            (error: any) => {
-              console.error(error);
-            }
-          );
-        }
-      },
-      (error) => {
-        console.error('Error fetching cart items:', error);
-      }
-    );
+      );
+    } else {
+      console.error('Price is undefined for the merchandise item');
+    }
   }
-
 
   decreaseQuantity(productId: number): void {
     if (this.quantities[productId] > 1) {

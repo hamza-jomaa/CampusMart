@@ -60,7 +60,7 @@ export class ProviderService {
     return this.http.get<any>(environment.backendAPI+environment.Store.base+environment.Store.GetAllStores);
   }
   getStore(id:any): Observable<any> {
-    return this.http.get<any>(environment.backendAPI+environment.Store.base+environment.Store.GetStoreById+'/'+id);
+    return this.http.get<any>(environment.backendAPI+environment.Store.base+environment.Store.GetStoreByProviderId+'?providerId='+id);
   }
   updateStore(Store:any){
     this.http.post(environment.backendAPI+environment.Store.base+environment.Store.UpdateStore, Store).subscribe(

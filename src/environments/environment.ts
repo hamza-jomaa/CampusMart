@@ -29,7 +29,8 @@ export const environment = {
     CreateStore:"/CreateStore",
     UpdateStore:"/UpdateStore",
     DeleteStore:"/DeleteStore",
-    GetStoreById:"/GetStoreById"
+    GetStoreById:"/GetStoreById",
+    GetStoreByProviderId:"/GetStoreInfoByProviderID"
   },
   CampusServiceProvider:{
     base:'CampusServiceProvider',

@@ -14,7 +14,6 @@ import { MatConfirmDialogComponent } from 'src/app/mat-confirm-dialog/mat-confir
 export class CartComponent implements OnInit {
 
   constructor(private cartService :CartService ,private router: Router, private location: Location,private dialog:MatDialog ,private dialogService:DialogService ,private toastr: ToastrService) { }
-  
   allMerchandiseInCart:any;
   localData:any;
   consumerId:any;
@@ -45,9 +44,6 @@ export class CartComponent implements OnInit {
       }
     );
   }
-  // refreshPage() {
-  //   window.location.reload();
-  // }
   deleteItem(cartId: number) {
     const dialogRef = this.dialog.open(MatConfirmDialogComponent, {
       data: { message: 'Are you sure you want to delete this item from the cart?' }
@@ -78,5 +74,15 @@ export class CartComponent implements OnInit {
     });
   }
   
+  calculateTotal(): number {
+    let total = 0;
+    if (this.allMerchandiseInCart) {
+      for (let item of this.allMerchandiseInCart) {
+        total += item.price * item.quantity;
+      }
+    }
+    return total;
+  }
+
   
 }

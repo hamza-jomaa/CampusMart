@@ -17,10 +17,11 @@ export class CartService {
     return this.http.post('https://localhost:7173/api/Cart/CreateCart', body);
   }
 
-  updateCartItem(cartId: number, quantity: number, consumerId: number, productId: number): Observable<any> {
+  updateCartItem(cartId: number, quantity: number, total: number, consumerId: number, productId: number): Observable<any> {
     const body = {
       cartId: cartId,
       quantity: quantity,
+      total:total,
       consumerId: consumerId,
       productId: productId
     };
@@ -30,5 +31,6 @@ export class CartService {
 deleteCartItem(cartId: number): Observable<any> {
   return this.http.delete<any>(`https://localhost:7173/api/Cart/DeleteCart/${cartId}`);
 }
+
 
 }

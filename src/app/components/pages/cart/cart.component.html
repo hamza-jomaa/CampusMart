@@ -1,5 +1,4 @@
 <app-navbar-style-two></app-navbar-style-two>
-
 <div class="page-title-area page-title-img-one">
     <div class="container">
         <div class="page-title-item">
@@ -12,16 +11,9 @@
         </div>
     </div>
 </div>
-
 <section class="cart-area ptb-100">
-    <!-- <div class="refresh-cart">
-        <p class="refresh-message">If you make any changes to the cart, click here to update it.    </p>
-        <button class="refresh-button" (click)="refreshPage()">Refresh Cart</button>
-    </div> -->
     <div class="container">
-        <div class="cart-wrap">
-            
-           
+        <div class="cart-wrap"> 
             <table class="table">
                 <thead class="thead">
                     <tr>
@@ -32,7 +24,6 @@
                         <th class="table-head" scope="col">Remove</th>
                     </tr>
                 </thead>
-
                 <tbody>
                     <tr *ngFor="let merchandise of allMerchandiseInCart ">
                         <th class="table-item" scope="row"><img src="assets/img/Burger.png" alt="Menu"></th>
@@ -40,10 +31,7 @@
                         <td>${{merchandise.price}}</td>
                         <td>{{ merchandise.quantity }}</td>
                         <td><a (click)="deleteItem(merchandise.cartID)"><i class='bx bx-x'></i></a></td>
-
-            
                     </tr>
-                  
                 </tbody>
             </table>
         
@@ -51,14 +39,12 @@
             <div class="shop-back">
                 <a routerLink="/checkout">Go for Order?</a>
             </div>
-
             <div class="total-shopping">
                 <h2>Total Order</h2>
-                <h3>Total: <span>$52.00</span></h3>
+                <h3>Total: <span>${{calculateTotal()}}</span></h3>
                 <a routerLink="/checkout">Checkout Items</a>
             </div>
         </div>
     </div>
 </section>
-
 <app-footer-style-two></app-footer-style-two>

@@ -66,7 +66,7 @@ export class ComingSoonComponent implements OnInit {
 }
   submitForm(formData) {
     if (formData.valid) {
-      // Submit form logic here
+      //add consumer Id 
       console.log('this.profileForm',formData.form.value)
       this.profileService.updateConsumer(formData.form.value);
     } else {

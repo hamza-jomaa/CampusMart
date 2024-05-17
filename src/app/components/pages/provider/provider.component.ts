@@ -239,16 +239,18 @@ export class ProviderComponent implements OnInit {
                 (provider) => provider.consumerid == userData.login_ConsumerID
             )[0];
             console.log('this.providerData',this.providerData)
+            this.providerService.getStore(this.providerData.providerid).subscribe((res) => {
+                if (res) {
+                    console.log(res)
+                    this.storeData = {
+                        id: res.storeId,
+                        name: res.storename,
+                        image: res.image,
+                    };
+                }
+            });
         });
-        this.providerService.getStore(this.providerData.providerid).subscribe((res) => {
-            if (res) {
-                this.storeData = {
-                    id: res.storeId,
-                    name: res.storename,
-                    image: res.image,
-                };
-            }
-        });
+   
         this.providerService.GetAllOrders().subscribe((res: any) => {
             this.filteredOrdersById = res.filter(
                 (order) => order.providerId == this.providerData.providerid
@@ -313,7 +315,11 @@ export class ProviderComponent implements OnInit {
         }
     }
     submitStore(storeForm) {
-        this.providerService.createStore(storeForm.value);
+      
+        let storeData=storeForm.value;
+        storeData.providerid=this.providerData.providerid
+        this.providerService.createStore(storeData);
+        console.log(storeData)
         if (storeForm.valid) {
             //  if (this.editingItem !== null) {
             //edit store
