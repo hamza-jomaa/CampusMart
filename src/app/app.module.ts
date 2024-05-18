@@ -94,12 +94,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ProviderComponent,
     MatConfirmDialogComponent,
     ErrorComponent
-   
-   
-    //SignupComponent,
-   // LoginComponent,
- 
- 
     
   ],
   imports: [
@@ -118,7 +112,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     NgxSpinnerModule,
     MatIconModule,
     NgConfirmModule
-    
   ],
  // exports:[CitEmailValidatorDirective],
   providers: [],
