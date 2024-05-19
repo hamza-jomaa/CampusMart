@@ -122,7 +122,6 @@ import { SearchstorePipe } from './pipes/searchstore.pipe';
     NgxSpinnerModule,
     MatIconModule,
     NgConfirmModule
-    
   ],
  // exports:[CitEmailValidatorDirective],
   providers: [],

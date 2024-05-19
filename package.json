@@ -17,7 +17,6 @@
     "@angular/common": "^16.0.2",
     "@angular/compiler": "^16.0.2",
     "@angular/core": "^16.0.2",
-
     "@angular/forms": "^16.2.12",
     "@angular/google-maps": "^17.0.4",
     "@angular/material": "^16.2.14",
@@ -32,6 +31,7 @@
     "bootstrap": "^5.3.3",
     "jquery": "^3.7.0",
     "jquery-waypoints": "^2.0.5",
+    "jspdf": "^2.5.1",
     "jwt-decode": "^4.0.0",
     "magnific-popup": "^1.1.0",
     "ng-confirm-box": "^0.1.1",

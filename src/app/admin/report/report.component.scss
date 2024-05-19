@@ -2,3 +2,35 @@
     width: calc(100% - 330px); /* Calculate the remaining width after the sidebar width */
     margin-left: 330px; /* Set the margin-left to match the sidebar width */
 }
+
+.mat-date-range-input {
+    font-size: 12px;
+  }
+  
+ 
+  .mat-datepicker-toggle {
+    padding: 4px; }
+  
+  .mat-calendar {
+    font-size: 12px; /* Adjust the font size to your preference */
+    padding: 8px; /* Adjust the padding to your preference */
+  }
+  
+  .mat-calendar-header {
+    font-size: 14px; 
+  }
+  
+  /* Adjust the font size for the date range picker cells */
+  .mat-calendar-body-cell {
+    font-size: 12px; /* Adjust the font size to your preference */
+  }
+  
+  /* Adjust the font size for the date range picker error messages */
+  .mat-error {
+    font-size: 10px; /* Adjust the font size to your preference */
+  }
+button{
+ float: right; font-size: 15px; font-weight: bold;
+ width: 70px;  height: 30px;
+ 
+}

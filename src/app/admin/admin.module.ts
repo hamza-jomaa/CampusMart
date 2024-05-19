@@ -13,8 +13,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { ContactusReqComponent } from './contactus-req/contactus-req.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ProviderRequestComponent } from './provider-request/provider-request.component';
-
-
+import { SharedModule } from '../shared/shared.module';
+import {DateReportsFilterPipe} from '../Pipes/date-reports-filter.pipe';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
 @NgModule({
   declarations: [
     SidebarComponent,
@@ -27,11 +28,13 @@ import { ProviderRequestComponent } from './provider-request/provider-request.co
     ProfileComponent,
     ContactusReqComponent,
     NavbarComponent,
-    ProviderRequestComponent
+    ProviderRequestComponent,
+    DateReportsFilterPipe
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    FormsModule
   ]
 })
 export class AdminModule { }
