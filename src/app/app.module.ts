@@ -57,6 +57,8 @@ import { AuthModule } from './auth/auth.module';
 //import { LoginComponent } from './components/pages/login/login.component';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { SearchstorePipe } from './pipes/searchstore.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -93,7 +95,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     WritetestmonialComponent,
     ProviderComponent,
     MatConfirmDialogComponent,
-    ErrorComponent
+    ErrorComponent,
+    NotificationsComponent,
+    SearchstorePipe
    
    
     //SignupComponent,

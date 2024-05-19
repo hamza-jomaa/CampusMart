@@ -9,18 +9,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./categories.component.scss']
 })
 export class CategoriesComponent implements OnInit {
-
-  
+  searchText: string = '';
   constructor(private router: Router,public storeService:StoreService) { }
-
   ngOnInit(): void {
-    
    this.storeService.GetAllStoresFromAllProviders();
   }
-
-  
-    navigateToBookDetail(storeId: number) {
+  navigateToShopDetail(storeId: number) {
       this.router.navigate(['/food-collection', storeId]);
-    
   }
 }

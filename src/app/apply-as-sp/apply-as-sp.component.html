@@ -5,7 +5,7 @@
             <h2>Apply As Service Provider</h2>
             <ul>
                 <li><a routerLink="/">Home</a></li>
-                <li><i class='bx bx-chevron-right' ></i></li>
+                <li><i class='bx bx-chevron-right'></i></li>
                 <li>Apply As Service Provider</li>
             </ul>
         </div>
@@ -13,94 +13,24 @@
 </div>
 <div id="container">
     <form (ngSubmit)="submitServiceProviderForm()" [formGroup]="providerForm">
+        <h6 style="color: #000; text-align: center; font-size: 12px; font-weight: bold;">Please fill out this form to <span style="color: #ffbe00;">apply as a service provider </span>on our platform.</h6>
+
         <fieldset>
             <legend><span class="number">1</span>Your basic details</legend>
             <label for="contactNumber">Contact Number:</label>
             <input type="tel" id="phone" placeholder="Enter your contact number" formControlName="phone">
             <input type="hidden" formControlName="status" value="Pending">
         </fieldset>
+        
         <fieldset>
             <legend><span class="number">2</span>Motivation</legend>
+            <label for="motivation">Motivation:</label>
             <textarea id="motivation" placeholder="Write your motivation here..." formControlName="motivation"></textarea>
-    
-            <button type="submit" [disabled]="providerForm.invalid">Submit Details</button>
         </fieldset>
+        
+        <button type="submit" [disabled]="providerForm.invalid">Submit Details</button>
+        
+        <h6 style="color: #000; text-align: center; font-size: 12px; font-weight: bold;">If you receive a <span style="color: #ffbe00;">notification of approval</span>, you can start creating your store.</h6>
     </form>
 </div>
 <app-footer-style-two></app-footer-style-two>
-
-
-
-
-<!-- <div id="container">
-    <form action="index.html" method="post">
-        <fieldset>
-            <legend><span class="number">1</span>Your basic details</legend>
-            <label for="projectName">Store Name:</label>
-            <input type="text" id="projectName" name="project_name" placeholder="" required pattern="[a-zA-Z0-9]+">
-            
-            <div style="display: flex; flex-direction: column">
-                <label for="image">Image:</label>
-                <input
-                    type="file"
-                    id="imageInput"
-                    name="imageInput"
-                />
-            </div>
-            
-        </fieldset>
-
-        <fieldset>
-            <legend><span class="number">2</span>Store Details</legend>
-
-            <label for="projectDescription">Store Description:</label>
-            <textarea id="projectDescription" name="project_description" placeholder="Write your project description here..."></textarea>
-
-            <button type="submit">Submit Store Details</button>
-        </fieldset>
-    </form>
-</div> -->
-
-<!------------------------------------------------------------------------------------------------------------------------------------------->
-
-<!-- <app-navbar-style-two></app-navbar-style-two>
-
-<div class="page-title-area page-title-img-one">
-    <div class="container">
-        <div class="page-title-item">
-            <h2>Apply As Service Provider</h2>
-            <ul>
-                <li><a routerLink="/">Home</a></li>
-                <li><i class='bx bx-chevron-right' ></i></li>
-                <li>Apply As Service Provider</li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-<div id="container">
-    <form action="index.html" method="post">
-        <fieldset>
-            <legend><span class="number">1</span>Your basic details</legend>
-            <label for="projectName">Project Name:</label>
-            <input type="text" id="projectName" name="project_name" placeholder="" required pattern="[a-zA-Z0-9]+">
-
-            <label for="products">Products You Can Offer:</label>
-            <input type="text" id="products" name="products_offered" placeholder="Specify the products you can offer" required>
-
-            <label for="contactNumber">Contact Number:</label>
-            <input type="tel" id="contactNumber" placeholder="Enter your contact number" name="contact_number">
-        </fieldset>
-
-        <fieldset>
-            <legend><span class="number">2</span>Project Details</legend>
-
-            <label for="projectDescription">Project Description:</label>
-            <textarea id="projectDescription" name="project_description" placeholder="Write your project description here..."></textarea>
-
-            <button type="submit">Submit Project Details</button>
-        </fieldset>
-    </form>
-</div>
-
-<app-footer-style-two></app-footer-style-two> -->

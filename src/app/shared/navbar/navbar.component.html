@@ -35,7 +35,8 @@
 
                         <li class="nav-item"><a routerLink="/categories" class="nav-link" routerLinkActive="active"
                                 [routerLinkActiveOptions]="{exact: true}">Shops</a></li>
-
+                                
+                                  
                         <!-- <li class="nav-item">
                             <a href="javascript:void(0)" class="nav-link dropdown-toggle">Services <i class='bx bx-chevron-down'></i></a>
 
@@ -110,13 +111,22 @@
                         <li class="nav-item">
                             <a routerLink="/coming-soon" class="nav-link" routerLinkActive="active">Profile</a>
                         </li>
-
+                      
                         <li class="nav-item">
                             <a routerLink="/provider" class="nav-link" routerLinkActive="active">Provider</a>
                         </li>
+                        <li class="nav-item">
+                            <a routerLink="/notification" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                              <i class='bx bx-bell' style="font-size: 27px;"></i>
+                              <span class="notification-dot"></span>
+                            </a>
+                          </li>
+                          
                     </ul>
-
+                    
                     <div class="side-nav">
+
+                        
                         <a class="nav-cart" routerLink="/cart"><i class='bx bxs-cart'></i> <span>1</span></a>
                         <a href="/auth/login" class="nav-tel">Login</a>
                     </div>

@@ -1,21 +1,22 @@
-body
-{
-	background-color:#5fcf80;
+body {
+  background-color: #5fcf80;
 }
-#body_header
-{
 
-	width:auto;
-	margin:0px auto;
-	text-align:center;
-	font-size:25px;
+#body_header {
+  width: auto;
+  margin: 0px auto;
+  text-align: center;
+  font-size: 25px;
 }
+
 form {
-  max-width: 300px;
+  max-width: 480px;
   margin: 10px auto;
   padding: 10px 20px;
   background: #f4f7f8;
   border-radius: 8px;
+  border: 2px solid white; /* Adding white border */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adding shadow for better visibility */
 }
 
 h1 {
@@ -35,7 +36,7 @@ input[type="time"],
 input[type="url"],
 textarea,
 select {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
   border: none;
   font-size: 16px;
   height: auto;
@@ -45,14 +46,12 @@ select {
   width: 100%;
   background-color: #e8eeef;
   color: black;
-  box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
   margin-bottom: 30px;
 }
 
 input[type="radio"],
-input[type="checkbox"]
-
-{
+input[type="checkbox"] {
   margin: 0 4px 8px 0;
 }
 
@@ -73,7 +72,7 @@ button {
   width: 100%;
   border: 1px solid #1a1c3b;
   border-width: 1px 1px 3px;
-  box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
   margin-bottom: 10px;
 }
 
@@ -107,32 +106,23 @@ label.light {
   margin-right: 4px;
   line-height: 30px;
   text-align: center;
-  text-shadow: 0 1px 0 rgba(255,255,255,0.2);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
   border-radius: 100%;
 }
 
-
-
-  form {
-    max-width: 480px;
-  }
-
-
-
-
-  .input-group .btn-secondary {
-    background-color: #ccc; /* لون خلفية الزر */
-    color: #333; /* لون النص */
-    border: none; /* إزالة الحدود */
-    border-radius: 0 4px 4px 0; /* تقديم حواف مستديرة للزر على اليمين */
-    cursor: pointer; /* تغيير المؤشر إلى يد عند التحويل */
+.input-group .btn-secondary {
+  background-color: #ccc; 
+  color: #333; 
+  border: none; 
+  border-radius: 0 4px 4px 0;
+  cursor: pointer; 
 }
 
 .input-group .btn-secondary:focus {
-    box-shadow: none; /* إزالة الظل عند التركيز */
+  box-shadow: none; 
 }
 
-/* لتحسين الأسلوب عند التحويل */
+
 .input-group .btn-secondary:hover {
-    background-color: #bbb; /* تغيير لون الخلفية عند تحويل المؤشر */
+  background-color: #bbb; 
 }

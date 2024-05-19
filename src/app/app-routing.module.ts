@@ -34,6 +34,7 @@ import { ProviderComponent } from './components/pages/provider/provider.componen
 import { AuthModule } from './auth/auth.module';
 
 import { HomeComponent } from "./components/pages/home/home.component";
+import { NotificationsComponent } from "./notifications/notifications.component";
 
 const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -79,7 +80,8 @@ const routes: Routes = [
     { path: 'writetestmonial', component: WritetestmonialComponent },
     { path: 'provider', component: ProviderComponent },
     {path:'admin', loadChildren:()=>import('./admin/admin.module').then((m)=>m.AdminModule)},
- 
+    { path: 'notification', component: NotificationsComponent },
+
     {path: '**', component: ErrorComponent},
     
 ];

@@ -1,0 +1,35 @@
+<app-navbar-style-two></app-navbar-style-two>
+
+<div class="page-title-area page-title-img-one"> 
+    <div class="container"> 
+        <div class="page-title-item"> 
+            <h2>Notifications</h2> 
+            <ul> 
+                <li><a routerLink="/">Home</a></li> 
+                <li><i class='bx bx-chevron-right'></i></li> 
+                <li>Notifications</li> 
+            </ul> 
+        </div> 
+    </div> 
+</div> 
+
+<div class="notification" >
+  <input type="checkbox" name="uro" id="uro">
+  <input type="checkbox" name="btn" id="btn" checked>
+  <label for="btn">
+    <span class="counter">{{ unreadCount }}</span>
+  </label>
+  <div class="panel">
+    <div class="unread-only">Only show unread <label for="uro"></label></div>
+    <ul>
+      <li *ngFor="let notification of notifications; let i = index" [ngClass]="{ 'unread': !notification.isRead, 'read': notification.isRead }">
+        <img src="assets/img/Messages.png">
+        <strong>{{ notification.user }}</strong> <span [ngStyle]="{'font-size': '2.5vmin', 'font-weight': notification.isRead ? 'normal' : 'bold'}">{{ notification.message }}</span>
+        <button *ngIf="!notification.isRead" class="mark-as-read-btn" (click)="markAsRead(i)" style="padding: 0.2vmin 1vmin; font-size: 1.75vmin; background-color: #3eb0e3; color: #fff; border: none; border-radius: 0.5vmin; margin-left: 1.5vmin;">Mark as read</button>
+        <button class="remove-btn" (click)="removeNotification(i)" style="padding: 0.2vmin 3vmin; font-size: 1.75vmin; background-color: #e74c3c; color: #fff; border: none; border-radius: 0.5vmin; margin-left: 1vmin;">Remove</button>
+      </li>
+    </ul>
+  </div>
+</div> 
+
+<app-footer-style-two></app-footer-style-two>
