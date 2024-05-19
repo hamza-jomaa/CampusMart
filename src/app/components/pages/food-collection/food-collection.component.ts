@@ -17,7 +17,7 @@ export class FoodCollectionComponent implements OnInit {
   localData: any;
   quantity: number = 1;
   quantities: { [productId: number]: number } = {};
-
+  searchText: string = '';
   itemFromGroup: FormGroup;
 
   constructor(

@@ -1,13 +1,16 @@
 import { Component, OnInit } from "@angular/core";
+import { FormControl, FormGroup } from "@angular/forms";
 import { map } from "rxjs/operators";
 import { AdminService } from "src/app/services/admin.service";
 import { ProviderService } from "src/app/services/provider.service";
+import { StoreService } from "src/app/services/store.service";
 @Component({
     selector: "app-provider",
     templateUrl: "./provider.component.html",
     styleUrls: ["./provider.component.scss"],
 })
 export class ProviderComponent implements OnInit {
+
     navIndex = 0;
     newMerchandise: any = {
         productid: null || "",
@@ -47,7 +50,7 @@ export class ProviderComponent implements OnInit {
     merchandiseList: any = [];
     storeData = {
         id: "",
-        name: "",
+        storename: "",
         image: "",
     };
     providerData:any = {
@@ -164,55 +167,15 @@ export class ProviderComponent implements OnInit {
         },
     ];
 
-    // specialRequestsData = [
-    //     {
-    //         id: 0,
-    //         name: "Request 1",
-    //         providerId: null,
-    //         providerName: "",
-    //         providerPhone: "",
-    //         consumerId: 0,
-    //         consumerName: "First consumer",
-    //         consumerPhone: "0798765432",
-    //         description: "I want a pizza from Qaisar Pizza",
-    //         date: "",
-    //         orderStatus: 0,
-    //     },
-    //     {
-    //         id: 1,
-    //         name: "Request 2",
-    //         providerId: null,
-    //         providerName: "",
-    //         providerPhone: "",
-    //         consumerId: 1,
-    //         consumerName: "Second consumer",
-    //         consumerPhone: "0787654321",
-    //         description: "I want a burger from Fire Fly",
-    //         date: "",
-    //         orderStatus: 0,
-    //     },
-    //     {
-    //         id: 2,
-    //         name: "Request 3",
-    //         providerId: null,
-    //         providerName: "",
-    //         providerPhone: "",
-    //         consumerId: 2,
-    //         consumerName: "Third consumer",
-    //         consumerPhone: "0776543210",
-    //         description: "I want Hotdogs from Wazzap dog",
-    //         date: "",
-    //         orderStatus: 0,
-    //     },
-    // ];
-
     pendingSpecialRequests: any[] = [];
     selectedSpecialRequest: any;
     filteredOrdersById: any;
     //providerId: any;
     constructor(
+       
         public admin: AdminService,
-        private providerService: ProviderService
+        private providerService: ProviderService,
+        private storeService:StoreService
     ) {}
 
     ngOnInit(): void {
@@ -244,7 +207,7 @@ export class ProviderComponent implements OnInit {
                     console.log(res)
                     this.storeData = {
                         id: res.storeId,
-                        name: res.storename,
+                        storename: res.storename,
                         image: res.image,
                     };
                 }
@@ -318,7 +281,7 @@ export class ProviderComponent implements OnInit {
       
         let storeData=storeForm.value;
         storeData.providerid=this.providerData.providerid
-        this.providerService.createStore(storeData);
+        this.storeService.createStore(storeData);
         console.log(storeData)
         if (storeForm.valid) {
             //  if (this.editingItem !== null) {
@@ -328,7 +291,7 @@ export class ProviderComponent implements OnInit {
             //  } else {
             //add merchandise
             this.newMerchandise.status = "pending";
-            this.providerService.createStore(storeForm.value);
+           // this.providerService.createStore(storeForm.value);
             //   this.merchandiseList.push(this.newMerchandise);
             //  }
             this.resetForm();
@@ -403,7 +366,7 @@ export class ProviderComponent implements OnInit {
             };
         }
     }
-    updateStoreImage(event: any) {
+   /* updateStoreImage(event: any) {
         const file: File = event.target.files[0];
         if (file) {
             const reader = new FileReader();
@@ -413,7 +376,17 @@ export class ProviderComponent implements OnInit {
                 this.storeData.image = e.target.result;
             };
         }
-    }
+    }*/
+    
+    uploadStoreImage(file: any) {
+        if (file.length === 0)
+          return;
+        let fileToUpload = <File>file[0];
+        const formData = new FormData();
+        formData.append('file', fileToUpload, fileToUpload.name);
+    
+        this.storeService.uploadStoreImage(formData);
+      }
     resetForm() {
         this.showForm = false;
         this.showOrder = false;

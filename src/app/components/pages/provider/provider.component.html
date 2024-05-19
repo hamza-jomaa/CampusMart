@@ -283,18 +283,19 @@
                 <input
                     type="text"
                     id="name"
-                    name="name"
-                    [(ngModel)]="storeData.name"
+                    name="storename"
+                    [(ngModel)]="storeData.storename"
                     required
                 />
 
                 <div style="display: flex; flex-direction: column">
                     <label for="image">Image:</label>
                     <input
-                        type="file"
-                        id="imageInput"
-                        name="imageInput"
-                        (change)="updateStoreImage($event)"
+                    type="file"
+                        id="image"
+                        name="image"
+                        #file
+                        (change)="uploadStoreImage(file.files)"
                     />
                 </div>
 

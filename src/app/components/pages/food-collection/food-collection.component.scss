@@ -1,0 +1,38 @@
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style-type: none;
+}
+
+.search-wrapper {
+    display: inline-flex;
+    align-items: center;
+    
+}
+
+.search-input {
+    max-width: 200px;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 20px 20px 20px 20px;
+    outline: none;
+}
+
+.search-icon {
+    padding: 8px 12px;
+    font-size: 14px;
+    background-color: #0056b3;
+    color: white;
+    cursor: pointer;
+    border-radius: 0 20px 20px 0;
+}
+
+.search-icon i {
+    margin-right: 5px;
+}
+
+.search-icon:hover {
+    background-color: #003d82;
+}

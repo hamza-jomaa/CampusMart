@@ -2,6 +2,7 @@
  
 <div class="page-title-area page-title-img-one"> 
     <div class="container"> 
+        
         <div class="page-title-item"> 
             <h2>Market Place</h2> 
             <ul> 
@@ -16,21 +17,30 @@
 <section class="collection-area collection-area-two pt-100 pb-70"> 
     <div class="container"> 
         <div class="section-title"> 
+       
             <h2>Market Place</h2> 
             <p>Our market shop is not just a place to shop; it's a celebration of flavors, where each product tells a story of quality, craftsmanship, and culinary passion.</p> 
+            
         </div> 
  
-        <div class="sorting-menu"> 
-            <ul>  
-               <li class="filter active" data-filter="all">All</li> 
-               <li class="filter" data-filter=".ui">Stationery</li> 
-               <li class="filter" data-filter=".ux">Dessert</li> 
-               <li class="filter" data-filter=".branding">Juice</li> 
+        <div class="sorting-menu" style="display: flex; align-items: center; justify-content: center;">
+            <ul class="search-container" style="list-style-type: none;">  
+                <li class="filter active" data-filter="all">All</li> 
+                <li class="filter" data-filter=".ui">Stationery</li> 
+                <li class="filter" data-filter=".ux">Dessert</li> 
+                <li class="filter" data-filter=".branding">Juice</li> 
+                <div class="search-wrapper" style="display: inline-flex; align-items: right; margin-right: 50px;">
+                    <input type="text" [(ngModel)]="searchText" class="search-input" placeholder="Search Merchandise" aria-label="Search" />
+                    <i class="bx bx-search" style="padding: 8px 12px; font-size: 14px;  color: rgb(92, 89, 89); cursor: pointer; border-radius: 0 20px 20px 0;"></i>
+                </div>
+                
             </ul> 
-        </div> 
+        </div>
+        
+        
  
         <div id="Container" class="row"> 
-            <div class="col-sm-6 col-lg-3 mix ui" *ngFor="let merchandise of allMerchandise"> 
+            <div class="col-sm-6 col-lg-3 mix ui" *ngFor="let merchandise of (allMerchandise | searchMerchandise:searchText:['name'])"> 
                 <div class="collection-item" > 
                     <div class="collection-top"> 
                         <img src="assets/img/items/shopsItems/Calculators .jpg" alt="Collection"> 
