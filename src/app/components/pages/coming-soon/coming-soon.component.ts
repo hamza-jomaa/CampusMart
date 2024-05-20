@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { CampusConsumerService } from 'src/app/services/campus-consumer.service';
 import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
@@ -12,7 +13,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 export class ComingSoonComponent implements OnInit {
   profileForm: FormGroup;
   showForm: boolean=false;
-  constructor(private formBuilder: FormBuilder,private profileService:ProfileService, private toastr: ToastrService) { }
+  constructor(private formBuilder: FormBuilder,private profileService:ProfileService, private toastr: ToastrService, private campusConsumer:CampusConsumerService) { }
   name:any;
   username:any;
   email:any;
@@ -51,18 +52,20 @@ export class ComingSoonComponent implements OnInit {
     this.toggleModal();
   }
   toggleModal(){
-    this.showForm=!this.showForm;
+    this.showForm=!this.showForm; 
   }
-  onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
+  uploadImage(file: any) {
+   
+  }
+  onFileSelected(file: any) {
+    if (file.length === 0)
+      return;
 
-        reader.onload = (e: any) => {
-            this.userdata.image = e.target.result;
-        };
-    }
+    let fileToUpload = <File>file[0];
+    const formData = new FormData();
+    formData.append('file', fileToUpload, fileToUpload.name);
+
+    this.campusConsumer.uploadAttachment(formData);
 }
   submitForm(formData) {
     if (formData.valid) {

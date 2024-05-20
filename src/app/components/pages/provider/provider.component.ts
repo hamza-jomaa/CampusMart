@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { map } from "rxjs/operators";
 import { AdminService } from "src/app/services/admin.service";
 import { ProviderService } from "src/app/services/provider.service";
+import { StoreService } from "src/app/services/store.service";
 @Component({
     selector: "app-provider",
     templateUrl: "./provider.component.html",
@@ -45,11 +46,7 @@ export class ProviderComponent implements OnInit {
     editingSpecialRequestIndex = null;
     editingItem = false;
     merchandiseList: any = [];
-    storeData = {
-        id: "",
-        name: "",
-        image: "",
-    };
+    storeData:any;
     providerData:any = {
         "providerid": '',
         "phone": '',
@@ -212,7 +209,7 @@ export class ProviderComponent implements OnInit {
     //providerId: any;
     constructor(
         public admin: AdminService,
-        private providerService: ProviderService
+        private providerService: ProviderService,public storeService:StoreService
     ) {}
 
     ngOnInit(): void {
@@ -238,13 +235,11 @@ export class ProviderComponent implements OnInit {
             this.providerData = res.filter(
                 (provider) => provider.consumerid == userData.login_ConsumerID
             )[0];
-            console.log('this.providerData',this.providerData)
             this.providerService.getStore(this.providerData.providerid).subscribe((res) => {
                 if (res) {
-                    console.log(res)
                     this.storeData = {
-                        id: res.storeId,
-                        name: res.storename,
+                        id: res.storeid,
+                        storename: res.storename,
                         image: res.image,
                     };
                 }
@@ -298,28 +293,46 @@ export class ProviderComponent implements OnInit {
     submitForm(formData) {
         this.showForm = false;
         if (formData.valid) {
-            if (this.editingItem !== null) {
-                //edit merchandise
-                this.merchandiseList[this.editingItemIndex] =
-                    this.newMerchandise;
-                this.newMerchandise.status = "pending";
-                this.providerService.updateMerchandise(this.newMerchandise);
-                this.editingItemIndex = null;
-            } else {
-                //add merchandise
-                this.newMerchandise.status = "pending";
-                this.providerService.createMerchandise(this.newMerchandise);
-                //   this.merchandiseList.push(this.newMerchandise);
-            }
-            this.resetForm();
+            this.providerService.getStore(this.providerData.providerid).subscribe((res) => {
+                if (res) {
+                    console.log('this.storeData',res)
+                    this.storeData = {
+                        id: res.storeid,
+                        storename: res.storename,
+                        image: res.image,
+                    };
+                    if (this.editingItem) {
+                        //edit merchandise
+                        this.merchandiseList[this.editingItemIndex] =
+                            this.newMerchandise;
+                        this.newMerchandise.status = "pending";
+                        
+                        this.providerService.updateMerchandise(this.newMerchandise);
+                        this.editingItemIndex = null;
+                    } else {
+                        //add merchandise
+                        console.log("formData",formData.value)
+                        this.newMerchandise =formData.value
+                        this.newMerchandise.status = "pending";
+                        this.newMerchandise.storeId=this.storeData.id;
+                        this.newMerchandise.productid=0;
+                        this.providerService.createMerchandise(this.newMerchandise);
+                        //   this.merchandiseList.push(this.newMerchandise);
+                        this.resetForm();
+                    }
+                }
+            });
+          
+            
         }
     }
     submitStore(storeForm) {
       
-        let storeData=storeForm.value;
-        storeData.providerid=this.providerData.providerid
-        this.providerService.createStore(storeData);
-        console.log(storeData)
+        this.storeData=storeForm.value;
+        this.storeData.providerid=this.providerData.providerid
+      
+        this.providerService.createStore(this.storeData);
+        console.log(this.storeData)
         if (storeForm.valid) {
             //  if (this.editingItem !== null) {
             //edit store
@@ -327,8 +340,8 @@ export class ProviderComponent implements OnInit {
             // this.editingItemIndex = null;
             //  } else {
             //add merchandise
-            this.newMerchandise.status = "pending";
-            this.providerService.createStore(storeForm.value);
+            //this.newMerchandise.status = "pending";
+           // this.providerService.createStore(storeForm.value);
             //   this.merchandiseList.push(this.newMerchandise);
             //  }
             this.resetForm();
@@ -403,16 +416,22 @@ export class ProviderComponent implements OnInit {
             };
         }
     }
+
     updateStoreImage(event: any) {
+  
+      
         const file: File = event.target.files[0];
-        if (file) {
+          const formData = new FormData();
+          formData.append('file', file, file.name);
+          if (file) {
             const reader = new FileReader();
             reader.readAsDataURL(file);
-
+    
             reader.onload = (e: any) => {
                 this.storeData.image = e.target.result;
             };
         }
+          this.storeService.uploadStoreImage(formData);
     }
     resetForm() {
         this.showForm = false;

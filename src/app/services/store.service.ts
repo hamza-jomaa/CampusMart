@@ -9,6 +9,7 @@ export class StoreService {
   constructor(private http: HttpClient) { }
 
   All_Stores_From_All_Providers: any=[{}]; 
+  All_Stores: any=[{}]; 
   display_image: any;
 
   GetAllStoresFromAllProviders() {
@@ -24,7 +25,19 @@ export class StoreService {
     );
 
   }
-
+  GetAllStores() {
+   
+    this.http.get('https://localhost:7173/api/Store/GetAllStores').subscribe((resp:any) => { 
+          this.All_Stores = resp;
+        },
+        (error) => {
+          console.error("Failed to fetch GetAllStores: ", error); 
+          console.log(error.message);
+          console.log(error.status);
+        }
+      );
+  
+    }
   uploadStoreImage(file: FormData) {
     this.http.post('https://localhost:7173/api/Store/uploadStoreImage', file).subscribe((resp: any) => {
   this.display_image = resp.image;

@@ -14,7 +14,6 @@ export class ProfileService {
 
  
   updateConsumer(consumer:any){
-    debugger
     this.http.post(environment.backendAPI+environment.CampusConsumer.base+environment.CampusConsumer.UpdateConsumer, consumer).subscribe(
         (res: any) => {
           this.toastr.success('Your data has been updated successfully', res);

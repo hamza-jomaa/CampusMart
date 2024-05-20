@@ -11,7 +11,6 @@ export class AdminService {
   constructor(private http:HttpClient) { }
   storerequests:any=[{}];
   GetAllPendingStores(){
-    debugger;
     this.http.get('https://localhost:7173/api/Store/GetPendingStores').subscribe((res:any)=>{
       this.storerequests=res;
       console.log(this.storerequests);
@@ -29,7 +28,6 @@ export class AdminService {
   pendingMerchandise: any = [{}];
 
   getAllPendingMerchandise() {
-    debugger;
     this.http.get('https://localhost:7173/api/Merchandise/GetAllPendingMerchandise').subscribe((res:any)=>{
       this.pendingMerchandise=res;
       console.log(this.pendingMerchandise);
@@ -67,7 +65,6 @@ export class AdminService {
   }
   providerequests:any=[{}];
   getAllPendingProviders(){
-    debugger;
     this.http.get('https://localhost:7173/api/CampusServiceProvider/GetAllPendingServiceProviders').subscribe((res:any)=>{
       this.providerequests=res;
       console.log(this.providerequests);
