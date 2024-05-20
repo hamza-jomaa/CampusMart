@@ -12,7 +12,7 @@ export class CategoriesComponent implements OnInit {
   searchText: string = '';
   constructor(private router: Router,public storeService:StoreService) { }
   ngOnInit(): void {
-   this.storeService.GetAllStoresFromAllProviders();
+   this.storeService.GetAllStores();
   }
   navigateToShopDetail(storeId: number) {
       this.router.navigate(['/food-collection', storeId]);

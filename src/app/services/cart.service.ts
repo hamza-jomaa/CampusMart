@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-
+  private dataSubject = new BehaviorSubject<any[]>([]);
+  currentData = this.dataSubject.asObservable();
   constructor(private http: HttpClient) { }
 
   GetMerchanidseInCart(consumerId: number): Observable<any[]> {
@@ -31,6 +32,15 @@ export class CartService {
 deleteCartItem(cartId: number): Observable<any> {
   return this.http.delete<any>(`https://localhost:7173/api/Cart/DeleteCart/${cartId}`);
 }
-
-
+setData(data: any[]) {
+  this.dataSubject.next(data);
+}
+addItem(item: any) {
+  const currentData = this.dataSubject.value;
+  currentData.push(item);
+  this.dataSubject.next(currentData);
+}
+getData() {
+  return this.dataSubject.value;
+}
 }

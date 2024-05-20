@@ -21,7 +21,11 @@ export class CartComponent implements OnInit {
      
       this.initLocalData();
       this.consumerId=this.localData?.login_ConsumerID || '';
-      this.GetMerchanidseInCart();
+   //   this.GetMerchanidseInCart();
+   this.cartService.currentData.subscribe(data => {
+    this.allMerchandiseInCart = data;
+    console.log('data',data);
+  });
   }
   initLocalData(): void {
     const localDataString = localStorage.getItem('user');
@@ -37,7 +41,7 @@ export class CartComponent implements OnInit {
     this.cartService.GetMerchanidseInCart(this.consumerId).subscribe(
       (data) => {
         console.log('All Merchindise In Cart:', data); 
-        this.allMerchandiseInCart = data;
+       
       },
       (error) => {
         console.error('Error ', error);

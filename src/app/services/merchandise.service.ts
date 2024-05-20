@@ -13,7 +13,7 @@ export class MerchandiseService {
   getAllMerchandiseByStoreId(storeId:number): Observable<any[]> {
     return this.http.get<any[]>(`https://localhost:7173/api/Merchandise/GetMerchandiseInfoByStoreID?storeId=${storeId}`);
   }
-
+ 
   uploadMerchandiseImage(file: FormData) {
     this.http.post('https://localhost:7173/api/Merchandise/uploadMerchandiseImage', file).subscribe((resp: any) => {
   this.display_image = resp.image;
@@ -22,5 +22,8 @@ export class MerchandiseService {
   (error: any) => {
    // this.toastr.error("Error Occured");
   })
+}
+getMerchandiseById(id:number): Observable<any[]> {
+  return this.http.get<any[]>(`https://localhost:7173/api/Merchandise/GetMerchandiseById/${id}`);
 }
 }
