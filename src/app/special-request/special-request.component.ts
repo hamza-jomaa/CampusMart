@@ -23,9 +23,11 @@ export class SpecialRequestComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private http: HttpClient // Inject HttpClient
   ) {}
-
+ consumerdata:any
   ngOnInit(): void {
     this.initForm();
+   
+
   }
 
   initForm(): void {
