@@ -2,16 +2,15 @@
 <div class="page-title-area page-title-img-one">
   <div class="container">
       <div class="page-title-item">
-          <h2>Testimonals</h2>
+          <h2>Testimonials</h2>
           <ul>
               <li><a routerLink="/">Home</a></li>
-              <li><i class='bx bx-chevron-right' ></i></li>
-              <li>testimonals</li>
+              <li><i class='bx bx-chevron-right'></i></li>
+              <li>Testimonials</li>
           </ul>
       </div>
   </div>
 </div>
-
 
 <div class="container" style="display: flex; justify-content: center; align-items: center;">
   <div class="search__container">
@@ -20,7 +19,7 @@
         To quickly discover<span style="color: #ffbe00; font-weight: bold; font-size: 16px;">&nbsp;testimonials&nbsp;</span>about a particular date, search here.
       </h6>
       <br />
-      <input class="search__input" type="text" placeholder="Enter date..." [(ngModel)]="searchedDate" (keyup.enter)="searchTestimonialsByDate()">
+      <input class="search__input" type="text" placeholder="Enter date in format like 'May 12, 2024'" [(ngModel)]="searchedDate" (keyup.enter)="searchTestimonialsByDate()">
     </div>
   </div>
 </div>
@@ -29,14 +28,21 @@
 
 <div class="container">
   <div class="testim-content">
-    <div class="testim-box" *ngFor="let testimonial of acceptedTestimonials">
-      <p>{{ testimonial.testimonialtext }}</p>
-      <div class="testim-box-content">
-        <p class="post-date">Posted on {{ testimonial.dateposted | date: 'longDate' }}</p>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let testimonial of acceptedTestimonials; let i = index;">
+        <figure class="snip1390" style="background-color: #ffffff;">
+          <img src="assets/img/ProfileImage.png" alt="profile-sample3" class="profile" />
+          <figcaption>
+            <blockquote>{{ testimonial.testimonialtext }}</blockquote>
+            <p class="post-date">Posted on {{ testimonial.dateposted | date: 'longDate' }}</p>
+          </figcaption>
+        </figure>
+        <div *ngIf="(i + 1) % 3 === 0" class="clearfix"></div>
       </div>
     </div>
   </div>
 </div>
+
 
 <div style="text-align: center; margin-top: 20px;">
     <p>If you'd like to add your own testimonial, press here to navigate to the <a routerLink="/writetestmonial">Write Testimonial</a> page.</p>
