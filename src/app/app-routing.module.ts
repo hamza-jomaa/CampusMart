@@ -34,7 +34,11 @@ import { ProviderComponent } from './components/pages/provider/provider.componen
 import { AuthModule } from './auth/auth.module';
 
 import { HomeComponent } from "./components/pages/home/home.component";
-import { NotificationsComponent } from "./notifications/notifications.component";
+//import { NotificationsComponent } from "./notifications/notifications.component";
+import { consumerGuard } from "./guards/consumer.guard";
+import { providerGuard } from "./guards/provider.guard";
+import { AuthAdminGuard } from "./guards/auth-admin.guard";
+
 
 const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -63,7 +67,7 @@ const routes: Routes = [
     {path: 'contact', component: ContactComponent},
     { path: 'testimonals', component: TesimonalsComponent },
     { path: 'trackorder', component: TrackorderComponent },
-    {path: 'apply-as-sp', component: ApplyAsSPComponent },
+    {path: 'apply-as-sp', component: ApplyAsSPComponent ,canActivate:[consumerGuard]},
     // {path: 'login', component: LoginComponent },
     // {path: 'signup', component : SignupComponent },
 
@@ -78,9 +82,9 @@ const routes: Routes = [
        },
     { path: 'special-request', component: SpecialRequestComponent },
     { path: 'writetestmonial', component: WritetestmonialComponent },
-    { path: 'provider', component: ProviderComponent },
-    {path:'admin', loadChildren:()=>import('./admin/admin.module').then((m)=>m.AdminModule)},
-    { path: 'notification', component: NotificationsComponent },
+    { path: 'provider', component: ProviderComponent,canActivate:[providerGuard] },
+    {path:'admin', loadChildren:()=>import('./admin/admin.module').then((m)=>m.AdminModule),canActivate:[AuthAdminGuard] },
+   // { path: 'notification', component: NotificationsComponent },
 
     {path: '**', component: ErrorComponent},
     

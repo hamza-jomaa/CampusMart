@@ -36,8 +36,9 @@ export class AuthService {
 
       let userData: any = localStorage.getItem("user");
       userData = JSON.parse(userData);
-      
-      if(userData.roleID === "1") {
+      console.log(userData.login_RoleID)
+      if(userData.login_RoleID === "1") {
+        console.log(userData.login_RoleID)
         this.router.navigate(["admin/"])
       } else {
         this.router.navigate([""])
