@@ -80,10 +80,30 @@ export class FoodCollectionComponent implements OnInit {
                     this.merchandise=res;
                     this.merchandise.quantity=this.quantities;
                     this.quantities=1;
-                    this.cartService.addItem(res);
+                    this.cartService.currentData.subscribe(res=>{
+                        if(res?.length>0){
+                            if(!this.includesProductid(res,this.merchandise.productid)){
+                                this.cartService.addItem(this.merchandise);
+                            }
+                            // let i = 0;
+                            // while (i < res.length) {
+                            //     if (res[i].productid == this.merchandise.productid) {
+                            //         break;
+                            //     }
+                            //     i++;
+                            // }
+                            
+                        }else{
+                            this.cartService.addItem(this.merchandise);
+                        }
+
+                    })
+                     
                 }
                 
             });
+
+
 
         // const previousProductId = this.itemFromGroup.value.productid;
         // const previousConsumerId = this.itemFromGroup.value.consumerId;
@@ -166,6 +186,11 @@ export class FoodCollectionComponent implements OnInit {
         // } else {
         //     console.error("Price is undefined for the merchandise item");
         // }
+    }
+     
+
+    includesProductid(array, productid) {
+        return array.some(item => item?.productid === productid);
     }
 
     decreaseQuantity(): void {
