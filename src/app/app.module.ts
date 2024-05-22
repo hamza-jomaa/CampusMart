@@ -124,7 +124,7 @@ import { SearchstorePipe } from './pipes/searchstore.pipe';
     NgConfirmModule
   ],
  // exports:[CitEmailValidatorDirective],
-  providers: [],
+  providers: [Geolocation],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })

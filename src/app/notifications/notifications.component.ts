@@ -10,18 +10,15 @@ export class NotificationsComponent implements OnInit {
   userId: number;
 
   ngOnInit(): void {
-    console.log('NotificationsComponent initialized.');
     this.initLocalData();
     this.loadNotifications();
-    console.log('NotificationsComponent end');
   }
   
   initLocalData(): void {
     const localDataString = localStorage.getItem('user');
     if (localDataString) {
       const localData = JSON.parse(localDataString);
-      this.userId = Number(localData.login_ConsumerID); // Parse as number
-      console.log('User ID:', this.userId);
+      this.userId = Number(localData.login_ConsumerID);
     } else {
       console.error('No local data found');
     }
@@ -29,10 +26,7 @@ export class NotificationsComponent implements OnInit {
 
   loadNotifications(): void {
     const allNotifications = JSON.parse(localStorage.getItem('notifications') || '[]');
-    console.log('All Notifications:', allNotifications);
-    console.log('User ID:', this.userId);
-    this.notifications = allNotifications.filter((n: any) => Number(n.userId) === this.userId); // Load all notifications
-    console.log('Filtered Notifications:', this.notifications);
+    this.notifications = allNotifications.filter((n: any) => Number(n.userId) === this.userId);
   }
 
   markAsRead(notificationIndex: number): void {

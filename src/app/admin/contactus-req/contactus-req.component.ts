@@ -20,7 +20,6 @@ export class ContactusReqComponent implements OnInit {
     this.adminService.getAllContactUS().subscribe(
       (data) => {
         this.contactUsList = data;
-        console.log('Contact Us:', data);
       },
       (error) => {
         console.error('Error fetching Contact Us:', error);

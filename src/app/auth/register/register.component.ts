@@ -56,7 +56,6 @@ export class RegisterComponent {
     this.spinner.hide();
   },3000)
   
-    console.log(this.registerForm.value);
     this.registerForm.value.roleid=2;
     this.registerForm.value.isprovider=0;
 

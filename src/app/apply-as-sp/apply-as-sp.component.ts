@@ -38,7 +38,6 @@ export class ApplyAsSPComponent implements OnInit {
         let userData: any = localStorage.getItem("user");
       userData = JSON.parse(userData);
         this.providerData.consumerid=userData.login_ConsumerID;
-        console.log("this.providerData",this.providerData)
         this.adminService
             .createServiceProvider(this.providerData)
             .subscribe(

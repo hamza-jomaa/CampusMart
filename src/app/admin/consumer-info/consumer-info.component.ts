@@ -22,7 +22,6 @@ export class ConsumerInfoComponent implements OnInit {
     this.admin.getAllConsumers().subscribe(
       (data) => {
         this.admin.consumersInfo = data;
-        console.log('Consumers:', data);
       },
       (error) => {
         console.error('Error fetching consumers:', error);
@@ -40,7 +39,6 @@ export class ConsumerInfoComponent implements OnInit {
       if (result === true) {
         this.admin.blockUser(consumerId).subscribe(
           () => {
-            console.log('User blocked successfully');
             this.fetchConsumers();  
             this.toastr.success('Blocked Successfully!', 'Success', {
               positionClass: 'toast-top-right', 
@@ -58,7 +56,6 @@ export class ConsumerInfoComponent implements OnInit {
                      }
         );
       } else {
-        console.log('User canceled the action');
       }
     });
   }

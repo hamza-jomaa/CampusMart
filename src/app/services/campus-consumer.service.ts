@@ -17,10 +17,7 @@ export class CampusConsumerService {
     body.imagepath=this.display_image
     this.http.post(environment.backendAPI+environment.CampusConsumer.base+environment.CampusConsumer.CreateCampusConsumerLogin, body).subscribe(
       (resp: any) => {
-        this.router.navigate(['/auth/login']); 
-        //this.toastr.success('Signed Up Successfully, Please Login To Continue');
-        console.log(resp)
-        console.log(body)
+        this.router.navigate(['/auth/login']);
       },
       (error: any) => {
         //this.toastr.error('Error Occurred');

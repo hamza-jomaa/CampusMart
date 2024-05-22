@@ -19,7 +19,6 @@ export class StoreInfoComponent implements OnInit {
     this.adminService.getAllStores().subscribe(
       (data) => {
         this.storesInfo = data.filter(store => store.approvalstatus === 'Accept');
-        console.log('Accepted Stores:', this.storesInfo);
       },
       (error) => {
         console.error('Error fetching stores:', error);

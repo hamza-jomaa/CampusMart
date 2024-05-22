@@ -125,9 +125,9 @@
                     </ul>
                     
                     <div class="side-nav">
-
+ 
                         
-                        <a class="nav-cart" routerLink="/cart"><i class='bx bxs-cart'></i> <span>1</span></a>
+                        <a class="nav-cart" routerLink="/cart"><i class='bx bxs-cart'></i> <span *ngIf="allMerchandiseInCart>0">{{allMerchandiseInCart}}</span></a>
                         <a href="/auth/login" class="nav-tel">Login</a>
                     </div>
                 </div>

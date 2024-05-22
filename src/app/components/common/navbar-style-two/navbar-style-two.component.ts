@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CartService } from 'src/app/services/cart.service';
 
 
 @Component({
@@ -9,11 +10,15 @@ import { Component, OnInit } from '@angular/core';
 export class NavbarStyleTwoComponent implements OnInit {
   isLoggedIn: boolean = false;
   userName: string = '';
-  constructor() { }
+  allMerchandiseInCart:any=0;
+  constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
 
+    this.cartService.currentData.subscribe((data) => {
+      this.allMerchandiseInCart = data.length;
       
+  });
      
  
   }

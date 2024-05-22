@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class StoreService {
   All_Stores_From_All_Providers: any=[{}]; 
   All_Stores: any=[{}]; 
   display_image: any;
-
+  private storeData= new BehaviorSubject<any>(null);
+  storeData$ = this.storeData.asObservable();
   GetAllStoresFromAllProviders() {
    
   this.http.get('https://localhost:7173/api/Store/GetAllStoresFromAllProviders').subscribe((resp:any) => { 
@@ -19,8 +21,6 @@ export class StoreService {
       },
       (error) => {
         console.error("Failed to fetch GetAllStoresFromAllProviders: ", error); 
-        console.log(error.message);
-        console.log(error.status);
       }
     );
 
@@ -32,8 +32,6 @@ export class StoreService {
         },
         (error) => {
           console.error("Failed to fetch GetAllStores: ", error); 
-          console.log(error.message);
-          console.log(error.status);
         }
       );
   
@@ -46,5 +44,9 @@ export class StoreService {
   (error: any) => {
    // this.toastr.error("Error Occured");
   })
+}
+
+setStoreData(storeData:any){
+  this.storeData.next(storeData);
 }
 }

@@ -28,3 +28,15 @@
 .refresh-button:hover {
     background-color: #003366;
 }
+.checkoutBtn{
+    margin-top: 20px;
+    display: inline-block;
+    color: #ffffff;
+    background-color: #ffbe00;
+    font-size: 17px;
+    padding: 15px 60px;
+    border: none;
+    &.disabled{
+        background-color: #c3c3c3;  
+    }
+}

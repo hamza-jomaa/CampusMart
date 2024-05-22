@@ -1,10 +1,14 @@
 <app-navbar-style-two></app-navbar-style-two>
 <div class="page-title-area page-title-img-one">
+ 
     <div class="container">
+       
         <div class="page-title-item">
             <h2>Cart</h2>
             <ul>
                 <li><a routerLink="/">Home</a></li>
+                <li><i class='bx bx-chevron-right' ></i></li>
+                <li><a routerLink="/food-collection/{{storeData.storeid}}">{{storeData.storename}}</a></li>
                 <li><i class='bx bx-chevron-right' ></i></li>
                 <li>Cart</li>
             </ul>
@@ -12,6 +16,7 @@
     </div>
 </div>
 <section class="cart-area ptb-100">
+    <!-- <a routerLink="/food-collection/{{storeData.storeid}}">Back</a> -->
     <div class="container">
         <div class="cart-wrap"> 
             <table class="table">
@@ -30,7 +35,7 @@
                         <td>{{merchandise.name}}</td>
                         <td>${{merchandise.price}}</td>
                         <td>{{ merchandise.quantity }}</td>
-                        <td><a (click)="deleteItem(merchandise.cartID)"><i class='bx bx-x'></i></a></td>
+                        <td><a (click)="deleteItem(merchandise)"><i class='bx bx-x'></i></a></td>
                     </tr>
                 </tbody>
             </table>
@@ -42,7 +47,7 @@
             <div class="total-shopping">
                 <h2>Total Order</h2>
                 <h3>Total: <span>${{calculateTotal()}}</span></h3>
-                <a routerLink="/checkout">Checkout Items</a>
+                <button class="checkoutBtn" [class.disabled]="allMerchandiseInCart.length==0" [disabled]="allMerchandiseInCart.length==0" routerLink="/checkout">Checkout Items</button>
             </div>
         </div>
     </div>

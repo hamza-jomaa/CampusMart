@@ -39,7 +39,13 @@ export const environment = {
   },
   Order:{
     base:'Order',
-    GetAllOrders:'/GetAllOrders'
+    GetAllOrders:'/GetAllOrders',
+    CreateOrder:"/CreateOrder"
+  },
+  Cart:{
+    base:'Cart',
+    CreateCart:'/CreateCart',
+    GetAllCarts:'/GetAllCarts'
   }
 };
 

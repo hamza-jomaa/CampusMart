@@ -26,13 +26,10 @@ export class ProviderRequestComponent implements OnInit {
       if (result === true) {
         this.admin.acceptProvider(consumerId, providerId).subscribe(
           () => {
-            console.log('Provider accepted successfully.');
             this.admin.getAllPendingProviders();
 
             // Adding debugging statements
-            console.log('Adding notification...');
             this.addNotification(consumerId, 'Your request to become a provider has been accepted.');
-            console.log('Notification added.');
 
             this.toastr.success('Provider Accepted Successfully!', 'Success', {
               positionClass: 'toast-top-right',
@@ -48,7 +45,6 @@ export class ProviderRequestComponent implements OnInit {
           }
         );
       } else {
-        console.log('User canceled the action');
       }
     });
   }
@@ -69,7 +65,6 @@ export class ProviderRequestComponent implements OnInit {
       if (result === true) {
         this.admin.rejectProvider(consumerId, providerId).subscribe(
           () => {
-            console.log('Provider rejected successfully.');
             this.admin.getAllPendingProviders();
             this.toastr.success('Provider Rejected Successfully!', 'Success', {
               positionClass: 'toast-top-right',
@@ -85,7 +80,6 @@ export class ProviderRequestComponent implements OnInit {
           }
         );
       } else {
-        console.log('User canceled the action');
       }
     });
   }

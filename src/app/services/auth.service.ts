@@ -2,13 +2,17 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
+import { ProfileService } from './profile.service';
+import { ProviderService } from './provider.service';
+import { StoreService } from './store.service';
+import { CheckoutService } from './checkout.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http:HttpClient,private router: Router) { }
+  constructor(private http:HttpClient,private router: Router, private profileService:ProfileService,private providerService: ProviderService,public storeService:StoreService,private checkoutService:CheckoutService) { }
 
   
   Login(body: any) {
@@ -31,21 +35,36 @@ export class AuthService {
 
       localStorage.setItem("token", response.token);
       let data: any = jwtDecode(response.token);
-      console.log(data);
       localStorage.setItem("user", JSON  .stringify(data));
 
       let userData: any = localStorage.getItem("user");
       userData = JSON.parse(userData);
-      console.log(userData.login_RoleID)
-      if(userData.login_RoleID === "1") {
-        console.log(userData.login_RoleID)
+      this.profileService.getConsumerById(userData.login_ConsumerID).subscribe(ConsumerRes=>{
+        if(ConsumerRes){
+          this.profileService.setConsumerData(ConsumerRes);
+          this.checkoutService.setConsumerData(ConsumerRes);
+          this.providerService.GetAllServiceProviders().subscribe((providerRes: any) => {
+            this.providerService.setProviderData(providerRes.filter(
+              (provider) => provider.consumerid == userData.login_ConsumerID
+          )[0]);
+            
+            this.providerService.getStore(providerRes.filter(
+              (provider) => provider.consumerid == userData.login_ConsumerID
+          )[0].providerid).subscribe((storeRes) => {
+                if (storeRes) {
+                  this.storeService.setStoreData(storeRes);
+                }
+            });
+        });
+        }
+      })
+      
+      if(userData.roleID === "1") {
         this.router.navigate(["admin/"])
       } else {
         this.router.navigate([""])
       }
     }, (err) => {
-      //this.toastr.error("Something went wrong")
-      console.log(err);
     })
   }
 

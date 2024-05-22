@@ -277,7 +277,6 @@ export class ProviderComponent implements OnInit {
         this.navIndex = index;
     }
     addItem() {
-        console.log("clicked");
         this.toggleModal();
         this.editingItem = false;
     }
@@ -295,7 +294,6 @@ export class ProviderComponent implements OnInit {
         if (formData.valid) {
             this.providerService.getStore(this.providerData.providerid).subscribe((res) => {
                 if (res) {
-                    console.log('this.storeData',res)
                     this.storeData = {
                         id: res.storeid,
                         storename: res.storename,
@@ -311,7 +309,6 @@ export class ProviderComponent implements OnInit {
                         this.editingItemIndex = null;
                     } else {
                         //add merchandise
-                        console.log("formData",formData.value)
                         this.newMerchandise =formData.value
                         this.newMerchandise.status = "pending";
                         this.newMerchandise.storeId=this.storeData.id;
@@ -332,7 +329,6 @@ export class ProviderComponent implements OnInit {
         this.storeData.providerid=this.providerData.providerid
       
         this.providerService.createStore(this.storeData);
-        console.log(this.storeData)
         if (storeForm.valid) {
             //  if (this.editingItem !== null) {
             //edit store

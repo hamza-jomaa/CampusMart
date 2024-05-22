@@ -25,7 +25,6 @@ export class ComingSoonComponent implements OnInit {
     
     this.profileService.getConsumerById(this.apiUserData.login_ConsumerID).subscribe(
       (res: any) => {
-        console.log('res',res)
         this.userdata={
           name:res.fullname,
           username:res.fullname,
@@ -69,11 +68,8 @@ export class ComingSoonComponent implements OnInit {
 }
   submitForm(formData) {
     if (formData.valid) {
-      //add consumer Id 
-      console.log('this.profileForm',formData.form.value)
       this.profileService.updateConsumer(formData.form.value);
     } else {
-      console.log('Form is invalid');
     }
   }
 }

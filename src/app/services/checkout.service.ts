@@ -8,9 +8,13 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class ProfileService {
+export class CheckoutService {
   private userData= new BehaviorSubject<any>(null);
   userData$ = this.userData.asObservable();
+  private storeData= new BehaviorSubject<any>(null);
+  storeData$ = this.storeData.asObservable();
+  private providerData= new BehaviorSubject<any>(null);
+  providerData$ = this.providerData.asObservable();
   constructor(private http: HttpClient,private router: Router, private toastr: ToastrService) { }
 
  
@@ -24,11 +28,18 @@ export class ProfileService {
         }
       );
   }
+ 
   getConsumerById(id:any){
     return this.http.get(environment.backendAPI+environment.CampusConsumer.base+environment.CampusConsumer.GetConsumerById+'/'+id);
   }
   setConsumerData(ConsumerData:any){
     this.userData.next(ConsumerData);
+  }
+  setProviderData(provider:any){
+    this.providerData.next(provider);
+  }
+  setStoreData(storeData:any){
+    this.storeData.next(storeData);
   }
 }
 

@@ -35,7 +35,6 @@ export class SpecialRequestComponent implements OnInit {
     const localDataString = localStorage.getItem('user');
     if (localDataString) {
       this.localData = JSON.parse(localDataString);
-      console.log(this.localData.login_ConsumerID);
     } else {
       console.error('No local data found');
     }

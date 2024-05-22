@@ -12,14 +12,14 @@ import { ProviderService } from "src/app/services/provider.service";
     styleUrls: ["./food-collection.component.scss"],
 })
 export class FoodCollectionComponent implements OnInit {
-    storeId?: number;
+    storeData?: any;
     allMerchandise: any[] = [];
     localData: any;
     quantity: number = 1;
     quantities: { [productId: number]: number } = {};
-    carts: any[]=[];
+    carts: any[] = [];
     itemFromGroup: FormGroup;
-
+    
     constructor(
         private route: ActivatedRoute,
         private router: Router,
@@ -37,26 +37,23 @@ export class FoodCollectionComponent implements OnInit {
 
     ngOnInit(): void {
         this.initLocalData();
-        this.route.params.subscribe((params) => {
-            this.storeId = +params["storeId"];
-            if (this.storeId) {
+        this.cartService.storeID.subscribe((res) => {
+            this.storeData = res;
+            if (this.storeData?.storeid) {
                 this.getAllMerchandiseByStoreId();
             } else {
                 console.error("Store ID is not defined");
             }
         });
-        //  this.getCartItems();
-       
+    
     }
 
     getAllMerchandiseByStoreId() {
-        this.storeId;
         this.providerService.getAllMerchandise().subscribe(
             (data) => {
                 this.allMerchandise = data.filter(
-                    (merch) => merch.storeid == this.storeId
+                    (merch) => merch.storeid == this.storeData?.storeid
                 );
-                console.log("this.allMerchandise", this.allMerchandise);
             },
             (error) => {
                 console.error("Error fetching All Merchandise:", error);
@@ -74,12 +71,13 @@ export class FoodCollectionComponent implements OnInit {
     }
 
     addToCart(merchandiseId: number) {
-      this.merchandiseService.getMerchandiseById(merchandiseId).subscribe(res=>{
-        // this.carts.push(res);
-        this.cartService.addItem(res);
-        
-      })
-      
+        this.merchandiseService
+            .getMerchandiseById(merchandiseId)
+            .subscribe((res) => {
+                // this.carts.push(res);
+                this.cartService.addItem(res);
+            });
+
         // const previousProductId = this.itemFromGroup.value.productid;
         // const previousConsumerId = this.itemFromGroup.value.consumerId;
         // const productId = merchandiseId || previousProductId;
@@ -177,7 +175,6 @@ export class FoodCollectionComponent implements OnInit {
         const consumerId = this.localData?.login_ConsumerID || "";
         this.cartService.GetMerchanidseInCart(consumerId).subscribe(
             (cartItems: any[]) => {
-                console.log("Cart Items:", cartItems);
             },
             (error) => {
                 console.error("Error fetching cart items:", error);

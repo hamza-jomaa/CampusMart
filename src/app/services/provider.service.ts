@@ -2,14 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProviderService {
-
+  private providerData= new BehaviorSubject<any>(null);
+  providerData$ = this.providerData.asObservable();
   constructor(private http: HttpClient,private router: Router, private toastr: ToastrService) { }
 
   createMerchandise(merchandise:any){
@@ -90,5 +91,8 @@ export class ProviderService {
   }
   GetAllServiceProviders(){
     return this.http.get(environment.backendAPI+environment.CampusServiceProvider.base+environment.CampusServiceProvider.GetAllServiceProviders); 
+  }
+  setProviderData(provider:any){
+    this.providerData.next(provider);
   }
 }

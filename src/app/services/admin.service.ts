@@ -13,9 +13,7 @@ export class AdminService {
   GetAllPendingStores(){
     this.http.get('https://localhost:7173/api/Store/GetPendingStores').subscribe((res:any)=>{
       this.storerequests=res;
-      console.log(this.storerequests);
     },err=>{
-      console.log(err.status);
     })
   }
    
@@ -30,9 +28,7 @@ export class AdminService {
   getAllPendingMerchandise() {
     this.http.get('https://localhost:7173/api/Merchandise/GetAllPendingMerchandise').subscribe((res:any)=>{
       this.pendingMerchandise=res;
-      console.log(this.pendingMerchandise);
     },err=>{
-      console.log(err.status);
     })
    
   }
@@ -67,9 +63,7 @@ export class AdminService {
   getAllPendingProviders(){
     this.http.get('https://localhost:7173/api/CampusServiceProvider/GetAllPendingServiceProviders').subscribe((res:any)=>{
       this.providerequests=res;
-      console.log(this.providerequests);
     },err=>{
-      console.log(err.status);
     })
   }
  

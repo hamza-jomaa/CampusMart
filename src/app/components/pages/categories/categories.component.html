@@ -38,8 +38,8 @@
                     <div class="feature-inner"> 
                         <ul> 
                             <li><span>{{store.storename}}</span></li> 
-                            <li><a routerLink="/merchindise1"><i class='bx bx-right-arrow-alt'></i></a></li> 
-                            <li><a (click)="navigateToShopDetail(store.storeid)"><i class='bx bx-right-arrow-alt'></i></a></li> 
+                            <li><a [class.disabled]="pickedStore?(pickedStore!=store?.storeid?true:false):false" (click)="navigateToShopDetail(store)"><i class='bx bx-right-arrow-alt'></i></a></li> 
+                            <li><button style="visibility: hidden;" [disabled]="pickedStore?(pickedStore!=store?.storeid?true:false):false" (click)="navigateToShopDetail(store)"><i class='bx bx-right-arrow-alt'></i></button></li> 
                         </ul> 
                     </div> 
                 </div> 

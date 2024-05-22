@@ -6,7 +6,12 @@ body {
     background-color: #F7CAC9;
     font-family: 'Raleway', sans-serif;
 }
-
+.feature-item .feature-inner ul li a {
+    &.disabled{
+        background-color: #b4b4b4;
+    }
+    
+}
 .search {
     &__container {
         padding-top: 64px;
@@ -57,7 +62,9 @@ body {
         }
     }
 }
-
+.row{
+    justify-content: space-evenly !important;
+}
 .credits {
     &__container {
         margin-top: 24px;

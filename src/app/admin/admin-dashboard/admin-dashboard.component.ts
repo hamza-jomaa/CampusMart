@@ -21,9 +21,7 @@ export class AdminDashboardComponent implements OnInit {
   getPendingTestimonials() {
     this.adminService.getAllPendingTestimonials().subscribe(
       (data) => {
-        console.log('All Testimonials:', data); 
         this.pendingTestimonials = data.filter(testimonial => testimonial.status === 'Pending');
-        console.log('Pending Testimonials:', this.pendingTestimonials); 
       },
       (error) => {
         console.error('Error fetching pending testimonials:', error);
