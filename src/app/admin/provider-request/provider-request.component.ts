@@ -71,6 +71,9 @@ export class ProviderRequestComponent implements OnInit {
           () => {
             console.log('Provider rejected successfully.');
             this.admin.getAllPendingProviders();
+            console.log('Adding notification...');
+            this.addNotification(consumerId, 'Your request to become a provider has been rejected.');
+            console.log('Notification added.');
             this.toastr.success('Provider Rejected Successfully!', 'Success', {
               positionClass: 'toast-top-right',
               closeButton: true,
