@@ -52,9 +52,9 @@
                             <li><span>${{merchandise.price}}</span></li> 
                             <li> 
                                 <div class="number"> 
-                                    <span class="minus" (click)="decreaseQuantity(merchandise.productid)">-</span> 
-                                    <input type="number"  [placeholder]="quantity" class="form-control" [(ngModel)]="quantities[merchandise.productid]" /> 
-                                    <span class="plus" (click)="increaseQuantity(merchandise.productid)">+</span> 
+                                    <span class="minus" (click)="decreaseQuantity()">-</span> 
+                                    <label type="number" class="form-control" [(ngModel)]="quantities" >{{quantities}}</label>
+                                    <span class="plus" (click)="increaseQuantity()">+</span> 
                                 </div> 
                             </li> 
                         </ul> 

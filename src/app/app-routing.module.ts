@@ -34,7 +34,7 @@ import { ProviderComponent } from './components/pages/provider/provider.componen
 import { AuthModule } from './auth/auth.module';
 
 import { HomeComponent } from "./components/pages/home/home.component";
-//import { NotificationsComponent } from "./notifications/notifications.component";
+import { NotificationsComponent } from "./notifications/notifications.component";
 import { consumerGuard } from "./guards/consumer.guard";
 import { providerGuard } from "./guards/provider.guard";
 import { AuthAdminGuard } from "./guards/auth-admin.guard";
@@ -84,7 +84,7 @@ const routes: Routes = [
     { path: 'writetestmonial', component: WritetestmonialComponent },
     { path: 'provider', component: ProviderComponent,canActivate:[providerGuard] },
     {path:'admin', loadChildren:()=>import('./admin/admin.module').then((m)=>m.AdminModule),canActivate:[AuthAdminGuard] },
-   // { path: 'notification', component: NotificationsComponent },
+    { path: 'notification', component: NotificationsComponent },
 
     {path: '**', component: ErrorComponent},
     

@@ -12,6 +12,8 @@ export class CartService {
   currentData = this.dataSubject.asObservable();
   private storeId= new BehaviorSubject<any>(null);
   storeID = this.storeId.asObservable();
+  private quanutity= new BehaviorSubject<any>(null);
+  quanutityID = this.quanutity.asObservable();
   constructor(private http: HttpClient, private toastr: ToastrService) { }
 
   GetMerchanidseInCart(consumerId: number): Observable<any[]> {
@@ -24,6 +26,7 @@ export class CartService {
   GetAllCarts(){
     return this.http.get(environment.backendAPI+environment.Cart.base+environment.Cart.GetAllCarts);
   }
+  
   updateCartItem(cartId: number, quantity: number, total: number, consumerId: number, productId: number): Observable<any> {
     const body = {
       cartId: cartId,
@@ -46,6 +49,12 @@ setStoreId(data: any) {
 }
 getStoreId() { 
   return this.storeId.value;
+}
+setQuantity(quanutity){
+  this.quanutity.next(quanutity);
+}
+getQuantity(){
+  return this.quanutity.value;
 }
 addItem(item: any) {
   const currentData = this.dataSubject.value;

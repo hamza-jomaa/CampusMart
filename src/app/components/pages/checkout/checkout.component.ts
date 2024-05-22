@@ -5,6 +5,7 @@ import {
     faCcMastercard,
     faCcDiscover,
 } from "@fortawesome/free-brands-svg-icons";
+import { Observable } from "rxjs";
 import { CartService } from "src/app/services/cart.service";
 import { CheckoutService } from "src/app/services/checkout.service";
 import { OrderService } from "src/app/services/order.service";
@@ -94,22 +95,29 @@ export class CheckoutComponent implements OnInit {
                     store: this.storeData,
                 })
             );
-          
-           
-            for(let i=0;i<this.allMerchandiseInCart.length;i++){
-                
-                this.cartService.CreateCartRecord(this.allMerchandiseInCart[i]).subscribe(
-                    (res: any) => {
-                        if(res==null){
-                            this.orderFun();
-                        }
-                     
-                    },
-                   
-                  );
+            const observableToPromise = (observable) => {
+                return new Promise((resolve, reject) => {
+                    observable.subscribe(
+                        (res) => resolve(res),
+                        (err) => reject(err)
+                    );
+                });
+            };
+            const createCartPromises = [];
+            for (let i = 0; i < this.allMerchandiseInCart.length; i++) {
+                const createCartObservable = this.cartService.CreateCartRecord(this.allMerchandiseInCart[i]);
+                createCartPromises.push(observableToPromise(createCartObservable));
             }
-       
-          }
+            Promise.all(createCartPromises)
+            .then((results) => {
+                const anyNull = results.some(res => res == null);
+                if (anyNull) {
+                    this.orderFun();
+                }
+            })
+            .catch((error) => {
+                console.error('Error creating cart records:', error);
+            });}
             });
     }
     orderFun(){
@@ -231,3 +239,5 @@ export class CheckoutComponent implements OnInit {
         });
     }
 }
+
+

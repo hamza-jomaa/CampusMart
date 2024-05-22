@@ -16,9 +16,10 @@ export class FoodCollectionComponent implements OnInit {
     allMerchandise: any[] = [];
     localData: any;
     quantity: number = 1;
-    quantities: { [productId: number]: number } = {};
+    quantities: number=1;
     carts: any[] = [];
     itemFromGroup: FormGroup;
+    merchandise: any;
     
     constructor(
         private route: ActivatedRoute,
@@ -75,7 +76,13 @@ export class FoodCollectionComponent implements OnInit {
             .getMerchandiseById(merchandiseId)
             .subscribe((res) => {
                 // this.carts.push(res);
-                this.cartService.addItem(res);
+                if(res){
+                    this.merchandise=res;
+                    this.merchandise.quantity=this.quantities;
+                    this.quantities=1;
+                    this.cartService.addItem(res);
+                }
+                
             });
 
         // const previousProductId = this.itemFromGroup.value.productid;
@@ -161,14 +168,14 @@ export class FoodCollectionComponent implements OnInit {
         // }
     }
 
-    decreaseQuantity(productId: number): void {
-        if (this.quantities[productId] > 1) {
-            this.quantities[productId]--;
+    decreaseQuantity(): void {
+        if (this.quantities > 0) {
+            this.quantities-=1;
         }
     }
 
-    increaseQuantity(productId: number): void {
-        this.quantities[productId] = (this.quantities[productId] || 0) + 1;
+    increaseQuantity(): void {
+        this.quantities+=1;
     }
 
     getCartItems() {
