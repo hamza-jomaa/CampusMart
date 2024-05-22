@@ -12,7 +12,7 @@ import { ContactusReqComponent } from './contactus-req/contactus-req.component';
 import { ProviderRequestComponent } from './provider-request/provider-request.component';
 const routes: Routes = [
   {
-    path:'dashboard',component:AdminDashboardComponent
+    path:'',component:AdminDashboardComponent
   },
   {
     path:'storeRequest', component:StoreRequestComponent

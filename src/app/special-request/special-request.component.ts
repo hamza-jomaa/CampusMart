@@ -23,10 +23,12 @@ export class SpecialRequestComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private http: HttpClient 
   ) {}
-
+ consumerdata:any
   ngOnInit(): void {
     this.initLocalData();
     this.initForm();
+   
+
   }
 
   initLocalData(): void {
