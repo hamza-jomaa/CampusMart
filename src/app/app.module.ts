@@ -59,6 +59,7 @@ import { AuthModule } from './auth/auth.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { SearchstorePipe } from './pipes/searchstore.pipe';
+import { AddVisaComponent } from './add-visa/add-visa.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -97,7 +98,8 @@ import { SearchstorePipe } from './pipes/searchstore.pipe';
     MatConfirmDialogComponent,
     ErrorComponent,
     NotificationsComponent,
-    SearchstorePipe
+    SearchstorePipe,
+    AddVisaComponent
    
    
     //SignupComponent,

@@ -56,4 +56,8 @@ checkIsProvider(id:any){
   console.log(this.consumerrrrData)
   return this.isprovider
 }
+
+saveVisaCardDetails(formData: any): Observable<any> {
+  return this.http.post<any>('https://localhost:7173/api/Bank/CreateBank', formData);
+}
 }

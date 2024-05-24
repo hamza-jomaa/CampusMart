@@ -66,6 +66,13 @@ removeItem(item: any) {
   const updatedData = currentData.filter(i => i !== item);
   this.dataSubject.next(updatedData);
 }
+updateItem(updatedItem: any) {
+  const currentData = this.dataSubject.value;
+  const updatedData = currentData.map(item => 
+    item.productid === updatedItem.productid ? updatedItem : item
+  );
+  this.dataSubject.next(updatedData);
+}
 getData() {
   return this.dataSubject.value;
 }

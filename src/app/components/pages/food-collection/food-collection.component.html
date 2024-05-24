@@ -1,69 +1,105 @@
 <app-navbar-style-two></app-navbar-style-two>
- 
-<div class="page-title-area page-title-img-one"> 
-    <div class="container"> 
-        <div class="page-title-item"> 
-            <h2>{{storeData.storename}}</h2> 
-            <ul> 
-                <li><a routerLink="/">Shops</a></li> 
-                <li><i class='bx bx-chevron-right' ></i></li> 
-                <li>{{storeData.storename}}</li> 
-            </ul> 
-        </div> 
-    </div> 
-</div> 
- 
-<section class="collection-area collection-area-two pt-100 pb-70"> 
-    <div class="container"> 
-        <div class="section-title"> 
-            <h2>{{storeData.storename}}</h2> 
-            <p>Our market shop is not just a place to shop; it's a celebration of flavors, where each product tells a story of quality, craftsmanship, and culinary passion.</p> 
-        </div> 
- 
-        <div class="sorting-menu"> 
-            <ul>  
-               <li class="filter active" data-filter="all">All</li> 
-               <li class="filter" data-filter=".ui">Stationery</li> 
-               <li class="filter" data-filter=".ux">Dessert</li> 
-               <li class="filter" data-filter=".branding">Juice</li> 
-            </ul> 
-        </div> 
- 
-        <div id="Container" class="row"> 
-            <div class="col-sm-6 col-lg-3 mix ui" *ngFor="let merchandise of allMerchandise"> 
-                <div class="collection-item" > 
-                    <div class="collection-top"> 
-                        <img src="assets/img/items/shopsItems/Calculators .jpg" alt="Collection"> 
-                        <ul> 
-                            <li><i class='bx bxs-star checked'></i></li> 
-                            <li><i class='bx bxs-star checked'></i></li> 
-                            <li><i class='bx bxs-star checked'></i></li> 
-                            <li><i class='bx bxs-star checked'></i></li> 
-                            <li><i class='bx bxs-star '></i></li> 
-                        </ul> 
-                        <div class="add-cart"> 
-                            <a routerLink="/cart" (click)="addToCart(merchandise.productid)"><i class='bx bxs-cart'></i> Add to Cart</a> 
-                        </div> 
-                    </div> 
- 
-                    <div class="collection-bottom"> 
-                        <h3>{{merchandise.name}}</h3> 
-                        <ul> 
-                            <li><span>${{merchandise.price}}</span></li> 
-                            <li> 
-                                <div class="number"> 
-                                    <span class="minus" (click)="decreaseQuantity()">-</span> 
-                                    <label type="number" class="form-control" [(ngModel)]="quantities" >{{quantities}}</label>
-                                    <span class="plus" (click)="increaseQuantity()">+</span> 
-                                </div> 
-                            </li> 
-                        </ul> 
-                    </div> 
-                </div> 
-            </div> 
 
-        </div> 
-    </div> 
-</section> 
- 
+<div class="page-title-area page-title-img-one">
+    <div class="container">
+        <div class="page-title-item">
+            <h2>{{storeData.storename}}</h2>
+            <p>{{storeData.description}}</p>
+            <ul>
+                <li><a routerLink="/">Shops</a></li>
+                <li><i class='bx bx-chevron-right'></i></li>
+                <li>{{storeData.storename}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<section class="collection-area collection-area-two pt-100 pb-70">
+    <div class="container">
+        <div class="row">
+            <div class="section-title">
+                <h2>{{storeData.storename}}</h2>
+                <p>Our market shop is not just a place to shop; it's a celebration of flavors, where each product tells a story of quality, craftsmanship, and culinary passion.</p>
+            </div>
+            <div class="col-lg-8">
+                
+
+                <div class="sorting-menu">
+                    <ul>
+                        <li class="filter active" data-filter="all">All</li>
+                        <li class="filter" data-filter=".ui">Stationery</li>
+                        <li class="filter" data-filter=".ux">Dessert</li>
+                        <li class="filter" data-filter=".branding">Juice</li>
+                    </ul>
+                </div>
+
+                <div id="Container" class="row">
+                    <div class="col-sm-6 col-lg-4 mix ui" *ngFor="let merchandise of allMerchandise">
+                        <div class="collection-item">
+                            <div class="collection-top">
+                                <img src="assets/img/items/shopsItems/Calculators .jpg" alt="Collection">                                 <ul>
+                                    <li><i class='bx bxs-star checked'></i></li>
+                                    <li><i class='bx bxs-star checked'></i></li>
+                                    <li><i class='bx bxs-star checked'></i></li>
+                                    <li><i class='bx bxs-star checked'></i></li>
+                                    <li><i class='bx bxs-star '></i></li>
+                                </ul>
+                                <div class="add-cart">
+                                    <a (click)="addToCart(merchandise.productid)"><i class='bx bxs-cart'></i> Add to Cart</a>
+                                </div>
+                            </div>
+
+                            <div class="collection-bottom">
+                                <h3>{{merchandise.name}}</h3>
+                                <ul>
+                                    <li><span>${{merchandise.price}}</span></li>
+                                    <li>
+                                        <span class="minus" (click)="decreaseQuantity(merchandise.productid)">-</span>
+                                        <label type="number" class="form-control" [(ngModel)]="quantities[merchandise.productid]">{{quantities[merchandise.productid]}}</label>
+                                        <span class="plus" (click)="increaseQuantity(merchandise.productid)">+</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4" *ngIf="showCart">
+                <div class="cart-wrap">
+                    <table class="table">
+                        <thead class="thead">
+                            <tr>
+                                <th class="table-head" scope="col">Images</th>
+                                <th class="table-head" scope="col">Items</th>
+                                <th class="table-head" scope="col">Prices</th>
+                                <th class="table-head" scope="col">Quantity</th>
+                                <th class="table-head" scope="col">Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let merchandise of allMerchandiseInCart">
+                                <th class="table-item" scope="row"><img src="assets/img/Burger.png" alt="Menu"></th>
+                                <td>{{merchandise.name}}</td>
+                                <td>${{merchandise.price}}</td>
+                                <td>{{ merchandise.quantity }}</td>
+                                <td><a (click)="deleteItem(merchandise)"><i class='bx bx-x'></i></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="shop-back">
+                        <a routerLink="/checkout">Go for Order?</a>
+                    </div>
+                    <div class="total-shopping">
+                        <h2>Total Order</h2>
+                        <h3>Total: <span>${{calculateTotal()}}</span></h3>
+                        <button class="checkoutBtn" [class.disabled]="allMerchandiseInCart.length == 0" [disabled]="allMerchandiseInCart.length == 0" routerLink="/checkout">Checkout Items</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <app-footer-style-two></app-footer-style-two>

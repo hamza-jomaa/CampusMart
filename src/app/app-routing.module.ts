@@ -38,6 +38,7 @@ import { NotificationsComponent } from "./notifications/notifications.component"
 import { consumerGuard } from "./guards/consumer.guard";
 import { providerGuard } from "./guards/provider.guard";
 import { AuthAdminGuard } from "./guards/auth-admin.guard";
+import { AddVisaComponent } from "./add-visa/add-visa.component";
 
 
 const routes: Routes = [
@@ -85,7 +86,7 @@ const routes: Routes = [
     { path: 'provider', component: ProviderComponent,canActivate:[providerGuard] },
     {path:'admin', loadChildren:()=>import('./admin/admin.module').then((m)=>m.AdminModule),canActivate:[AuthAdminGuard] },
     { path: 'notification', component: NotificationsComponent },
-
+    {path :'visa', component:AddVisaComponent},
     {path: '**', component: ErrorComponent},
     
 ];

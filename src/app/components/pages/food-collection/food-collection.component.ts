@@ -14,13 +14,14 @@ import { ProviderService } from "src/app/services/provider.service";
 export class FoodCollectionComponent implements OnInit {
     storeData?: any;
     allMerchandise: any[] = [];
+    allMerchandiseInCart: any[] = [];
     localData: any;
-    quantity: number = 1;
-    quantities: number=1;
+    quantities: { [key: number]: number } = {}; // Using an object to track quantities by merchandise ID
     carts: any[] = [];
     itemFromGroup: FormGroup;
     merchandise: any;
-    
+    showCart: boolean = false;
+
     constructor(
         private route: ActivatedRoute,
         private router: Router,
@@ -46,7 +47,10 @@ export class FoodCollectionComponent implements OnInit {
                 console.error("Store ID is not defined");
             }
         });
-    
+
+        this.cartService.currentData.subscribe(data => {
+            this.allMerchandiseInCart = data;
+        });
     }
 
     getAllMerchandiseByStoreId() {
@@ -55,6 +59,10 @@ export class FoodCollectionComponent implements OnInit {
                 this.allMerchandise = data.filter(
                     (merch) => merch.storeid == this.storeData?.storeid
                 );
+                // Initialize quantities for each merchandise
+                this.allMerchandise.forEach(merch => {
+                    this.quantities[merch.productid] = 1;
+                });
             },
             (error) => {
                 console.error("Error fetching All Merchandise:", error);
@@ -72,145 +80,63 @@ export class FoodCollectionComponent implements OnInit {
     }
 
     addToCart(merchandiseId: number) {
-        this.merchandiseService
-            .getMerchandiseById(merchandiseId)
-            .subscribe((res) => {
-                // this.carts.push(res);
-                if(res){
-                    this.merchandise=res;
-                    this.merchandise.quantity=this.quantities;
-                    this.quantities=1;
-                    this.cartService.currentData.subscribe(res=>{
-                        if(res?.length>0){
-                            if(!this.includesProductid(res,this.merchandise.productid)){
-                                this.cartService.addItem(this.merchandise);
-                            }
-                            // let i = 0;
-                            // while (i < res.length) {
-                            //     if (res[i].productid == this.merchandise.productid) {
-                            //         break;
-                            //     }
-                            //     i++;
-                            // }
-                            
-                        }else{
+        this.merchandiseService.getMerchandiseById(merchandiseId).subscribe((res) => {
+            if (res) {
+                this.merchandise = res;
+                this.merchandise.quantity = this.quantities[merchandiseId]; // Get quantity from object
+                this.cartService.currentData.subscribe(res => {
+                    if (res?.length > 0) {
+                        if (!this.includesProductid(res, this.merchandise.productid)) {
                             this.cartService.addItem(this.merchandise);
                         }
-
-                    })
-                     
-                }
-                
-            });
-
-
-
-        // const previousProductId = this.itemFromGroup.value.productid;
-        // const previousConsumerId = this.itemFromGroup.value.consumerId;
-        // const productId = merchandiseId || previousProductId;
-        // const consumerId =
-        //     this.localData?.login_ConsumerID || previousConsumerId;
-        // const existingQuantity = this.quantities[merchandiseId];
-        // const quantity =
-        //     existingQuantity != null ? existingQuantity : this.quantity;
-        // const updatedQuantity =
-        //     existingQuantity != null
-        //         ? quantity
-        //         : this.itemFromGroup.value.quantity;
-
-        // // Find the merchandise item to get the price
-        // const merchandiseItem = this.allMerchandise.find(
-        //     (item) => item.productid === productId
-        // );
-
-        // if (merchandiseItem && merchandiseItem.price !== undefined) {
-        //     const price = merchandiseItem.price;
-        //     const total = updatedQuantity * price;
-
-        //     this.itemFromGroup.patchValue({
-        //         productid: productId,
-        //         consumerId: consumerId,
-        //         quantity: updatedQuantity,
-        //     });
-
-        //     this.cartService.GetMerchanidseInCart(consumerId).subscribe(
-        //         (cartItems: any[]) => {
-        //             const existingCartItem = cartItems.find(
-        //                 (item) => item.productID === productId
-        //             );
-
-        //             if (existingCartItem) {
-        //                 const updatedQuantity = quantity + 1;
-        //                 const updatedTotal = updatedQuantity * price;
-
-        //                 this.cartService
-        //                     .updateCartItem(
-        //                         existingCartItem.cartID,
-        //                         updatedQuantity,
-        //                         updatedTotal,
-        //                         existingCartItem.consumerID,
-        //                         existingCartItem.productID
-        //                     )
-        //                     .subscribe(
-        //                         (resp: any) => {
-        //                             console.log(resp);
-        //                             window.location.reload();
-        //                         },
-        //                         (error: any) => {
-        //                             console.error(error);
-        //                         }
-        //                     );
-        //             } else {
-        //                 const newCartItem = {
-        //                     ...this.itemFromGroup.value,
-        //                     total: total,
-        //                 };
-
-        //                 this.cartService
-        //                     .CreateCartRecord(newCartItem)
-        //                     .subscribe(
-        //                         (resp: any) => {
-        //                             console.log(resp);
-        //                             window.location.reload();
-        //                         },
-        //                         (error: any) => {
-        //                             console.error(error);
-        //                         }
-        //                     );
-        //             }
-        //         },
-        //         (error) => {
-        //             console.error("Error fetching cart items:", error);
-        //         }
-        //     );
-        // } else {
-        //     console.error("Price is undefined for the merchandise item");
-        // }
+                    } else {
+                        this.cartService.addItem(this.merchandise);
+                    }
+                });
+            }
+        });
+        this.showCart = true;
     }
-     
 
     includesProductid(array, productid) {
         return array.some(item => item?.productid === productid);
     }
 
-    decreaseQuantity(): void {
-        if (this.quantities > 0) {
-            this.quantities-=1;
+    decreaseQuantity(merchandiseId: number): void {
+        if (this.quantities[merchandiseId] > 0) {
+            this.quantities[merchandiseId] -= 1;
         }
     }
 
-    increaseQuantity(): void {
-        this.quantities+=1;
+    increaseQuantity(merchandiseId: number): void {
+        this.quantities[merchandiseId] += 1;
     }
 
     getCartItems() {
         const consumerId = this.localData?.login_ConsumerID || "";
         this.cartService.GetMerchanidseInCart(consumerId).subscribe(
             (cartItems: any[]) => {
+                // Handle the cart items
             },
             (error) => {
                 console.error("Error fetching cart items:", error);
             }
         );
+    }
+    
+    deleteItem(merchandise: any): void {
+        this.cartService.removeItem(merchandise.productid);
+        const index = this.allMerchandiseInCart.findIndex(item => item === merchandise);
+        if (index !== -1) {
+        this.allMerchandiseInCart.splice(index, 1);
+    }
+        this.toastr.success('Item Removed from Cart', 'Success');
+    }
+    updateCart(merchandise: any): void {
+        this.cartService.updateItem(merchandise);
+    }
+    
+    calculateTotal(): number {
+        return this.allMerchandiseInCart.reduce((total, item) => total + item.price * item.quantity, 0);
     }
 }

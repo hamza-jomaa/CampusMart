@@ -1,46 +1,46 @@
 <app-navbar-style-two></app-navbar-style-two>
 <div class="page-title-area page-title-img-one">
- 
     <div class="container">
-       
         <div class="page-title-item">
             <h2>Cart</h2>
             <ul>
                 <li><a routerLink="/">Home</a></li>
-                <li><i class='bx bx-chevron-right' ></i></li>
+                <li><i class='bx bx-chevron-right'></i></li>
                 <li><a routerLink="/food-collection/{{storeData.storeid}}">{{storeData.storename}}</a></li>
-                <li><i class='bx bx-chevron-right' ></i></li>
+                <li><i class='bx bx-chevron-right'></i></li>
                 <li>Cart</li>
             </ul>
         </div>
     </div>
 </div>
 <section class="cart-area ptb-100">
-    <!-- <a routerLink="/food-collection/{{storeData.storeid}}">Back</a> -->
     <div class="container">
-        <div class="cart-wrap"> 
+        <div class="cart-wrap">
             <table class="table">
                 <thead class="thead">
                     <tr>
                         <th class="table-head" scope="col">Images</th>
                         <th class="table-head" scope="col">Items</th>
                         <th class="table-head" scope="col">Prices</th>
-                        <th class="table-head" scope="col">Quantity</th> 
+                        <th class="table-head" scope="col">Quantity</th>
                         <th class="table-head" scope="col">Remove</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let merchandise of allMerchandiseInCart ">
+                    <tr *ngFor="let merchandise of allMerchandiseInCart">
                         <th class="table-item" scope="row"><img src="assets/img/Burger.png" alt="Menu"></th>
                         <td>{{merchandise.name}}</td>
                         <td>${{merchandise.price}}</td>
-                        <td>{{ merchandise.quantity }}</td>
+                        <td>
+                            <button (click)="decreaseCartQuantity(merchandise)">-</button>
+                            {{ merchandise.quantity }}
+                            <button (click)="increaseCartQuantity(merchandise)">+</button>
+                        </td>
                         <td><a (click)="deleteItem(merchandise)"><i class='bx bx-x'></i></a></td>
                     </tr>
                 </tbody>
             </table>
-        
-            
+
             <div class="shop-back">
                 <a routerLink="/checkout">Go for Order?</a>
             </div>

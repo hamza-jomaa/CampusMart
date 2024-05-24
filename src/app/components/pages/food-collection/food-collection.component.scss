@@ -5,3 +5,46 @@
     padding: 0px .75rem !important;
    
 }
+
+.refresh-cart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.refresh-message {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+    font-style: italic;
+    margin-right: 5px; /* يمكنك زيادة أو تقليل هذا الرقم حسب الفضاء الذي ترغب فيه */
+}
+
+.refresh-button {
+    background-color: #001f3f;
+    color: #fff;
+    border: none;
+    padding: 4px 9px; /* قمت بتصغير حجم الكبسة */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 5px; /* زيادة الفضاء بين الفقرة والكبسة */
+    margin-top: -10px;
+}
+
+.refresh-button:hover {
+    background-color: #003366;
+}
+.checkoutBtn{
+    margin-top: 20px;
+    display: inline-block;
+    color: #ffffff;
+    background-color: #ffbe00;
+    font-size: 17px;
+    padding: 15px 60px;
+    border: none;
+    &.disabled{
+        background-color: #c3c3c3;  
+    }
+}

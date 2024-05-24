@@ -85,4 +85,21 @@ export class CartComponent implements OnInit {
         }
         return total;
     }
+
+    increaseCartQuantity(merchandise: any): void {
+        if (merchandise.quantity < 10) { // Example limit check
+            merchandise.quantity += 1;
+          
+        }
+    }
+
+    decreaseCartQuantity(merchandise: any): void {
+        if (merchandise.quantity > 1) {
+            merchandise.quantity -= 1;
+            
+        }
+    }
+
+   
+
 }
