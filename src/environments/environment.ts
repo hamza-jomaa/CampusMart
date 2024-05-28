@@ -21,7 +21,8 @@ export const environment = {
     CreateMerchandise:"/CreateMerchandise",
      GetAllMerchandise:"/GetAllMerchandise",
     UpdateMerchandise:"/UpdateMerchandise",
-    DeleteMerchandise:"/DeleteMerchandise"
+    DeleteMerchandise:"/DeleteMerchandise",
+    GetMerchandiseByStoreID:"/GetMerchandiseInfoByStoreID"
   },
   Store:{
     base:"Store",
@@ -35,7 +36,8 @@ export const environment = {
   CampusServiceProvider:{
     base:'CampusServiceProvider',
     GetServiceProviderById:'/GetServiceProviderById',
-    GetAllServiceProviders:'/GetAllServiceProviders'
+    GetAllServiceProviders:'/GetAllServiceProviders',
+    GetProviderStoreInfoByConsumerID:'/GetProviderStoreInfoByConsumerID'
   },
   Order:{
     base:'Order',

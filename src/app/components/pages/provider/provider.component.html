@@ -106,11 +106,10 @@
             <table class="black-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>Image</th>
                         <th>Name</th>
                         <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Image</th>
+                        <th>Description</th>
                         <th style="text-align: center">
                             <button class="add" (click)="addItem()">Add</button>
                         </th>
@@ -118,16 +117,18 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let merchandise of merchandiseList">
-                        <td>{{ merchandise.productid }}</td>
-                        <td>{{ merchandise.name }}</td>
-                        <td>{{ merchandise.price }}</td>
-                        <td>{{ merchandise.quantity }}</td>
                         <td>
                             <img
-                                src="{{ merchandise.image }}"
+                               
+                                src="../../../assets/img/items//merchandises/{{ merchandise.image }}"
+
                                 alt="Food Image"
                             />
                         </td>
+                        <td>{{ merchandise.name }}</td>
+                        <td>{{ merchandise.price }}</td>
+                        <td>{{ merchandise.description }}</td>
+                      
                         <td>
                             <button
                                 class="edit"
@@ -191,14 +192,7 @@
                             required
                         />
 
-                        <label for="quantity">Quantity:</label>
-                        <input
-                            type="number"
-                            id="quantity"
-                            name="quantity"
-                            [(ngModel)]="newMerchandise.quantity"
-                            required
-                        />
+                        
                         <label for="m_Category">Category:</label>
                         <input
                             type="text"
@@ -207,20 +201,14 @@
                             [(ngModel)]="newMerchandise.category"
                             required
                         />
-                        <!-- <label for="quantity">Status:</label>
-                        <input
-                            type="text"
-                            id="quantity"
-                            name="quantity"
-                            [(ngModel)]="newMerchandise.status"
-                            required
-                        /> -->
+                       
                         <label for="image">Image:</label>
                         <input
                             type="file"
                             id="image"
                             name="image"
-                            (change)="onFileSelected($event)"
+                            #file
+                            (change)="uploadMerchandiseImage(file.files)"
                         />
                         <img
                             *ngIf="newMerchandise.image"
@@ -253,61 +241,62 @@
     <div class="container">
         <div class="story-head">
             <h2>My Store</h2>
-            <img
-                *ngIf="storeData.image"
-                [src]="storeData.image"
-                alt="Selected Image"
-                width="200"
-            />
-            <form
-                style="
-                    text-align: left;
-                    border: solid #ffbe00;
-                    padding: 50px;
-                    margin: 20px 0;
-                    border-radius: 20px;
-                "
-                #storeForm="ngForm"
-                (ngSubmit)="submitStore(storeForm)"
-            >
-                <label disabled for="id">ID:</label>
-                <input
-                    disabled
-                    type="number"
-                    id="id"
-                    name="id"
-                    [(ngModel)]="storeData.id"
-                />
+            <img *ngIf="storeData?.image!=''" src="../../../assets/img/shops/{{ this.storeData?.image }}" alt="Selected Image" width="200" />
 
-                <label for="name">Name:</label>
-                <input
-                    type="text"
-                    id="storename"
-                    name="storename"
-                    [(ngModel)]="storeData.storename"
-                    required
-                />
+            <!-- Form for creating store (if storeData.id is 0) -->
+          
+
+            <!-- Form for updating store (if storeData.id is not 0) -->
+            <form *ngIf="storeData?.storeid!=0" style="text-align: left; border: solid #ffbe00; padding: 50px; margin: 20px 0; border-radius: 20px;"  [formGroup]="UpdateStoreFrom" (ngSubmit)="updateStoreData()">
+               
+                <input disabled type="number" id="id" name="id"   [(ngModel)]="storeData.id" hidden />
+
+                <label for="storename">Name:</label>
+                <input type="text" id="storename" name="storename" formControlName="storename" [(ngModel)]="storeData.storename" required />
+
+
+                <label for="description">Description:</label>
+                <input type="text" id="description" name="description" formControlName="description" [(ngModel)]="storeData.description" required />
 
                 <div style="display: flex; flex-direction: column">
                     <label for="image">Image:</label>
-                    <input
-                        type="file"
-                        id="image"
-                        name="image"
-                        #file
-                        (change)="updateStoreImage($event)"
-                    />
+                    <input type="file" id="image"  #file  formControlName="image" name="image" (change)="uploadStoreImage(file.files)"  />
                 </div>
 
-                <div
-                    style="
-                        display: flex;
-                        justify-content: center;
-                        margin-top: 10px;
-                    "
-                >
+                <div style="display: flex; justify-content: center; margin-top: 10px;">
                     <button type="submit">Update Store</button>
                 </div>
+            </form>
+
+            <form *ngIf="storeData?.storeid==0&&storeData?.approvalstatus==''" style="text-align: left; border: solid #ffbe00; padding: 50px; margin: 20px 0; border-radius: 20px;" [formGroup]="CreateStoreFrom" (ngSubmit)="createStore()">
+
+                <label for="storename">Name:</label>
+                <input type="text" id="storename" name="storename"  formControlName="storename" required />
+                <span style="color: red;" *ngIf="CreateStoreFrom.controls['storename'].hasError('required')">store name
+                    is required </span>   
+                    
+                    <label for="storename">Description:</label>
+                    <input type="text" id="description" name="description"  formControlName="description" required />
+                    <span style="color: red;" *ngIf="CreateStoreFrom.controls['description'].hasError('required')">description
+                        is required </span>   
+                    
+                    
+                 <div style="display: flex; flex-direction: column">
+                    <label for="image">Image:</label>
+                    <input type="file" #file formControlName="image" (change)="uploadStoreImage(file.files)" />
+                </div>
+
+                <div style="display: flex; justify-content: center; margin-top: 10px;">
+                    <button type="submit">Create Store</button>
+                </div>
+            </form>
+
+            
+            <form *ngIf="storeData?.storeid==0&&storeData?.approvalstatus=='pending'" style="text-align: left; border: solid #ffbe00; padding: 50px; margin: 20px 0; border-radius: 20px;" [formGroup]="CreateStoreFrom" (ngSubmit)="createStore()">
+
+                <label style="font-weight: bold; font-size: 1.2em; color: #000;">Your Request Sent To Our Admin</label>
+
+              
             </form>
         </div>
     </div>
@@ -315,152 +304,6 @@
 
 
 
-
-
-
-
-
-<!-- <section *ngIf="navIndex == 2" class="story-area pt-100 pb-70">
-    <div class="container">
-        <div class="story-head">
-            <h2>Special Request</h2>
-            <div class="card-container">
-                <div class="card" *ngFor="let specialRequest of pendingSpecialRequests">
-                    <div class="card-header" [ngClass]="{
-                        'acceptedStyle': specialRequest.orderStatus == 1,
-                        'declinedStyle': specialRequest.orderStatus == 2,
-                        'pendingStyle': specialRequest.orderStatus == 0
-                    }">
-                        <p>ID: {{ specialRequest.requestid }}</p>
-                        <h2>{{ specialRequest.requesttitle }}</h2>
-                    </div>
-                    <div style="text-align: left;" class="card-body">
-                        <p>Consumer Name: {{ specialRequest.consumerName }}</p>
-                        <p>Consumer Phone: {{ specialRequest.consumerPhone }}</p>
-                        <p>Date: {{ specialRequest.date }}</p> 
-                        <p>Status:
-                            <span [ngClass]="{
-                                'accepted': specialRequest.requeststatus == 1,
-                                'declined': specialRequest.requeststatus == 2,
-                                'pending': specialRequest.requeststatus == 0
-                            }">
-                                {{ specialRequest.orderStatus == 0 ? 'Pending' : specialRequest.orderStatus == 1 ? 'Accepted' : 'Declined' }}
-                            </span>
-                        </p>
-                    </div>
-                    <div class="card-footer"[ngClass]="{
-                        'acceptedStyle': specialRequest.requeststatus == 1,
-                        'declinedStyle': specialRequest.requeststatus == 2,
-                        'pendingStyle': specialRequest.requeststatus == 0
-                    }">
-                        <button class="edit" (click)="viewSpecialRequest(specialRequest.requestid)">View</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div
-                class="modal"
-                [ngStyle]="{ display: showOrder ? 'block' : 'none' }"
-            >
-                <div class="modal-content" style="max-width: unset !important">
-                    <form
-                        style="
-                            text-align: left;
-                            border: solid #ffbe00;
-                            padding: 50px;
-                            margin: 20px 0;
-                            border-radius: 20px;
-                        "
-                        #specialRequestForm="ngForm"
-                        (ngSubmit)="submitSpecialRequest(specialRequestForm)"
-                    >
-                        <label disabled for="id">ID:</label>
-                        <input
-                            disabled
-                            type="number"
-                            id="id"
-                            name="id"
-                            [(ngModel)]="specialRequest.id"
-                        />
-
-                        <label disabled for="name">Name:</label>
-                        <input
-                            disabled
-                            type="text"
-                            id="name"
-                            name="name"
-                            [(ngModel)]="specialRequest.name"
-                            required
-                        />
-                        <label disabled for="consumerName"
-                            >Consumer Name:</label
-                        >
-                        <input
-                            disabled
-                            type="text"
-                            id="consumerName"
-                            name="consumerName"
-                            [(ngModel)]="specialRequest.consumerName"
-                            required
-                        />
-                        <label disabled for="consumerPhone">Consumer Phone:</label>
-                        <input
-                            disabled
-                            type="text"
-                            id="consumerPhone"
-                            name="consumerPhone"
-                            [(ngModel)]="specialRequest.consumerPhone"
-                            required
-                        />
-                       <div style="display: flex;flex-direction: column;">
-                        <label disabled for="description">Description:</label>
-                        <textarea
-                            disabled
-                            type="text"
-                            id="description"
-                            name="description" style="height: 150px;
-                            padding: 10px;"
-                            [(ngModel)]="specialRequest.description"
-                            required
-                        ></textarea>
-                       </div>
-                     
-
-                        <div
-                            style="
-                                display: flex;
-                                justify-content: center;
-                                margin-top: 10px;
-                            "
-                        >
-                            <button
-                                (click)="specialRequest.orderStatus = 1"
-                                style="margin: 0 30px"
-                                type="submit"
-                            >
-                                Accept Order
-                            </button>
-                            <button
-                                (click)="specialRequest.orderStatus = 2"
-                                style="margin: 0 30px"
-                                type="submit"
-                            >
-                                Decline Order
-                            </button>
-                            <button
-                                class="close"
-                                style="margin: 0 30px"
-                                (click)="resetForm()"
-                            >
-                                Dismiss
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> -->
 
 <section *ngIf="navIndex == 2" class="story-area pt-100 pb-70">
     <div class="container">

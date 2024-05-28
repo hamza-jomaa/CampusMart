@@ -15,6 +15,7 @@ export class StoreRequestComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    debugger
     this.admin.GetAllPendingStores();
     // this.toastr.success('Component initialized successfully.');
 
@@ -23,7 +24,7 @@ export class StoreRequestComponent implements OnInit {
   acceptStore(storeId: number) {
     this.confirmService.showConfirm("Are you sure want to accept?",
     ()=>{
-      this.admin.UpdateStoreStatus(storeId, 'Accept').subscribe(() => {
+      this.admin.UpdateStoreStatus(storeId, 'accepted').subscribe(() => {
         this.admin.GetAllPendingStores();
         this.toastr.success('Status Updated Successfully', 'Success', {
           positionClass: 'toast-top-right', // Center the toastr message

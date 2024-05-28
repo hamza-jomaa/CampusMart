@@ -68,7 +68,7 @@ const routes: Routes = [
     {path: 'contact', component: ContactComponent},
     { path: 'testimonals', component: TesimonalsComponent },
     { path: 'trackorder', component: TrackorderComponent },
-    {path: 'apply-as-sp', component: ApplyAsSPComponent ,canActivate:[consumerGuard]},
+    {path: 'apply-as-sp', component: ApplyAsSPComponent },
     // {path: 'login', component: LoginComponent },
     // {path: 'signup', component : SignupComponent },
 
@@ -84,7 +84,7 @@ const routes: Routes = [
     { path: 'special-request', component: SpecialRequestComponent },
     { path: 'writetestmonial', component: WritetestmonialComponent },
     { path: 'provider', component: ProviderComponent,canActivate:[providerGuard] },
-    {path:'admin', loadChildren:()=>import('./admin/admin.module').then((m)=>m.AdminModule),canActivate:[AuthAdminGuard] },
+    {path:'admin', loadChildren:()=>import('./admin/admin.module').then((m)=>m.AdminModule) },
     { path: 'notification', component: NotificationsComponent },
     {path :'visa', component:AddVisaComponent},
     {path: '**', component: ErrorComponent},

@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { map } from "rxjs/operators";
 import { AdminService } from "src/app/services/admin.service";
+import { MerchandiseService } from "src/app/services/merchandise.service";
 import { ProviderService } from "src/app/services/provider.service";
 import { StoreService } from "src/app/services/store.service";
 @Component({
@@ -13,6 +15,7 @@ export class ProviderComponent implements OnInit {
     newMerchandise: any = {
         productid: null || "",
     };
+
     newOrder = {
         id: null,
         name: "",
@@ -46,7 +49,15 @@ export class ProviderComponent implements OnInit {
     editingSpecialRequestIndex = null;
     editingItem = false;
     merchandiseList: any = [];
-    storeData:any;
+    
+    storeData:any = {
+        storeid:0,
+        storename:'',
+        image:'',
+        description:'',
+        providerid:0,
+        approvalstatus:''
+    };
     providerData:any = {
         "providerid": '',
         "phone": '',
@@ -161,56 +172,41 @@ export class ProviderComponent implements OnInit {
         },
     ];
 
-    // specialRequestsData = [
-    //     {
-    //         id: 0,
-    //         name: "Request 1",
-    //         providerId: null,
-    //         providerName: "",
-    //         providerPhone: "",
-    //         consumerId: 0,
-    //         consumerName: "First consumer",
-    //         consumerPhone: "0798765432",
-    //         description: "I want a pizza from Qaisar Pizza",
-    //         date: "",
-    //         orderStatus: 0,
-    //     },
-    //     {
-    //         id: 1,
-    //         name: "Request 2",
-    //         providerId: null,
-    //         providerName: "",
-    //         providerPhone: "",
-    //         consumerId: 1,
-    //         consumerName: "Second consumer",
-    //         consumerPhone: "0787654321",
-    //         description: "I want a burger from Fire Fly",
-    //         date: "",
-    //         orderStatus: 0,
-    //     },
-    //     {
-    //         id: 2,
-    //         name: "Request 3",
-    //         providerId: null,
-    //         providerName: "",
-    //         providerPhone: "",
-    //         consumerId: 2,
-    //         consumerName: "Third consumer",
-    //         consumerPhone: "0776543210",
-    //         description: "I want Hotdogs from Wazzap dog",
-    //         date: "",
-    //         orderStatus: 0,
-    //     },
-    // ];
 
     pendingSpecialRequests: any[] = [];
     selectedSpecialRequest: any;
     filteredOrdersById: any;
-    //providerId: any;
+    providerID:any;
+    statusCheck='';
+
+    CreateStoreFrom: FormGroup = new FormGroup({
+        storename: new FormControl("", [Validators.required]),
+        description:new FormControl("",[Validators.required]),
+        providerid:new FormControl(""),
+        approvalstatus:new FormControl(""),
+        Image:new FormControl("")
+      });
+
+     UpdateStoreFrom: FormGroup = new FormGroup({
+        storeid:new FormControl(),
+        storename: new FormControl("", [Validators.required]),
+        description:new FormControl("",[Validators.required]),
+        providerid:new FormControl(""),
+        approvalstatus:new FormControl(""),
+        Image:new FormControl("")
+      }); 
+
+      providerStoreData: FormGroup = new FormGroup({
+        providerid:new FormControl(),
+        isprovider: new FormControl(),
+        storeid:new FormControl(),
+        storename:new FormControl(""),
+        approvalstatus:new FormControl("") 
+      }); 
     constructor(
         public admin: AdminService,
-        private providerService: ProviderService,public storeService:StoreService
-    ) {}
+        private providerService: ProviderService,public storeService:StoreService,private merchandiseService:MerchandiseService
+    ) { }
 
     ngOnInit(): void {
         let userData: any = localStorage.getItem("user");
@@ -228,24 +224,33 @@ export class ProviderComponent implements OnInit {
             .subscribe((pendingRequests: any[]) => {
                 this.pendingSpecialRequests = pendingRequests;
             });
-        this.providerService.getAllMerchandise().subscribe((res) => {
-            this.merchandiseList = res;
-        });
+       
         this.providerService.GetAllServiceProviders().subscribe((res: any) => {
             this.providerData = res.filter(
                 (provider) => provider.consumerid == userData.login_ConsumerID
             )[0];
+
+
+            
             this.providerService.getStore(this.providerData.providerid).subscribe((res) => {
+                
                 if (res) {
                     this.storeData = {
-                        id: res.storeid,
+                        storeid: res.storeid,
                         storename: res.storename,
                         image: res.image,
+                        description:res.description,
+                        approvalstatus:res.approvalstatus
+
+                        
                     };
                 }
+                else 
+                {console.log(this.storeData)}
             });
         });
    
+        
         this.providerService.GetAllOrders().subscribe((res: any) => {
             this.filteredOrdersById = res.filter(
                 (order) => order.providerId == this.providerData.providerid
@@ -269,8 +274,31 @@ export class ProviderComponent implements OnInit {
                     date: order.orderdate,
                     orderStatus: order.orderstatus,
                 };
+               
             });
         });
+
+
+
+        
+       console.log('user id',userData.login_ConsumerID)
+        this.providerService.getGetProviderStoreInfoByConsumerID(userData.login_ConsumerID).subscribe((resp:any) => { 
+        
+            if(resp){
+
+       this.providerStoreData.value.storeId=resp.storeid
+       this.storeData.id=resp.storeid
+        console.log(this.providerStoreData.value.storeId)
+        this.merchandiseService.GetMerchandiseByStoreID(this.providerStoreData.value.storeId).subscribe((res) => {
+            this.merchandiseList = res;
+        });
+         }
+              },
+          (error) => {
+            console.error("Failed to fetch GetAllStores: ", error); 
+          }
+        );
+     
     }
 
     navDashboard(index: any) {
@@ -286,9 +314,16 @@ export class ProviderComponent implements OnInit {
     toggleOrder() {
         this.showOrder = !this.showOrder;
     }
-    updateStoreData(storeForm) {
-        this.storeData = storeForm;
-    }
+    updateStoreData() {
+        this.UpdateStoreFrom.value.storeid=this.storeData.storeid;
+        this.UpdateStoreFrom.value.providerid=this.providerData.providerid;
+        
+            this.UpdateStoreFrom.value.image=this.storeData.image;
+        
+        this.UpdateStoreFrom.value.approvalstatus='accepted'
+        this.storeService.UpdateStore(this.UpdateStoreFrom.value)   
+        
+ }
     submitForm(formData) {
         this.showForm = false;
         if (formData.valid) {
@@ -303,18 +338,16 @@ export class ProviderComponent implements OnInit {
                         //edit merchandise
                         this.merchandiseList[this.editingItemIndex] =
                             this.newMerchandise;
-                        this.newMerchandise.status = "pending";
-                        
-                        this.providerService.updateMerchandise(this.newMerchandise);
+                        this.newMerchandise.status = "Accept";
+                        this.newMerchandise.storeId=this.storeData.id;
+                        this.merchandiseService.updateMerchandise(this.newMerchandise);
                         this.editingItemIndex = null;
                     } else {
                         //add merchandise
                         this.newMerchandise =formData.value
-                        this.newMerchandise.status = "pending";
+                        this.newMerchandise.status = "Pending";
                         this.newMerchandise.storeId=this.storeData.id;
-                        this.newMerchandise.productid=0;
-                        this.providerService.createMerchandise(this.newMerchandise);
-                        //   this.merchandiseList.push(this.newMerchandise);
+                        this.merchandiseService.createMerchandise(this.newMerchandise);
                         this.resetForm();
                     }
                 }
@@ -323,26 +356,7 @@ export class ProviderComponent implements OnInit {
             
         }
     }
-    submitStore(storeForm) {
-      
-        this.storeData=storeForm.value;
-        this.storeData.providerid=this.providerData.providerid
-      
-        this.providerService.createStore(this.storeData);
-        if (storeForm.valid) {
-            //  if (this.editingItem !== null) {
-            //edit store
-            //  this.providerService.updateStore(storeForm);
-            // this.editingItemIndex = null;
-            //  } else {
-            //add merchandise
-            //this.newMerchandise.status = "pending";
-           // this.providerService.createStore(storeForm.value);
-            //   this.merchandiseList.push(this.newMerchandise);
-            //  }
-            this.resetForm();
-        }
-    }
+   
     editItem(id: any) {
         this.toggleModal();
         this.editingItem = true;
@@ -413,25 +427,42 @@ export class ProviderComponent implements OnInit {
         }
     }
 
-    updateStoreImage(event: any) {
-  
-      
-        const file: File = event.target.files[0];
-          const formData = new FormData();
-          formData.append('file', file, file.name);
-          if (file) {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
     
-            reader.onload = (e: any) => {
-                this.storeData.image = e.target.result;
-            };
-        }
-          this.storeService.uploadStoreImage(formData);
-    }
     resetForm() {
         this.showForm = false;
         this.showOrder = false;
         this.newMerchandise = {};
     }
-}
+
+    createStore(){
+      this.CreateStoreFrom.value.providerid=this.providerData.providerid;
+     this.CreateStoreFrom.value.approvalstatus='Pending'
+     this.storeData.approvalstatus='wait'
+      this.storeService.createStore(this.CreateStoreFrom.value)
+
+
+    }
+
+    uploadStoreImage(file: any) {
+        if (file.length === 0)
+          return;
+    
+        let fileToUpload = <File>file[0];
+        const formData = new FormData();
+        formData.append('file', fileToUpload, fileToUpload.name);
+    
+        this.storeService.uploadStoreImage(formData);
+      }
+
+    uploadMerchandiseImage(file: any) {
+        if (file.length === 0)
+          return;
+    
+        let fileToUpload = <File>file[0];
+        const formData = new FormData();
+        formData.append('file', fileToUpload, fileToUpload.name);
+    
+        this.merchandiseService.uploadMerchandiseImage(formData);
+      }
+    }
+        
