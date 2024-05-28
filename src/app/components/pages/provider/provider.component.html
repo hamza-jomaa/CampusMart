@@ -101,7 +101,7 @@
 
 <section *ngIf="navIndex == 0" class="story-area pt-100 pb-70">
     <div class="container">
-        <div class="story-head">
+        <div class="story-head" >
             <h2>Add / Remove merchandise</h2>
             <table class="black-table">
                 <thead>
@@ -147,7 +147,7 @@
             </table>
             <div 
                 class="modal"
-                [ngStyle]="{ display: showForm ? 'block' : 'none' }"
+                [ngStyle]="{ display: showForm ? 'block' : 'none' ,'margin-top.px': 70}"
             >
                 <div class="modal-content">
                     <form
@@ -202,6 +202,7 @@
                             required
                         />
                        
+                      
                         <label for="image">Image:</label>
                         <input
                             type="file"
@@ -222,6 +223,7 @@
                                 display: flex;
                                 justify-content: space-between;
                                 margin-top: 10px;
+                                
                             "
                         >
                             <button type="submit">
@@ -305,6 +307,10 @@
 
 
 
+
+
+
+
 <section *ngIf="navIndex == 2" class="story-area pt-100 pb-70">
     <div class="container">
         <div class="story-head">
@@ -340,14 +346,14 @@
                     </div>
                 </div>
             </div>
-            <div class="modal" [ngStyle]="{ display: showOrder ? 'block' : 'none' }">
+            <div class="modal" [ngStyle]="{ display: showOrder ? 'block' : 'none' ,'margin-top.px': 50 }">
                 <div class="modal-content" style="max-width: unset !important">
-                    <form style="text-align: left; border: solid #ffbe00; padding: 50px; margin: 20px 0; border-radius: 20px;"
+                    <form style="text-align: left; border: solid #ffbe00; padding: 10px; margin: 10px 0; border-radius: 10px; height: 380px; overflow-y: auto;" 
                           #specialRequestForm="ngForm" (ngSubmit)="submitSpecialRequest(specialRequestForm)">
                         <div>
-                            <label disabled for="requestid">Request Number:</label>
+                            <!-- <label disabled for="requestid">Request Number:</label>
                             <input disabled type="number" id="requestid" name="requestid" value="{{ selectedSpecialRequest?.requestid }}" />
-                            
+                            -->
                             <label disabled for="requesttitle">Title:</label>
                             <input disabled type="text" id="requesttitle" name="requesttitle" value="{{ selectedSpecialRequest?.requesttitle }}" required />
                             
@@ -361,15 +367,17 @@
                             <input disabled type="text" id="consumerPhone" name="consumerPhone" value="{{ selectedSpecialRequest?.consumerPhone }}" required />
                         </div>
                         <div style="display: flex; justify-content: center; margin-top: 10px;">
-                            <button (click)="selectedSpecialRequest.orderStatus = 1" style="margin: 0 30px" type="submit">Accept Order</button>
-                            <button (click)="selectedSpecialRequest.orderStatus = 2" style="margin: 0 30px" type="submit">Decline Order</button>
+                            <button (click)="updateSpecialRequest(selectedSpecialRequest)" style="margin: 0 30px" type="submit">Accept Order</button>
+                            <button  (click)="declineOrder(selectedSpecialRequest.requestid)" style="margin: 0 30px" type="submit">Decline Order</button>
+
                             <button class="close" style="margin: 0 30px" (click)="resetForm()">Dismiss</button>
                         </div>
                     </form>
                 </div>
             </div>
-        </div>
+        </div>            
     </div>
+    
 </section>
 
 

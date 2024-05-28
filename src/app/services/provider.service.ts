@@ -82,5 +82,30 @@ export class ProviderService {
     
     return this.http.get<any>(environment.backendAPI+environment.CampusServiceProvider.base+environment.CampusServiceProvider.GetProviderStoreInfoByConsumerID+'?consumerId='+consumerId);
   }
+
+
+  deleteSpecialRequest(requestId: number): Observable<any> {
+    const url = `https://localhost:7173/api/SpecialRequest/DeleteRequest/${requestId}`;
+    return this.http.delete(url);
+  }
+ 
+//   updateSpecialRequest(requestId: number, updatedTitle: string, updatedDetails: string, updatedStatus: string, updatedConsumerId: number): Observable<any> {
+//     const body = {
+//         requestid: requestId,
+//         requesttitle: updatedTitle,
+//         requestdetails: updatedDetails,
+//         requeststatus: updatedStatus,
+//         consumerid: updatedConsumerId
+//     };
+//     return this.http.put<any>('https://localhost:7173/api/SpecialRequest/UpdateRequest', body);
+// }
+
+updateSpecialRequest(updatedRequest: any): Observable<any> {
+  return this.http.put<any>('https://localhost:7173/api/SpecialRequest/UpdateRequest', updatedRequest);
 }
+
+}
+
+
+
 

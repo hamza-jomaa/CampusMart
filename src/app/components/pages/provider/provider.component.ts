@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { map } from "rxjs/operators";
@@ -5,6 +6,12 @@ import { AdminService } from "src/app/services/admin.service";
 import { MerchandiseService } from "src/app/services/merchandise.service";
 import { ProviderService } from "src/app/services/provider.service";
 import { StoreService } from "src/app/services/store.service";
+import { CampusConsumerService } from "src/app/services/campus-consumer.service";
+import { MatConfirmDialogComponent } from 'src/app/mat-confirm-dialog/mat-confirm-dialog.component';
+import { MatDialog } from "@angular/material/dialog";
+import { DialogService } from "src/app/services/dialog.service";
+import { ToastrService } from "ngx-toastr";
+
 @Component({
     selector: "app-provider",
     templateUrl: "./provider.component.html",
@@ -205,13 +212,20 @@ export class ProviderComponent implements OnInit {
       }); 
     constructor(
         public admin: AdminService,
-        private providerService: ProviderService,public storeService:StoreService,private merchandiseService:MerchandiseService
+        private providerService: ProviderService,
+        public storeService:StoreService,
+        private merchandiseService:MerchandiseService,
+        private dialog: MatDialog,
+         private toastr: ToastrService,
+         private campusConsumerService: CampusConsumerService,
+
     ) { }
 
+    
     ngOnInit(): void {
         let userData: any = localStorage.getItem("user");
         userData = JSON.parse(userData);
-       
+
         this.admin
             .getAllRequests()
             .pipe(
@@ -223,6 +237,12 @@ export class ProviderComponent implements OnInit {
             )
             .subscribe((pendingRequests: any[]) => {
                 this.pendingSpecialRequests = pendingRequests;
+                this.pendingSpecialRequests.forEach(request => {
+                    this.campusConsumerService.getConsumerById(request.consumerid).subscribe((consumer: any) => {
+                        request.consumerName = consumer.fullname;
+                        request.consumerPhone = consumer.phone;
+                    });
+                });
             });
        
         this.providerService.GetAllServiceProviders().subscribe((res: any) => {
@@ -251,6 +271,7 @@ export class ProviderComponent implements OnInit {
         });
    
         
+
         this.providerService.GetAllOrders().subscribe((res: any) => {
             this.filteredOrdersById = res.filter(
                 (order) => order.providerId == this.providerData.providerid
@@ -301,16 +322,77 @@ export class ProviderComponent implements OnInit {
      
     }
 
+    addNotification(userId: number, message: string) {
+        const notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
+        notifications.push({ userId, message, isRead: false });
+        localStorage.setItem('notifications', JSON.stringify(notifications));
+      }
+    declineOrder(requestId: number) {
+        const dialogRef = this.dialog.open(MatConfirmDialogComponent, {
+            data: { message: 'Are you sure you want to decline this order?' }
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.providerService.deleteSpecialRequest(requestId).subscribe(() => {
+                    this.pendingSpecialRequests = this.pendingSpecialRequests.filter(request => request.requestid !== requestId);
+                });
+            }
+        });
+    }
+
+
+    updateSpecialRequest(request: any) {
+    const dialogRef = this.dialog.open(MatConfirmDialogComponent, {
+      data: { message: 'Are you sure you want to accept this order?' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        request.requeststatus = 'Accepted';
+        request.providerid = this.providerData.providerid;  
+        this.providerService.updateSpecialRequest(request).subscribe(
+          (response) => {
+            console.log('Special request updated successfully:', response);
+            this.pendingSpecialRequests = this.pendingSpecialRequests.filter(req => req.requestid !== request.requestid);
+            
+            // Fetch consumer details to include in the notification
+            this.campusConsumerService.getConsumerById(this.providerData.consumerid).subscribe((consumer: any) => {
+                this.addNotification(request.consumerid, `Your request titled "${request.requesttitle}" has been accepted by ${consumer.fullname}. Contact them at ${this.providerData.phone} to discuss further details.`);
+              });
+           
+            this.toastr.success('Order Accepted Successfully!', 'Success', {
+              positionClass: 'toast-top-right',
+              closeButton: true,
+              progressBar: true,
+              enableHtml: true,
+              timeOut: 5000,
+              extendedTimeOut: 2000,
+            });
+          },
+          (error) => {
+            console.error('Error updating special request:', error);
+          }
+        );
+      }
+    });
+  }
+    
+    
+
+    
     navDashboard(index: any) {
         this.navIndex = index;
     }
+
     addItem() {
         this.toggleModal();
         this.editingItem = false;
     }
+
     toggleModal() {
         this.showForm = true;
     }
+
     toggleOrder() {
         this.showOrder = !this.showOrder;
     }
@@ -352,8 +434,6 @@ export class ProviderComponent implements OnInit {
                     }
                 }
             });
-          
-            
         }
     }
    
@@ -365,22 +445,20 @@ export class ProviderComponent implements OnInit {
         );
         if (index !== -1) {
             this.editingItemIndex = index;
-
             this.newMerchandise = { ...this.merchandiseList[index] };
         }
     }
+
     removeItem(id: any) {
         const index = this.merchandiseList.findIndex(
             (item) => item.productid === id
         );
-        if (
-            index !== -1 &&
-            confirm("Are you sure you want to remove this item?")
-        ) {
+        if (index !== -1 && confirm("Are you sure you want to remove this item?")) {
             this.merchandiseList.splice(index, 1);
             this.providerService.deleteMerchandise(id);
         }
     }
+
     viewOrder(id: any) {
         this.toggleOrder();
         const index = this.orderData.findIndex((item) => item.id === id);
@@ -389,6 +467,7 @@ export class ProviderComponent implements OnInit {
             this.newOrder = { ...this.orderData[index] };
         }
     }
+
     viewSpecialRequest(specialRequest: any) {
         this.toggleOrder();
         this.selectedSpecialRequest = { ...specialRequest };
@@ -404,17 +483,18 @@ export class ProviderComponent implements OnInit {
         }
         this.resetForm();
     }
+
     submitSpecialRequest(formData) {
         if (this.editingSpecialRequestIndex !== null) {
             this.specialRequest.providerId = this.providerData.id;
             this.specialRequest.providerName = this.providerData.name;
             this.specialRequest.providerPhone = this.providerData.phoneNumber;
-            this.pendingSpecialRequests[this.editingSpecialRequestIndex] =
-                this.specialRequest;
+            this.pendingSpecialRequests[this.editingSpecialRequestIndex] = this.specialRequest;
             this.editingSpecialRequestIndex = null;
         }
         this.resetForm();
     }
+
     onFileSelected(event: any) {
         const file: File = event.target.files[0];
         if (file) {
