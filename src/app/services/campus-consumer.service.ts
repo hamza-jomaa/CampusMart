@@ -39,7 +39,6 @@ export class CampusConsumerService {
   }
   isprovider:any
 checkIsProvider(id:any){
-  debugger
   //this.GetCampusConsumerId(id);
   this.consumerrrrData=this.getConsumerById(id)
   this.getConsumerById(id).subscribe(

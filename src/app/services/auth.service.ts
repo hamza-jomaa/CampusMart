@@ -6,13 +6,15 @@ import { ProfileService } from './profile.service';
 import { ProviderService } from './provider.service';
 import { StoreService } from './store.service';
 import { CheckoutService } from './checkout.service';
+import { TransactionService } from './transaction.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  paymentCreditntails: any;
 
-  constructor(private http:HttpClient,private router: Router, private profileService:ProfileService,private providerService: ProviderService,public storeService:StoreService,private checkoutService:CheckoutService) { }
+  constructor(private http:HttpClient,private router: Router, private profileService:ProfileService,private providerService: ProviderService,public storeService:StoreService,private checkoutService:CheckoutService, private transactionService: TransactionService) { }
 
   
   Login(body: any) {
@@ -39,7 +41,7 @@ export class AuthService {
 
       let userData: any = localStorage.getItem("user");
       userData = JSON.parse(userData);
-      this.profileService.getConsumerById(userData.login_ConsumerID).subscribe(ConsumerRes=>{
+      this.profileService.getConsumerById(userData.login_ConsumerID).subscribe((ConsumerRes:any)=>{
         if(ConsumerRes){
           this.profileService.setConsumerData(ConsumerRes);
           this.checkoutService.setConsumerData(ConsumerRes);
@@ -56,14 +58,25 @@ export class AuthService {
                 }
             });
         });
+        this.transactionService.getAllBanks().subscribe((banks:any)=>{
+          if(banks){
+            this.paymentCreditntails = banks.filter((bank: any) => bank.consumerid == ConsumerRes.consumerid);
+            if(ConsumerRes.roleid === "1"||ConsumerRes.roleid === 1) {
+              this.router.navigate(["admin/"])
+            } else if((ConsumerRes.roleid === "2"||ConsumerRes.roleid === 2) && this.paymentCreditntails.length==0){
+              this.router.navigate(["payment"])
+            }
+            else {
+              this.router.navigate([""])
+            }
+          }
+         
+        })
+    
         }
       })
+ 
       
-      if(userData.roleID === "1") {
-        this.router.navigate(["admin/"])
-      } else {
-        this.router.navigate([""])
-      }
     }, (err) => {
     })
   }

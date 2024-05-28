@@ -53,27 +53,13 @@ export class CartComponent implements OnInit {
             }
         );
     }
-    deleteItem(merchandise: number) {
-        const dialogRef = this.dialog.open(MatConfirmDialogComponent, {
-            data: {
-                message:
-                    "Are you sure you want to delete this item from the cart?",
-            },
-        });
-
-        dialogRef.afterClosed().subscribe((result) => {
-            if (result === true) {
-                this.cartService.removeItem(merchandise);
-                this.toastr.success("Item Deleted Successfully!", "Success", {
-                    positionClass: "toast-top-right",
-                    closeButton: true,
-                    progressBar: true,
-                    enableHtml: true,
-                    timeOut: 5000,
-                    extendedTimeOut: 2000,
-                });
-            }
-        });
+    deleteItem(merchandise: any) {
+        this.cartService.removeItem(merchandise.productid);
+        const index = this.allMerchandiseInCart.findIndex(item => item === merchandise);
+        if (index !== -1) {
+        this.allMerchandiseInCart.splice(index, 1);
+    }
+        this.toastr.success('Item Removed from Cart', 'Success');
     }
 
     calculateTotal(): number {

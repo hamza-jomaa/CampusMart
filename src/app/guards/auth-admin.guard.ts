@@ -22,7 +22,6 @@ export const AuthAdminGuard: CanActivateFn = (route, state) => {
         return true ;
       }else{    //user not admin 
        
-        debugger;
         toastr.warning('This page for admin  ')
          router.navigate(['auth/login']);
     

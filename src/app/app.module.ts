@@ -60,6 +60,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { SearchstorePipe } from './pipes/searchstore.pipe';
 import { AddVisaComponent } from './add-visa/add-visa.component';
+import { PaymentComponent } from './components/pages/payment/payment.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -99,8 +100,8 @@ import { AddVisaComponent } from './add-visa/add-visa.component';
     ErrorComponent,
     NotificationsComponent,
     SearchstorePipe,
-    AddVisaComponent
-   
+    AddVisaComponent,
+   PaymentComponent
    
     //SignupComponent,
    // LoginComponent,

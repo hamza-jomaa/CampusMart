@@ -65,39 +65,27 @@
                 </div>
             </div>
 
-            <div class="col-lg-4" *ngIf="showCart">
+            <div class="side-cart" *ngIf="allMerchandiseInCart.length > 0">
                 <div class="cart-wrap">
-                    <table class="table">
-                        <thead class="thead">
-                            <tr>
-                                <th class="table-head" scope="col">Images</th>
-                                <th class="table-head" scope="col">Items</th>
-                                <th class="table-head" scope="col">Prices</th>
-                                <th class="table-head" scope="col">Quantity</th>
-                                <th class="table-head" scope="col">Remove</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let merchandise of allMerchandiseInCart">
-                                <th class="table-item" scope="row"><img src="assets/img/Burger.png" alt="Menu"></th>
-                                <td>{{merchandise.name}}</td>
-                                <td>${{merchandise.price}}</td>
-                                <td>{{ merchandise.quantity }}</td>
-                                <td><a (click)="deleteItem(merchandise)"><i class='bx bx-x'></i></a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <div class="shop-back">
-                        <a routerLink="/checkout">Go for Order?</a>
+                    <div class="table">
+                       
+                        <div class="tbody">
+                            <div *ngFor="let merchandise of allMerchandiseInCart" class="table-row">
+                                <div class="table-item"><img src="assets/img/Burger.png" alt="Menu"></div>
+                                <div class="table-head"><span style="font-weight: bold;">Items:</span><span>{{ merchandise.name }}</span></div>
+                                <div class="table-head"><span style="font-weight: bold;">Price:</span><span>${{ merchandise.price }}</span></div>
+                                <div class="table-head"><span style="font-weight: bold;">Quantity:</span><span>{{ merchandise.quantity }}</span></div>
+                                <div><a class="remove-btn" (click)="deleteItem(merchandise)"><i style="font-size: 15px;" class='bx bx-x'></i></a></div>
+                            </div>
+                        </div>
                     </div>
                     <div class="total-shopping">
-                        <h2>Total Order</h2>
-                        <h3>Total: <span>${{calculateTotal()}}</span></h3>
-                        <button class="checkoutBtn" [class.disabled]="allMerchandiseInCart.length == 0" [disabled]="allMerchandiseInCart.length == 0" routerLink="/checkout">Checkout Items</button>
+                        <h3  style="font-weight: bold;">Total: <span>${{ calculateTotal() }}</span></h3>
+                        <button class="checkoutBtn" [class.disabled]="allMerchandiseInCart.length == 0" [disabled]="allMerchandiseInCart.length == 0" routerLink="/trackorder">Checkout Items</button>
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
 </section>

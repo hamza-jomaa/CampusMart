@@ -48,6 +48,16 @@ export const environment = {
     base:'Cart',
     CreateCart:'/CreateCart',
     GetAllCarts:'/GetAllCarts'
+  },
+  Payment:{
+    base:'Payment',
+
+  },
+  Bank:{
+    base:'Bank',
+    CreateBank:'/CreateBank',
+    GetAllBanks:'/GetAllBanks',
+    UpdateBank:'/UpdateBank'
   }
 };
 

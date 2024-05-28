@@ -60,7 +60,7 @@ addItem(item: any) {
   const currentData = this.dataSubject.value;
   currentData.push(item);
   this.dataSubject.next(currentData);
-}
+} 
 removeItem(item: any) {
   const currentData = this.dataSubject.value;
   const updatedData = currentData.filter(i => i !== item);

@@ -39,6 +39,7 @@ import { consumerGuard } from "./guards/consumer.guard";
 import { providerGuard } from "./guards/provider.guard";
 import { AuthAdminGuard } from "./guards/auth-admin.guard";
 import { AddVisaComponent } from "./add-visa/add-visa.component";
+import { PaymentComponent } from "./components/pages/payment/payment.component";
 
 
 const routes: Routes = [
@@ -61,6 +62,7 @@ const routes: Routes = [
     {path: 'book-table', component: BookTableComponent},
     {path: 'cart', component: CartComponent},
     {path: 'checkout', component: CheckoutComponent},
+    {path: 'payment', component: PaymentComponent},
     {path: 'coming-soon', component: ComingSoonComponent},
     {path: 'terms-conditions', component: TermsConditionsComponent},
     {path: 'privacy-policy', component: PrivacyPolicyComponent},
