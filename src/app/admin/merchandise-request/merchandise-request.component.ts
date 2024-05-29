@@ -10,8 +10,8 @@ import { forkJoin } from 'rxjs';
   styleUrls: ['./merchandise-request.component.scss']
 })
 export class MerchandiseRequestComponent implements OnInit {
-  constructor(public admin: AdminService , private confirmService: NgConfirmService,
-    private toastr: ToastrService ) {}
+  constructor(public admin: AdminService , public confirmService: NgConfirmService,
+    public toastr: ToastrService ) {}
     stores: any[] = [];
 
   ngOnInit(): void {

@@ -111,8 +111,9 @@ import { PaymentComponent } from './components/pages/payment/payment.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     FormsModule,
+    AppRoutingModule,
+    
     FontAwesomeModule,
     GoogleMapsModule,
     ReactiveFormsModule,

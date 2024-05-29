@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ConsumerInfoComponent implements OnInit {
 
  
-  constructor(public admin: AdminService ,private dialog:MatDialog ,private dialogService:DialogService ,private toastr: ToastrService ) { }
+  constructor(public admin: AdminService ,public dialog:MatDialog ,public dialogService:DialogService ,public toastr: ToastrService ) { }
 
   ngOnInit(): void {
     this.fetchConsumers();

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CampusConsumerService } from 'src/app/services/campus-consumer.service';
-import { ToastrService } from 'ngx-toastr'; // Import ToastrService
+import { ToastrService } from 'ngx-toastr'; 
 
 @Component({
   selector: 'app-add-visa',
@@ -16,7 +16,7 @@ export class AddVisaComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder, 
     private campusConsumerService: CampusConsumerService,
-    private toastr: ToastrService // Inject ToastrService
+    private toastr: ToastrService 
   ) { }
 
   ngOnInit(): void {
@@ -35,7 +35,7 @@ export class AddVisaComponent implements OnInit {
   }
 
   getConsumerIdFromLocalStorage(): void {
-    const userData: any = localStorage.getItem('user'); 
+    const userData: any = localStorage.getItem('user');
     if (userData) {
       const parsedUserData = JSON.parse(userData);
       this.consumerId = parsedUserData.login_ConsumerID; 

@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ProviderRequestComponent implements OnInit {
 
-  constructor(public admin: AdminService, private dialog: MatDialog, private toastr: ToastrService) {}
+  constructor(public admin: AdminService, public dialog: MatDialog, public toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.admin.getAllPendingProviders();
