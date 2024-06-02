@@ -44,7 +44,7 @@ export class AuthService {
       userData = JSON.parse(userData);
       this.profileService.getConsumerById(userData.login_ConsumerID).subscribe((ConsumerRes:any)=>{
         if(ConsumerRes){
-          //??
+          //to fill consumer id every where 
           this.profileService.setConsumerData(ConsumerRes);
           this.checkoutService.setConsumerData(ConsumerRes);
           this.providerService.GetAllServiceProviders().subscribe((providerRes: any) => {

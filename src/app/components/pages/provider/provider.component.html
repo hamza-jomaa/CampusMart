@@ -418,12 +418,12 @@
                         >
                         <button
                         class="edit"
-                        (click)="acceptOrder(order.orderid,orderData.consumerId)"
+                        (click)="acceptOrder(order.orderid,order.consumerid)"
                     >
                         accept</button
                     ><button
                         class="remove"
-                        (click)="declineOrderr(order.orderid)"
+                        (click)="declineOrderr(order.orderid,order.totalamount,order.consumerid)"
                     >
                     decline
                     </button>

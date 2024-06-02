@@ -13,6 +13,7 @@ import { DialogService } from "src/app/services/dialog.service";
 import { ToastrService } from "ngx-toastr";
 import { OrderService } from "src/app/services/order.service";
 import { Router } from "@angular/router";
+import { TransactionService } from "src/app/services/transaction.service";
 
 @Component({
     selector: "app-provider",
@@ -58,7 +59,7 @@ export class ProviderComponent implements OnInit {
     editingSpecialRequestIndex = null;
     editingItem = false;
     merchandiseList: any = [];
-    
+    campusConsumerBank:any;
     storeData:any = {
         storeid:0,
         storename:'',
@@ -80,106 +81,7 @@ export class ProviderComponent implements OnInit {
         "specialrequests": [],
         "stores": []
     };
-    orderData: any = [
-        {
-            id: 0,
-            name: "order 1",
-            providerId: null,
-            providerName: "",
-            providerPhone: "",
-            consumerId: 0,
-            consumerName: "First consumer",
-            consumerPhone: "0798765432",
-            merchandises: [
-                {
-                    id: 2,
-                    name: "Pizza",
-                    price: 6,
-                    quantity: 19,
-                    image: "./assets/img/items/merchandises/pizza.png",
-                },
-                {
-                    id: 3,
-                    name: "Shawarma",
-                    price: 5,
-                    quantity: 16,
-                    image: "./assets/img/items/merchandises/shwarma.png",
-                },
-                {
-                    id: 4,
-                    name: "Turkey",
-                    price: 2,
-                    quantity: 18,
-                    image: "./assets/img/items/merchandises/turkey.png",
-                },
-            ],
-            date: "",
-            orderStatus: 0,
-        },
-        {
-            id: 1,
-            name: "order 2",
-            providerId: null,
-            providerName: "",
-            providerPhone: "",
-            consumerId: 1,
-            consumerName: "Second consumer",
-            consumerPhone: "0787654321",
-            merchandises: [
-                {
-                    id: 0,
-                    name: "Burger",
-                    price: 3,
-                    quantity: 10,
-                    image: "./assets/img/items/merchandises/burger.png",
-                },
-                {
-                    id: 1,
-                    name: "Fajita",
-                    price: 5,
-                    quantity: 15,
-                    image: "./assets/img/items/merchandises/fajita.png",
-                },
-                {
-                    id: 2,
-                    name: "Pizza",
-                    price: 6,
-                    quantity: 19,
-                    image: "./assets/img/items/merchandises/pizza.png",
-                },
-            ],
-            date: "",
-            orderStatus: 0,
-        },
-        {
-            id: 2,
-            name: "order 3",
-            providerId: null,
-            providerName: "",
-            providerPhone: "",
-            consumerId: 2,
-            consumerName: "Third consumer",
-            consumerPhone: "0776543210",
-            merchandises: [
-                {
-                    id: 2,
-                    name: "Pizza",
-                    price: 6,
-                    quantity: 19,
-                    image: "./assets/img/items/merchandises/pizza.png",
-                },
-                {
-                    id: 3,
-                    name: "Shawarma",
-                    price: 5,
-                    quantity: 16,
-                    image: "./assets/img/items/merchandises/shwarma.png",
-                },
-            ],
-            date: "",
-            orderStatus: 0,
-        },
-    ];
+    orderData: any = [  ];
 
 
     pendingSpecialRequests: any[] = [];
@@ -220,7 +122,10 @@ export class ProviderComponent implements OnInit {
         private dialog: MatDialog,
          private toastr: ToastrService,
          private campusConsumerService: CampusConsumerService,
-         private orderService:OrderService,private router: Router,
+         private orderService:OrderService,
+         private transactionService:TransactionService,
+         private router: Router,
+
 
     ) { }
 
@@ -340,15 +245,31 @@ export class ProviderComponent implements OnInit {
             }
         });
     }
-    declineOrderr(orderId: number) {
+    declineOrderr(orderId: number,totalamount:number,consumerId:number) {
         const dialogRef = this.dialog.open(MatConfirmDialogComponent, {
             data: { message: 'Are you sure you want to decline this order?' }
         });
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 
+               // console.log(this.ordersList)
+                console.log(totalamount)
+                //return total to user after decline
+                debugger 
+                this.transactionService.GetBankByConsumerId(consumerId).subscribe(
+                    res => {
+                      console.log(res);
+                      this.campusConsumerBank = res;
+                      console.log(this.campusConsumerBank.balance);
+                      this.campusConsumerBank.balance=this.campusConsumerBank.balance+totalamount;
+                      this.transactionService.UpdateBank(this.campusConsumerBank)
+                    },
+                    error => {
+                      console.error('Error fetching bank details:', error);
+                    }
+                  );
                 this.orderService.deleteOrder(orderId);
-                window.location.reload();     
+                //window.location.reload();     
             }
         });
     }

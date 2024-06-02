@@ -24,6 +24,7 @@ export class TransactionService {
         return this.http.get<any>(environment.backendAPI + environment.Bank.base + environment.Bank.GetAllBanks);
     }
     GetBankByConsumerId(conumerId:number) {
+       //debugger
         return this.http.get(environment.backendAPI + environment.Bank.base + environment.Bank.GetBankByConsumerId+'?consumerId='+conumerId);
     }
     CreateBank(bank: any) {
