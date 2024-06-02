@@ -12,6 +12,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { DialogService } from "src/app/services/dialog.service";
 import { ToastrService } from "ngx-toastr";
 import { OrderService } from "src/app/services/order.service";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "app-provider",
@@ -219,7 +220,7 @@ export class ProviderComponent implements OnInit {
         private dialog: MatDialog,
          private toastr: ToastrService,
          private campusConsumerService: CampusConsumerService,
-         private orderService:OrderService
+         private orderService:OrderService,private router: Router,
 
     ) { }
 
@@ -516,7 +517,7 @@ export class ProviderComponent implements OnInit {
             // Fetch consumer details to include in the notification
             this.campusConsumerService.getConsumerById(this.providerData.consumerid).toPromise().then((consumer: any) => {
               this.addNotification(this.providerData.consumerid, `Your order from has been accepted `);
-      
+              this.router.navigate(['/trackorder']);
               this.toastr.success('Order Accepted Successfully!', 'Success', {
                 positionClass: 'toast-top-right',
                 closeButton: true,

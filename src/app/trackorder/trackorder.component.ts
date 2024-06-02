@@ -7,7 +7,7 @@ import { OrderService } from "../services/order.service";
 import { CheckoutService } from "../services/checkout.service";
 import { ToastrService } from "ngx-toastr";
 import { TransactionService } from "../services/transaction.service";
-
+import { interval } from 'rxjs';
 @Component({
     selector: "app-trackorder",
     templateUrl: "./trackorder.component.html",
@@ -22,6 +22,8 @@ export class TrackorderComponent implements OnInit {
     totalPrice: any = 0;
     cartIDSFromDb: any;
     paymentCreditntails: any;
+    bank: any;
+    estimatedTime:any=0;
     constructor(
         private cartService: CartService,
         private profileService: ProfileService,
@@ -50,23 +52,24 @@ export class TrackorderComponent implements OnInit {
                 visible: true,
                 opacity: 1,
 
-                title: "You",
+                title: "Consumer",
                 options: {
-                    draggable: true,
+                    draggable: false,
                     icon: "../assets/img/loc1.png",
                 },
             },
-            // {
-            //   position: { lat: this.data.latitude, lng: this.data.longitude },
-            //   visible: true,
-            //   opacity: 1,
+            {
+                lat: parseInt(this.location[0]),
+                lng: parseInt(this.location[1]),
+              visible: true,
+              opacity: 1,
 
-            //   title: this.data.name,
-            //   options: {
-            //     draggable: false,
-            //     icon: '../assets/img/loc2.png'
-            //   }
-            // }
+              title: "Provider",
+              options: {
+                draggable: false,
+                icon: '../assets/img/loc2.png'
+              }
+            }
         ];
     }
     display: any;
@@ -101,6 +104,7 @@ export class TrackorderComponent implements OnInit {
                         }
                     }
                 });
+                this.getLatestOrderUpdate();
                 this.getCart();
             }
         });
@@ -347,23 +351,282 @@ export class TrackorderComponent implements OnInit {
             }
         );
     }
+    getDistanceFromLatLonInKm(lat1: number, lon1: number, lat2: number, lon2: number): number {
+        const R = 6371; // Radius of the Earth in km
+        const dLat = this.deg2rad(lat2 - lat1);  // deg2rad below
+        const dLon = this.deg2rad(lon2 - lon1); 
+        const a = 
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * 
+            Math.sin(dLon / 2) * Math.sin(dLon / 2); 
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); 
+        const distance = R * c; // Distance in km
+        return distance;
+    }
+    
+    deg2rad(deg: number): number {
+        return deg * (Math.PI / 180);
+    }
+    
+    // Travel time calculation function
+    calculateTravelTime(distanceInKm: number): number {
+        const timePerKm = 5; // 5 minutes per kilometer
+        return distanceInKm * timePerKm;
+    }
+   
+    getLatestOrderUpdate() {
+        // Call initially
+        this.orderService.GetOrders().subscribe((res) => {
+            if (res) {
+                if( res.filter(
+                    (data) =>
+                        data.consumerid ==
+                        this.consumerData.consumerid
+                ).length > 0){
+                    this.currentOrder = res.filter(
+                        (data) =>
+                            data.consumerid ==
+                            this.consumerData.consumerid
+                    )[0];
+                    this.currentUser = "consumer";
+                    console.log('this.consumerData',this.consumerData);
+                    console.log('this.currentOrder',this.currentOrder);
+                    this.markers[0].position= {
+                        lat: parseInt(this.currentOrder.locatioN_LATITUDE),
+                        lng: parseInt(this.currentOrder.locatioN_LONGITUDE),
+                    };
+                    this.providerService.getServiceProviderById(this.currentOrder.providerid).subscribe((fullProvider:any)=>{
+                        if(fullProvider){
+                          this.providerData=fullProvider;
+                          if (navigator.geolocation) {
+                              navigator.geolocation.getCurrentPosition((position) => {
+                                  if (position) {
+                                     
+                                      
+                                             
+                                            this.providerData.locatioN_LATITUDE =
+                                            position.coords.latitude.toString();
+                                        this.providerData.locatioN_LONGITUDE =
+                                            position.coords.longitude.toString();
+                                            this.markers[1].position= {
+                                                lat: parseInt(this.providerData.locatioN_LATITUDE),
+                                                lng: parseInt(this.providerData.locatioN_LONGITUDE),
+                                            };
+                                            this.estimatedTime= this.getDistanceFromLatLonInKm(this.markers[0].position.lat,this.markers[0].position.lng,this.markers[1].position.lat,this.markers[1].position.lng);
+                                            this.estimatedTime=parseInt(this.estimatedTime)
+                                                  console.log('this.providerData',this.providerData); 
+                                              
+                                         
+                                         
+                                  }
+                              });
+                          } else {
+                              alert("Geolocation is not supported by this browser.");
+                          }
+                        }
+                      })
+                }else {
+                    this.providerService.getGetProviderStoreInfoByConsumerID(this.consumerData.consumerid).subscribe(provider=>{
+                       if(provider){
+                        this.providerData=provider;
+                        if(res.filter(
+                            (data) =>
+                                data.providerid ==
+                                this.providerData.providerid
+                        ).length > 0){
+                            this.currentUser = "provider"; 
+                            this.currentOrder = res.filter(
+                                (data) =>
+                                    data.providerid ==
+                                    this.providerData.providerid
+                            )[0];
+                           
+                            console.log('this.currentOrder',this.currentOrder);
+                            this.providerService.getServiceProviderById(this.providerData.providerid).subscribe((fullProvider:any)=>{
+                              if(fullProvider){
+                                this.providerData=fullProvider;
+                                if (navigator.geolocation) {
+                                    navigator.geolocation.getCurrentPosition((position) => {
+                                        if (position) {
+                                            this.providerData.locatioN_LATITUDE =
+                                                position.coords.latitude.toString();
+                                            this.providerData.locatioN_LONGITUDE =
+                                                position.coords.longitude.toString();
+                                               
+                                                this.profileService.updateServiceProvider(this.providerData).subscribe(res=>{
+                                                   
+                                                        this.markers[0].position= {
+                                                            lat: parseInt(this.currentOrder.locatioN_LATITUDE),
+                                                            lng: parseInt(this.currentOrder.locatioN_LONGITUDE),
+                                                        };
+                                                        this.markers[1].position= {
+                                                            lat: parseInt(this.providerData.locatioN_LATITUDE),
+                                                            lng: parseInt(this.providerData.locatioN_LONGITUDE),
+                                                        };
+                                                        this.estimatedTime= this.getDistanceFromLatLonInKm(this.markers[0].position.lat,this.markers[0].position.lng,this.markers[1].position.lat,this.markers[1].position.lng);
+                                                        this.estimatedTime=parseInt(this.estimatedTime)
+                                                        console.log('this.providerData',this.providerData); 
+                                                    
+                                                });
+                                               
+                                        }
+                                    });
+                                } else {
+                                    alert("Geolocation is not supported by this browser.");
+                                }
+                              }
+                            })
+                          
+                        }
+                       }
+                    })
+                }
+               
+            }
+        });
+    
+        interval(8000) 
+            .subscribe(() => {
+                this.orderService.GetOrders().subscribe((res) => {
+                    if (res) {
+                        if( res.filter(
+                            (data) =>
+                                data.consumerid ==
+                                this.consumerData.consumerid
+                        ).length > 0){
+                            this.currentOrder = res.filter(
+                                (data) =>
+                                    data.consumerid ==
+                                    this.consumerData.consumerid
+                            )[0];
+                            this.currentUser = "consumer";
+                            console.log('this.consumerData',this.consumerData);
+                            console.log('this.currentOrder',this.currentOrder);
+                            this.markers[0].position= {
+                                lat: parseInt(this.currentOrder.locatioN_LATITUDE),
+                                lng: parseInt(this.currentOrder.locatioN_LONGITUDE),
+                            };
+                            this.providerService.getServiceProviderById(this.currentOrder.providerid).subscribe((fullProvider:any)=>{
+                                if(fullProvider){
+                                  this.providerData=fullProvider;
+                                  if (navigator.geolocation) {
+                                      navigator.geolocation.getCurrentPosition((position) => {
+                                          if (position) {
+   
+                                                        this.providerData.locatioN_LATITUDE =
+                                                        position.coords.latitude.toString();
+                                                    this.providerData.locatioN_LONGITUDE =
+                                                        position.coords.longitude.toString();
+                                                        
+                                                        this.markers[1].position= {
+                                                            lat: parseInt(this.providerData.locatioN_LATITUDE),
+                                                            lng: parseInt(this.providerData.locatioN_LONGITUDE),
+                                                        };
+                                                        this.estimatedTime= this.getDistanceFromLatLonInKm(this.markers[0].position.lat,this.markers[0].position.lng,this.markers[1].position.lat,this.markers[1].position.lng);
+                                                        this.estimatedTime=parseInt(this.estimatedTime)
+                                                          console.log('this.providerData',this.providerData); 
+                                                      
+                                              
+                                                 
+                                          }
+                                      });
+                                  } else {
+                                      alert("Geolocation is not supported by this browser.");
+                                  }
+                                }
+                              })
+                        }else {
+                            this.providerService.getGetProviderStoreInfoByConsumerID(this.consumerData.consumerid).subscribe(provider=>{
+                               if(provider){
+                                this.providerData=provider;
+                                if(res.filter(
+                                    (data) =>
+                                        data.providerid ==
+                                        this.providerData.providerid
+                                ).length > 0){
+                                    this.currentUser = "provider"; 
+                                    this.currentOrder = res.filter(
+                                        (data) =>
+                                            data.providerid ==
+                                            this.providerData.providerid
+                                    )[0];
+                                   
+                                    console.log('this.currentOrder',this.currentOrder);
+                                    this.providerService.getServiceProviderById(this.providerData.providerid).subscribe((fullProvider:any)=>{
+                                      if(fullProvider){
+                                        this.providerData=fullProvider;
+                                        if (navigator.geolocation) {
+                                            navigator.geolocation.getCurrentPosition((position) => {
+                                                if (position) {
+                                                    this.providerData.locatioN_LATITUDE =
+                                                        position.coords.latitude.toString();
+                                                    this.providerData.locatioN_LONGITUDE =
+                                                        position.coords.longitude.toString();
+                                                        this.profileService.updateServiceProvider(this.providerData).subscribe(res=>{
+                                                           
+                                                                this.markers[0].position= {
+                                                                    lat: parseInt(this.currentOrder.locatioN_LATITUDE),
+                                                                    lng: parseInt(this.currentOrder.locatioN_LONGITUDE),
+                                                                };
+                                                                this.markers[1].position= {
+                                                                    lat: parseInt(this.providerData.locatioN_LATITUDE),
+                                                                    lng: parseInt(this.providerData.locatioN_LONGITUDE),
+                                                                };
+                                                                this.estimatedTime= this.getDistanceFromLatLonInKm(this.markers[0].position.lat,this.markers[0].position.lng,this.markers[1].position.lat,this.markers[1].position.lng);
+                                                        this.estimatedTime=parseInt(this.estimatedTime)
+                                                                console.log('this.providerData',this.providerData); 
+                                                            
+                                                        });
+                                                       
+                                                }
+                                            });
+                                        } else {
+                                            alert("Geolocation is not supported by this browser.");
+                                        }
+                                      }
+                                    })
+                                  
+                                }
+                               }
+                            })
+                        }
+                       
+                    }
+                });
+            });
+    }
+    endOrder(){
+        let finishedOrder;
+        this.orderService.GetOrders().subscribe((res) => {
+            if (res) {
+
+                this.transactionService
+                    .getAllBanks()
+                    .subscribe((resBank) =>  {
+                      if(resBank){
+                        this.paymentCreditntails =resBank.filter(bank=>bank.consumerid==this.providerData.consumerid)[0];
+                        finishedOrder=res.filter(order=>order.providerid==this.providerData.providerid)[0];
+                        this.paymentCreditntails.balance =  parseFloat(this.paymentCreditntails.balance) + parseFloat(finishedOrder.totalamount);
+                        this.transactionService.UpdateBank(this.paymentCreditntails);
+                        this.orderService.deleteOrder(finishedOrder.orderid)
+                      }
+                        
+                    });
+            }
+        });
+    }
     updater() {
         this.orderService.GetOrders().subscribe((res) => {
             if (res) {
                 this.transactionService
-                    .GetBankByConsumerId( this.consumerData.consumerid)
+                    .getAllBanks()
                     .subscribe((res) =>  {
-                        if (res) {
-                            console.log(res)
-                            this.paymentCreditntails=res
-                            console.log(this.paymentCreditntails)
-                            this.paymentCreditntails.balance =  parseFloat(this.paymentCreditntails.balance) - parseFloat(this.totalPrice);
-                            console.log(this.paymentCreditntails.balance)
-                            this.transactionService.UpdateBank(
-                                this.paymentCreditntails
-                            );
-                         
-                        }
+                      if(res){
+                        this.paymentCreditntails =res.filter(bank=>bank.consumerid==this.consumerData.consumerid)[0];
+                        this.paymentCreditntails.balance =  parseFloat(this.paymentCreditntails.balance) - parseFloat(this.totalPrice);
+                        this.transactionService.UpdateBank(this.paymentCreditntails);
+                      }
+                        
                     });
             }
         });

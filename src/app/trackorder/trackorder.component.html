@@ -1,4 +1,4 @@
-<app-navbar-style-two></app-navbar-style-two>
+<app-navbar></app-navbar>
 
 <div class="page-title-area page-title-img-one">
     <div class="container">
@@ -16,7 +16,7 @@
     <div class="card p-4 mt-3">
        <div class="first d-flex justify-content-between align-items-center mb-3">
          <div class="info">
-             <span class="d-block name">Thank you, Hamza</span>
+             <span *ngIf="currentUser=='consumer'" class="d-block name">Thank you, {{consumerData?.fullname}}</span>
              
               
          </div>
@@ -27,32 +27,30 @@
        </div>
            <div class="detail">
        <span *ngIf="currentOrder?.orderstatus=='pending' && currentUser=='consumer'" class="d-block summery">Your order is pending to be accepted by provider . . .</span>
-       <span *ngIf="currentOrder?.orderstatus=='accepted' && currentUser=='consumer'" class="d-block summery">Your order is On the way . . .</span>
+       <span *ngIf="currentOrder?.orderstatus=='Accepted' && currentUser=='consumer'" class="d-block summery">Your order is On the way . . .</span>
+       <span *ngIf="currentOrder?.orderstatus=='Accepted'" class="d-block summery">Estimated Time: {{estimatedTime}} Min</span>
+       
        <div class="horizontal-bar-wrap">
-        <div class="bar1 bar" [class.accepted]="currentOrder?.orderstatus=='accepted' && currentUser=='consumer'"></div>
-      <!--   <div class="bar2 bar"></div>
-        <div class="bar3 bar"></div>
-        <div class="bar4 bar"></div> -->
+        <div *ngIf="currentOrder" class="bar1 bar" [class.accepted]="currentOrder?.orderstatus=='Accepted' && currentUser=='consumer'"></div>
+
       </div>
            </div>
            <google-map *ngIf="currentOrder?.orderstatus=='Accepted'"
            height="400px"
            width="1152px"
-           max-width=""
            [center]="center"
            [zoom]="zoom"
-           (mapClick)="moveMap($event)"
-           (mapMousemove)="move($event)"
          >
          <map-marker #marker="mapMarker" *ngFor="let marker of markers" [position]="marker.position"
                          [label]="marker.label" [title]="marker.title" [options]="marker.options"></map-marker>
                          
          </google-map>
        <hr>
+       <button *ngIf="currentOrder?.orderstatus=='Accepted' && currentUser=='consumer'" (click)="endOrder()">Order Received</button>
        <div *ngIf="consumerData" class="text">
      <span class="d-block new mb-1" >{{consumerData?.fullname}}</span>
+     
       </div>
-     <span class="d-block address mb-3">Jordan University of Science and Technology, Teaching Halls Complex, 2nd Floor, Room NF39.</span>
      
      </div>
  </div>

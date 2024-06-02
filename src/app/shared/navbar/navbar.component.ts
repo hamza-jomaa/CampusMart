@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
+import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,7 +9,9 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class NavbarComponent implements OnInit {
   allMerchandiseInCart:any=0;
-  constructor(private cartService: CartService) { }
+  token:any=localStorage.getItem('token');
+  isProvider:any=false;
+  constructor(private cartService: CartService, private profileService:ProfileService) { }
 
   ngOnInit(): void {
 
@@ -16,6 +19,12 @@ export class NavbarComponent implements OnInit {
       this.allMerchandiseInCart = data.length;
       
   });
-     
+     this.profileService.userData$.subscribe(res=>{
+      console.log("res",res)
+      this.isProvider=res.isprovider;
+     })
+}
+logout(){
+  localStorage.clear();
 }
 }

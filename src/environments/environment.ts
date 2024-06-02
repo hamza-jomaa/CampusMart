@@ -38,7 +38,8 @@ export const environment = {
     base:'CampusServiceProvider',
     GetServiceProviderById:'/GetServiceProviderById',
     GetAllServiceProviders:'/GetAllServiceProviders',
-    GetProviderStoreInfoByConsumerID:'/GetProviderStoreInfoByConsumerID'
+    GetProviderStoreInfoByConsumerID:'/GetProviderStoreInfoByConsumerID',
+    UpdateServiceProvider:'/UpdateServiceProvider'
   },
   Order:{
     base:'Order',

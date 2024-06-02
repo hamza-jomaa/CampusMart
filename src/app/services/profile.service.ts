@@ -25,9 +25,14 @@ export class ProfileService {
         }
       );
   }
+  updateServiceProvider(provider:any){
+    
+   return this.http.put(environment.backendAPI+environment.CampusServiceProvider.base+environment.CampusServiceProvider.UpdateServiceProvider, provider);
+  }
   getConsumerById(id:any){
     return this.http.get(environment.backendAPI+environment.CampusConsumer.base+environment.CampusConsumer.GetConsumerById+'/'+id);
   }
+
   setConsumerData(ConsumerData:any){
     this.userData.next(ConsumerData);
   }

@@ -41,7 +41,7 @@ deleteOrder(id:number){
  
     this.http.delete(environment.backendAPI+environment.Order.base+environment.Order.DeleteOrder+'/'+id).subscribe(
         (res: any) => {
-          this.toastr.success('Order decline successfully', res);
+          this.toastr.success('Order finished successfully', res);
         },
         (error: any) => {
           this.toastr.error('Error Occurred');
