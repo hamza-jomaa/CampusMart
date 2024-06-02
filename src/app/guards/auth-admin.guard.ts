@@ -8,7 +8,6 @@ export const AuthAdminGuard: CanActivateFn = (route, state) => {
   let toastr:ToastrService=inject (ToastrService)
   const token =localStorage.getItem('token') ;
   if(token){           
-    console.log(state) ;            
       let user :any = localStorage.getItem('user') ;
       user =JSON.parse(user);
 

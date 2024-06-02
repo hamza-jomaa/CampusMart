@@ -58,7 +58,6 @@ setStoreData(storeData:any){
 
 createStore(Store:any){
 Store.image=this.display_image
-  console.log(Store.image)
   this.http.post(environment.backendAPI+environment.Store.base+environment.Store.CreateStore, Store).subscribe(
     (resp: any) => {
       this.toastr.success('Store request sent successfully', resp);

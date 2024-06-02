@@ -20,7 +20,6 @@ export class NavbarComponent implements OnInit {
       
   });
      this.profileService.userData$.subscribe(res=>{
-      console.log("res",res)
       this.isProvider=res.isprovider;
      })
 }

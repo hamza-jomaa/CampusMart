@@ -301,25 +301,18 @@ export class ProviderComponent implements OnInit {
                
             });
         });
-
-
-
-        
-       console.log('user id',userData.login_ConsumerID)
         this.providerService.getGetProviderStoreInfoByConsumerID(userData.login_ConsumerID).subscribe((resp:any) => { 
         
             if(resp){
 
        this.providerStoreData.value.storeId=resp.storeid
        this.storeData.id=resp.storeid
-        console.log(this.providerStoreData.value.storeId)
         this.merchandiseService.GetMerchandiseByStoreID(this.providerStoreData.value.storeId).subscribe((res) => {
             this.merchandiseList = res;
         });
 
         this.orderService.GetConsumerOrdersbyProviderId(this.providerData.providerid).subscribe((res) => {
             this.ordersList = res;
-            console.log(this.ordersList)
         });
          }
               },
@@ -371,7 +364,6 @@ export class ProviderComponent implements OnInit {
         request.providerid = this.providerData.providerid;  
         this.providerService.updateSpecialRequest(request).subscribe(
           (response) => {
-            console.log('Special request updated successfully:', response);
             this.pendingSpecialRequests = this.pendingSpecialRequests.filter(req => req.requestid !== request.requestid);
             
             // Fetch consumer details to include in the notification
@@ -504,7 +496,6 @@ export class ProviderComponent implements OnInit {
     }
 
     acceptOrder(orderid: number, consumerid: number) {
-        console.log(orderid);
       
         const dialogRef = this.dialog.open(MatConfirmDialogComponent, {
           data: { message: 'Are you sure you want to accept this order?' }

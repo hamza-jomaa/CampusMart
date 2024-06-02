@@ -32,7 +32,6 @@ export class providerGuard implements CanActivate {
       if(isRoleIdValid){   return this.consumerService.getConsumerById(user.login_ConsumerID).pipe(
         map((res: any) => {
           const isprovider = res.isprovider;
-          console.log('isprovider', isprovider);
           if (isprovider == 1 || isprovider == '1') {
             this.toastr.success('Welcome to provider consumer Dashboard');
             return true;

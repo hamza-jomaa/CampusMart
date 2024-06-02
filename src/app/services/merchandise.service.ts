@@ -14,7 +14,6 @@ export class MerchandiseService {
 
   createMerchandise(merchandise:any){
     merchandise.image=this.display_image;
-    console.log(merchandise)
     this.http.post(environment.backendAPI+environment.Merchandise.base+environment.Merchandise.CreateMerchandise, merchandise).subscribe(
       (resp: any) => {
         this.toastr.success('Merchandise added successfully', resp);

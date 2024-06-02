@@ -23,13 +23,11 @@ export class consumerGuard implements CanActivate {
       let user :any = localStorage.getItem('user') ;
       user =JSON.parse(user);
      
-      //const consumer=this.consumerService.GetCampusConsumerId(user.login_ConsumerID)
-    //  console.log(consumer)
-      //const provider=this.consumerService.checkIsProvider()
+      
       
      if (token) {
       const roleid=user.login_RoleID== 2 || user.login_RoleID == '2';
-      if(roleid){console.log(user.login_ConsumerID)
+      if(roleid){
       this.toastr.success('Welcome to campus consumer Dashboard')
       // this.router.navigate(['coming-soon']);
    

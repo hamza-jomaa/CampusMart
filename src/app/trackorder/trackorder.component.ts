@@ -100,7 +100,6 @@ export class TrackorderComponent implements OnInit {
                                     this.consumerData.consumerid
                             )[0];
                             this.currentUser = "consumer";
-                            console.log("this.consumerData", this.consumerData);
                         }
                     }
                 });
@@ -115,12 +114,6 @@ export class TrackorderComponent implements OnInit {
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
                         if (position) {
-                            console.log(
-                                "Latitude: " +
-                                    position.coords.latitude +
-                                    "Longitude: " +
-                                    position.coords.longitude
-                            );
                             let lat = position.coords.latitude;
                             let lng = position.coords.longitude;
 
@@ -148,7 +141,6 @@ export class TrackorderComponent implements OnInit {
                         (provider) =>
                             provider.providerid == this.storeData.providerid
                     )[0];
-                    console.log("this.providerData", this.providerData);
                     this.orderService.GetOrders().subscribe((res) => {
                         if (res?.length > 0) {
                             if (
@@ -389,8 +381,6 @@ export class TrackorderComponent implements OnInit {
                             this.consumerData.consumerid
                     )[0];
                     this.currentUser = "consumer";
-                    console.log('this.consumerData',this.consumerData);
-                    console.log('this.currentOrder',this.currentOrder);
                     this.markers[0].position= {
                         lat: parseInt(this.currentOrder.locatioN_LATITUDE),
                         lng: parseInt(this.currentOrder.locatioN_LONGITUDE),
@@ -414,7 +404,6 @@ export class TrackorderComponent implements OnInit {
                                             };
                                             this.estimatedTime= this.getDistanceFromLatLonInKm(this.markers[0].position.lat,this.markers[0].position.lng,this.markers[1].position.lat,this.markers[1].position.lng);
                                             this.estimatedTime=parseInt(this.estimatedTime)
-                                                  console.log('this.providerData',this.providerData); 
                                               
                                          
                                          
@@ -441,7 +430,6 @@ export class TrackorderComponent implements OnInit {
                                     this.providerData.providerid
                             )[0];
                            
-                            console.log('this.currentOrder',this.currentOrder);
                             this.providerService.getServiceProviderById(this.providerData.providerid).subscribe((fullProvider:any)=>{
                               if(fullProvider){
                                 this.providerData=fullProvider;
@@ -465,7 +453,6 @@ export class TrackorderComponent implements OnInit {
                                                         };
                                                         this.estimatedTime= this.getDistanceFromLatLonInKm(this.markers[0].position.lat,this.markers[0].position.lng,this.markers[1].position.lat,this.markers[1].position.lng);
                                                         this.estimatedTime=parseInt(this.estimatedTime)
-                                                        console.log('this.providerData',this.providerData); 
                                                     
                                                 });
                                                
@@ -500,8 +487,6 @@ export class TrackorderComponent implements OnInit {
                                     this.consumerData.consumerid
                             )[0];
                             this.currentUser = "consumer";
-                            console.log('this.consumerData',this.consumerData);
-                            console.log('this.currentOrder',this.currentOrder);
                             this.markers[0].position= {
                                 lat: parseInt(this.currentOrder.locatioN_LATITUDE),
                                 lng: parseInt(this.currentOrder.locatioN_LONGITUDE),
@@ -524,7 +509,6 @@ export class TrackorderComponent implements OnInit {
                                                         };
                                                         this.estimatedTime= this.getDistanceFromLatLonInKm(this.markers[0].position.lat,this.markers[0].position.lng,this.markers[1].position.lat,this.markers[1].position.lng);
                                                         this.estimatedTime=parseInt(this.estimatedTime)
-                                                          console.log('this.providerData',this.providerData); 
                                                       
                                               
                                                  
@@ -551,7 +535,6 @@ export class TrackorderComponent implements OnInit {
                                             this.providerData.providerid
                                     )[0];
                                    
-                                    console.log('this.currentOrder',this.currentOrder);
                                     this.providerService.getServiceProviderById(this.providerData.providerid).subscribe((fullProvider:any)=>{
                                       if(fullProvider){
                                         this.providerData=fullProvider;
@@ -574,7 +557,6 @@ export class TrackorderComponent implements OnInit {
                                                                 };
                                                                 this.estimatedTime= this.getDistanceFromLatLonInKm(this.markers[0].position.lat,this.markers[0].position.lng,this.markers[1].position.lat,this.markers[1].position.lng);
                                                         this.estimatedTime=parseInt(this.estimatedTime)
-                                                                console.log('this.providerData',this.providerData); 
                                                             
                                                         });
                                                        

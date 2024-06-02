@@ -55,7 +55,6 @@ export class AddVisaComponent implements OnInit {
 
     this.campusConsumerService.saveVisaCardDetails(formData).subscribe(
       (response) => {
-        console.log('Visa card created successfully:', response);
         this.toastr.success('Visa card created successfully!', 'Success');
         this.visaForm.reset();
       },

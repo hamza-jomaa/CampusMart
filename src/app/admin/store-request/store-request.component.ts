@@ -15,7 +15,6 @@ export class StoreRequestComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    debugger
     this.admin.GetAllPendingStores();
     // this.toastr.success('Component initialized successfully.');
 

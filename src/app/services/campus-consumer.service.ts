@@ -16,7 +16,6 @@ export class CampusConsumerService {
 
  
   updateConsumer(consumer:any){
-   debugger
   if(this.display_image!=undefined)
       consumer.imagepath=this.display_image
     this.http.put(environment.backendAPI+environment.CampusConsumer.base+environment.CampusConsumer.UpdateConsumer, consumer).subscribe(
@@ -59,16 +58,12 @@ checkIsProvider(id:any){
   this.consumerrrrData=this.getConsumerById(id)
   this.getConsumerById(id).subscribe(
     (res: any) => {
-      console.log('res',res)
       this.isprovider=res.isprovider
-      console.log(this.isprovider)
     },
     (error: any) => {
-    //  this.toastr.error('Error Occurred');
      
     }
   )
-  console.log(this.consumerrrrData)
   return this.isprovider
 }
 

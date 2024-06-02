@@ -14,7 +14,6 @@ export class OrderService {
     return this.http.get<any[]>(`https://localhost:7173/api/Order/GetAllOrders`);
   }
   CreateOrder(order:any){
-    console.log('order',order)
     return this.http.post(environment.backendAPI+environment.Order.base+environment.Order.CreateOrder, order)
   }
 
@@ -29,7 +28,6 @@ AcceptOrder (id:number)
    this.http.put(environment.backendAPI+environment.Order.base+environment.Order.AcceptOrder+'?orderID='+id,id).subscribe(
     (res: any) => {
       this.toastr.success('Order Accepted successfully', res);
-      console.log(res)
     },
     (error: any) => {
       this.toastr.error('Error Occurred');

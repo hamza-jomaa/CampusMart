@@ -168,7 +168,6 @@ export class FoodCollectionComponent implements OnInit {
             (res) => {
                 
                 this.allCategories=res
-                console.log(this.allCategories)
             },
             (error) => {
                 console.error("Error fetching All Merchandise Categories:", error);

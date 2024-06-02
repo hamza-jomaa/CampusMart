@@ -49,7 +49,6 @@ export class ComingSoonComponent implements OnInit {
           password:res.password
         }
         
-       console.log(res)
       },
       (error: any) => {
         this.toastr.error('Error Occurred');
@@ -86,9 +85,6 @@ export class ComingSoonComponent implements OnInit {
  
   submitForm() {
     
-     // this.profileForm.value.consumerid=this.apiUserData.login_ConsumerID;
-   //  this.UpdateStoreFrom.value.image=this.storeData.image;
-     //console.log(formData.form.value)
      this.UpdateConsumerFrom.value.consumerid=parseInt(this.apiUserData.login_ConsumerID);
 
      this.UpdateConsumerFrom.value.roleid=2;
