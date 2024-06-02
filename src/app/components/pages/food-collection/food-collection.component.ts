@@ -26,7 +26,7 @@ export class FoodCollectionComponent implements OnInit {
     allCategories: any[] = [];
     selectedCategory: string = 'all';
     activeCategory: string = '';
-  
+    searchText: string = '';
     constructor(
       private route: ActivatedRoute,
       private router: Router,

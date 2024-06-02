@@ -61,6 +61,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { SearchstorePipe } from './pipes/searchstore.pipe';
 import { AddVisaComponent } from './add-visa/add-visa.component';
 import { PaymentComponent } from './components/pages/payment/payment.component';
+import { SearchmerchandisePipe } from './pipes/searchmerchandise.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -101,7 +102,8 @@ import { PaymentComponent } from './components/pages/payment/payment.component';
     NotificationsComponent,
     SearchstorePipe,
     AddVisaComponent,
-   PaymentComponent
+   PaymentComponent,
+   SearchmerchandisePipe
    
     //SignupComponent,
    // LoginComponent,
