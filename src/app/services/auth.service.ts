@@ -44,13 +44,14 @@ export class AuthService {
       userData = JSON.parse(userData);
       this.profileService.getConsumerById(userData.login_ConsumerID).subscribe((ConsumerRes:any)=>{
         if(ConsumerRes){
+          //??
           this.profileService.setConsumerData(ConsumerRes);
           this.checkoutService.setConsumerData(ConsumerRes);
           this.providerService.GetAllServiceProviders().subscribe((providerRes: any) => {
             this.providerService.setProviderData(providerRes.filter(
               (provider) => provider.consumerid == userData.login_ConsumerID
           )[0]);
-            
+            //???
             this.providerService.getStore(providerRes.filter(
               (provider) => provider.consumerid == userData.login_ConsumerID
           )[0].providerid).subscribe((storeRes) => {

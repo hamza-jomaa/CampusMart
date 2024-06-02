@@ -53,7 +53,7 @@ export class PaymentComponent implements OnInit {
                 this.consumerData = res;
                 this.paymentCreditntails.consumerid = res.consumerid;
                 if (this.consumerData.banks.length == 0) {
-                    this.paymentCreditntails.balance = 500;
+                    //this.paymentCreditntails.balance = 500;
                 }
                 else {
                     this.transactionService.getAllBanks().subscribe((result) => {
@@ -69,15 +69,17 @@ export class PaymentComponent implements OnInit {
         if (this.consumerData.banks.length == 0) {
             this.paymentCreditntails.username = this.paymentMethods[this.activeIndex].altText;
             this.transactionService.CreateBank(this.paymentCreditntails);
+
         }
         else {
+            //???????????
             this.transactionService.getAllBanks().subscribe((allBanks: any) => {
                 this.paymentCreditntails.bankid = allBanks.filter(bankFil => bankFil.consumerid == this.consumerData.consumerid)[0].bankid;
                 this.transactionService.UpdateBank(this.paymentCreditntails);
             })
         }
     }
-
+//??????????
     getAllProviders() {
 
         this.providerService

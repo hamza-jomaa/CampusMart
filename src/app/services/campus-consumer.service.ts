@@ -16,8 +16,8 @@ export class CampusConsumerService {
 
  
   updateConsumer(consumer:any){
-   
-    if(this.display_image!=undefined)
+   debugger
+  if(this.display_image!=undefined)
       consumer.imagepath=this.display_image
     this.http.put(environment.backendAPI+environment.CampusConsumer.base+environment.CampusConsumer.UpdateConsumer, consumer).subscribe(
         (res: any) => {

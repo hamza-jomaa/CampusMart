@@ -56,7 +56,7 @@
                     <form
                         style="text-align: left"
                         #formData="ngForm"
-                        (ngSubmit)="submitForm(formData)"
+                        [formGroup]="UpdateConsumerFrom" (ngSubmit)="submitForm()">
                     >
                         <label  disabled for="fullname"
                             >Name:</label
@@ -66,7 +66,7 @@
                             
                             type="text"
                             id="fullname"
-                            name="fullname"
+                            formControlName="fullname"
                             [(ngModel)]="userdata.fullname"
                         />
 
@@ -76,6 +76,7 @@
                             type="text"
                             id="email"
                             name="email"
+                            formControlName="email"
                             [(ngModel)]="userdata.email"
                             required
                         />
@@ -84,31 +85,18 @@
                             type="text"
                             id="phone"
                             name="phone"
+                            formControlName="phone"
                             [(ngModel)]="userdata.phone"
                             required
                         />
-                        <input
-                        type="number"
-                        id="consumerid"
-                        name="consumerid"
-                        [(ngModel)]="userdata.consumerid"
-                       value="this.apiUserData.login_ConsumerID"
-                        hidden
-                    />
-                    <input
-                        type="number"
-                        id="roleid"
-                        name="roleid"
-                        [(ngModel)]="userdata.roleid"
-                       value="this.apiUserData.login_ConsumerID"
-                        hidden
-                    />
+                       
                         <label for="image">Image:</label>
                         <input
                             type="file"
                             id="image"
                             name="image"
                             #file
+                            formControlName="imagepath"
                             (change)="uploadImage(file.files)"
                         />
                         <img

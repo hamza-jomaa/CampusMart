@@ -351,18 +351,18 @@ export class TrackorderComponent implements OnInit {
         this.orderService.GetOrders().subscribe((res) => {
             if (res) {
                 this.transactionService
-                    .getAllBanks()
-                    .subscribe((banks: any) => {
-                        if (banks) {
-                            this.paymentCreditntails = banks.filter(
-                                (bank: any) =>
-                                    bank.consumerid ==
-                                    this.consumerData.consumerid
-                            );
+                    .GetBankByConsumerId( this.consumerData.consumerid)
+                    .subscribe((res) =>  {
+                        if (res) {
+                            console.log(res)
+                            this.paymentCreditntails=res
+                            console.log(this.paymentCreditntails)
                             this.paymentCreditntails.balance =  parseFloat(this.paymentCreditntails.balance) - parseFloat(this.totalPrice);
+                            console.log(this.paymentCreditntails.balance)
                             this.transactionService.UpdateBank(
                                 this.paymentCreditntails
                             );
+                         
                         }
                     });
             }

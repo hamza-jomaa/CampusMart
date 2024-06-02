@@ -18,18 +18,18 @@
     color: #333;
     font-weight: bold;
     font-style: italic;
-    margin-right: 5px; /* يمكنك زيادة أو تقليل هذا الرقم حسب الفضاء الذي ترغب فيه */
+    margin-right: 5px;
 }
 
 .refresh-button {
     background-color: #001f3f;
     color: #fff;
     border: none;
-    padding: 4px 9px; /* قمت بتصغير حجم الكبسة */
+    padding: 4px 9px; 
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-left: 5px; /* زيادة الفضاء بين الفقرة والكبسة */
+    margin-left: 5px; 
     margin-top: -10px;
 }
 

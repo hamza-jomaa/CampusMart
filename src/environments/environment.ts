@@ -61,7 +61,8 @@ export const environment = {
     base:'Bank',
     CreateBank:'/CreateBank',
     GetAllBanks:'/GetAllBanks',
-    UpdateBank:'/UpdateBank'
+    UpdateBank:'/UpdateBank',
+    GetBankByConsumerId:'/GetBankByConsumerId'
   }
 };
 

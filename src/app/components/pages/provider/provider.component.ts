@@ -318,6 +318,7 @@ export class ProviderComponent implements OnInit {
 
         this.orderService.GetConsumerOrdersbyProviderId(this.providerData.providerid).subscribe((res) => {
             this.ordersList = res;
+            console.log(this.ordersList)
         });
          }
               },
@@ -353,6 +354,7 @@ export class ProviderComponent implements OnInit {
             if (result) {
                 
                 this.orderService.deleteOrder(orderId);
+                window.location.reload();     
             }
         });
     }
@@ -500,11 +502,38 @@ export class ProviderComponent implements OnInit {
         this.resetForm();
     }
 
-    acceptOrder( orderid:number){
-        debugger
-       console.log(orderid)
-       this.orderService.AcceptOrder(orderid);
-    }
+    acceptOrder(orderid: number, consumerid: number) {
+        console.log(orderid);
+      
+        const dialogRef = this.dialog.open(MatConfirmDialogComponent, {
+          data: { message: 'Are you sure you want to accept this order?' }
+        });
+      
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.orderService.AcceptOrder(orderid);
+            window.location.reload();            
+            // Fetch consumer details to include in the notification
+            this.campusConsumerService.getConsumerById(this.providerData.consumerid).toPromise().then((consumer: any) => {
+              this.addNotification(this.providerData.consumerid, `Your order from has been accepted `);
+      
+              this.toastr.success('Order Accepted Successfully!', 'Success', {
+                positionClass: 'toast-top-right',
+                closeButton: true,
+                progressBar: true,
+                enableHtml: true,
+                timeOut: 5000,
+                extendedTimeOut: 2000,
+              });
+            }).catch((error: any) => {
+              console.error('Error fetching consumer details:', error);
+              this.toastr.error('Error occurred while fetching consumer details');
+            });
+          }
+        });
+      }
+      
+
 
     submitSpecialRequest(formData) {
         if (this.editingSpecialRequestIndex !== null) {
