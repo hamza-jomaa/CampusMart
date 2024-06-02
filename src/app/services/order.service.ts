@@ -15,14 +15,7 @@ export class OrderService {
   }
   CreateOrder(order:any){
     console.log('order',order)
-    this.http.post(environment.backendAPI+environment.Order.base+environment.Order.CreateOrder, order).subscribe(
-        (res: any) => {
-          this.toastr.success('Order Added successfully', res);
-        },
-        (error: any) => {
-          this.toastr.error('Error Occurred');
-        }
-      );
+    return this.http.post(environment.backendAPI+environment.Order.base+environment.Order.CreateOrder, order)
   }
 
   GetConsumerOrdersbyProviderId (id:number): Observable<any[]>

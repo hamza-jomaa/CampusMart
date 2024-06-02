@@ -12,23 +12,6 @@
         </div>
     </div>
 </div>
-
-
-
-<google-map
-  height="400px"
-  width="1350px"
-  [center]="center"
-  [zoom]="zoom"
-  (mapClick)="moveMap($event)"
-  (mapMousemove)="move($event)"
->
-<map-marker #marker="mapMarker" *ngFor="let marker of markers" [position]="marker.position"
-                [label]="marker.label" [title]="marker.title" [options]="marker.options"></map-marker>
-                
-</google-map>
-
-
 <div class="container mt-5 d-flex justify-content-center">
     <div class="card p-4 mt-3">
        <div class="first d-flex justify-content-between align-items-center mb-3">
@@ -43,26 +26,43 @@
 
        </div>
            <div class="detail">
-       <span class="d-block summery">Your order has been dispatched. we are delivering you order.</span>
+       <span *ngIf="currentOrder?.orderstatus=='pending' && currentUser=='consumer'" class="d-block summery">Your order is pending to be accepted by provider . . .</span>
+       <span *ngIf="currentOrder?.orderstatus=='accepted' && currentUser=='consumer'" class="d-block summery">Your order is On the way . . .</span>
+       <div class="horizontal-bar-wrap">
+        <div class="bar1 bar" [class.accepted]="currentOrder?.orderstatus=='accepted' && currentUser=='consumer'"></div>
+      <!--   <div class="bar2 bar"></div>
+        <div class="bar3 bar"></div>
+        <div class="bar4 bar"></div> -->
+      </div>
            </div>
+           <google-map *ngIf="currentOrder?.orderstatus=='accepted'"
+           height="400px"
+           width="1152px"
+           max-width=""
+           [center]="center"
+           [zoom]="zoom"
+           (mapClick)="moveMap($event)"
+           (mapMousemove)="move($event)"
+         >
+         <map-marker #marker="mapMarker" *ngFor="let marker of markers" [position]="marker.position"
+                         [label]="marker.label" [title]="marker.title" [options]="marker.options"></map-marker>
+                         
+         </google-map>
        <hr>
-       <div class="text">
-     <span class="d-block new mb-1" >Hamza Jomaa</span>
+       <div *ngIf="consumerData" class="text">
+     <span class="d-block new mb-1" >{{consumerData?.fullname}}</span>
       </div>
      <span class="d-block address mb-3">Jordan University of Science and Technology, Teaching Halls Complex, 2nd Floor, Room NF39.</span>
-       <div class="  money d-flex flex-row mt-2 align-items-center">
-         <img src="https://i.imgur.com/ppwgjMU.png" width="20" />
      
-         <span class="ml-2">Cash on Delivery</span> 
-
-            </div>
-            <div class="last d-flex align-items-center mt-3">
-             <span class="address-line">CHANGE MY DELIVERY ADDRESS</span>
-
-            </div>
      </div>
  </div>
 
 <br />
+
+
+
+
+
+
 
 <app-footer-style-two></app-footer-style-two>
