@@ -10,7 +10,7 @@ export class TesimonalsComponent implements OnInit {
   acceptedTestimonials: any[] = [];
   allTestimonials: any[] = []; 
   searchedDate: string = '';
-  constructor(private adminService: AdminService) { }
+  constructor(public adminService: AdminService) { }
   ngOnInit(): void {
     this.adminService.getAllTestimonials().subscribe(
       (testimonials) => {

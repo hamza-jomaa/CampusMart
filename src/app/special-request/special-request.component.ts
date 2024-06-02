@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminService } from 'src/app/services/admin.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-special-request',
@@ -17,11 +16,10 @@ export class SpecialRequestComponent implements OnInit {
   emailInfo: any; 
 
   constructor(
-    private fb: FormBuilder,
-    private adminService: AdminService,
-    private toastr: ToastrService,
-    private spinner: NgxSpinnerService,
-    private http: HttpClient 
+    public fb: FormBuilder,
+    public adminService: AdminService,
+    public toastr: ToastrService,
+    public spinner: NgxSpinnerService,
   ) {}
  consumerdata:any
   ngOnInit(): void {

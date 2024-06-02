@@ -10,8 +10,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class StoreRequestComponent implements OnInit {
   constructor(public admin: AdminService , 
-              private confirmService: NgConfirmService,
-              private toastr: ToastrService 
+    public confirmService: NgConfirmService,
+    public toastr: ToastrService 
   ) {}
 
   ngOnInit(): void {

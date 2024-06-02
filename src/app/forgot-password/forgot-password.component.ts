@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { AuthService } from "../auth.service";
 import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
@@ -10,7 +9,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/fo
 export class ForgotPasswordComponent implements OnInit {
     email: any = "";
     forgotPasswordForm!: FormGroup;
-    constructor(private fb: FormBuilder, private auth: AuthService) {}
+    constructor(private fb: FormBuilder) {}
     ngOnInit(): void {
         this.forgotPasswordForm = this.fb.group({
             email: ['',[Validators.required, this.citEmailValidator]],
@@ -18,9 +17,7 @@ export class ForgotPasswordComponent implements OnInit {
     }
     forgotPassword() {
         if (this.forgotPasswordForm.valid) {
-            this.auth.forgotPassword(
-                this.forgotPasswordForm.controls["email"].value
-            );
+           
         }
     }
     citEmailValidator(control: AbstractControl): { [key: string]: any } | null {

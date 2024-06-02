@@ -15,7 +15,7 @@ export class WritetestmonialComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private adminService: AdminService,
+    public adminService: AdminService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService
   ) {}

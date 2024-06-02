@@ -10,7 +10,7 @@ import { AdminService } from 'src/app/services/admin.service';
 export class ContactusReqComponent implements OnInit {
   contactUsList: any[] = [];
 
-  constructor(private adminService: AdminService) { }
+  constructor(public adminService: AdminService) { }
 
   ngOnInit(): void {
     this.getAllContacts();

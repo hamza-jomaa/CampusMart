@@ -12,7 +12,7 @@ export class AdminDashboardComponent implements OnInit {
   pendingTestimonials: any[] = [];
   numberOfUsers: number = 0;
   numberOfAcceptedStores: number = 0;
-  constructor(private adminService: AdminService, private confirmService: NgConfirmService, private toastr: ToastrService) {}
+  constructor(public adminService: AdminService, public confirmService: NgConfirmService, public toastr: ToastrService) {}
   ngOnInit(): void {
     this.getPendingTestimonials();
     this.getNumberOfUsers();
