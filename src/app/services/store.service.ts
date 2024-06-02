@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RouteReuseStrategy, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -87,4 +87,10 @@ Store.image=this.display_image
     }
   );
 }
+
+GetAllCategoriesByStoreID (id:number): Observable<any[]>
+{
+  return this.http.get<any[]>(environment.backendAPI+environment.Store.base+environment.Store.GetAllCategoriesByStoreID+'?storeID='+id);
+}
+
 }

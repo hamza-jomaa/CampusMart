@@ -18,7 +18,7 @@ export class ComingSoonComponent implements OnInit {
   username:any;
   email:any;
   phone:any;
-  userdata:any={name:'',username:'',email:'',phone:'',image:''};
+  userdata:any={consumerid:0,fullname:'',email:'',phone:'',imagepath:'',roleid:0};
   apiUserData=null;
   ngOnInit(): void {
     this.apiUserData = JSON.parse(localStorage.getItem("user"));
@@ -26,12 +26,14 @@ export class ComingSoonComponent implements OnInit {
     this.profileService.getConsumerById(this.apiUserData.login_ConsumerID).subscribe(
       (res: any) => {
         this.userdata={
-          name:res.fullname,
-          username:res.fullname,
+          fullname:res.fullname,
           phone:res.phone,
           email:res.email,
-          image:res.imagepath
+          imagepath:res.imagepath,
+          consumerid:this.apiUserData.login_ConsumerID,
+          roleid:2
         }
+       console.log(res)
       },
       (error: any) => {
         this.toastr.error('Error Occurred');
@@ -41,10 +43,11 @@ export class ComingSoonComponent implements OnInit {
    
     
     this.profileForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      username: ['', Validators.required],
+      consumerid:[],
+      fullname: ['', Validators.required],
       email: ['', Validators.required],
-      phone: ['', Validators.required]
+      phone: ['', Validators.required],
+      imagepath:['']
     });
   }
   open(){
@@ -55,8 +58,6 @@ export class ComingSoonComponent implements OnInit {
   }
   uploadImage(file: any) {
    
-  }
-  onFileSelected(file: any) {
     if (file.length === 0)
       return;
 
@@ -65,10 +66,12 @@ export class ComingSoonComponent implements OnInit {
     formData.append('file', fileToUpload, fileToUpload.name);
 
     this.campusConsumer.uploadAttachment(formData);
-}
+  }
+ 
   submitForm(formData) {
     if (formData.valid) {
-      this.profileService.updateConsumer(formData.form.value);
+     // this.profileForm.value.consumerid=this.apiUserData.login_ConsumerID;
+      this.campusConsumer.updateConsumer(formData.form.value);
     } else {
     }
   }

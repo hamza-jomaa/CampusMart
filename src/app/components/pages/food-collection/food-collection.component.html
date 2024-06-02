@@ -1,4 +1,4 @@
-<app-navbar-style-two></app-navbar-style-two>
+<app-navbar></app-navbar>
 
 <div class="page-title-area page-title-img-one">
     <div class="container">
@@ -19,43 +19,44 @@
         <div class="row">
             <div class="section-title">
                 <h2>{{storeData.storename}}</h2>
-                <p>Our market shop is not just a place to shop; it's a celebration of flavors, where each product tells a story of quality, craftsmanship, and culinary passion.</p>
+                <p>{{storeData.description}}</p>
             </div>
             <div class="col-lg-8">
-                
-
                 <div class="sorting-menu">
                     <ul>
-                        <li class="filter active" data-filter="all">All</li>
-                        <li class="filter" data-filter=".ui">Stationery</li>
-                        <li class="filter" data-filter=".ux">Dessert</li>
-                        <li class="filter" data-filter=".branding">Juice</li>
+                        <li class="filter active" data-filter="all" (click)="filterMerchandise('all')">All</li>
+                        <li *ngFor="let cat of allCategories" 
+                            class="filter" 
+                            [ngClass]="{ 'active': selectedCategory === cat }" 
+                            (click)="filterMerchandise(cat)">
+                            {{ cat }}
+                        </li>
                     </ul>
                 </div>
-
                 <div id="Container" class="row">
-                    <div class="col-sm-6 col-lg-4 mix ui" *ngFor="let merchandise of allMerchandise">
+                    <div class="col-sm-6 col-lg-4 mix ui" *ngFor="let merchandise of filteredMerchandise">
                         <div class="collection-item">
                             <div class="collection-top">
-                                <img src="assets/img/items/shopsItems/Calculators .jpg" alt="Collection">                                 <ul>
+                                <img src="assets/img/items/merchandises/{{merchandise.image}}" alt="Collection">
+                                <ul>
                                     <li><i class='bx bxs-star checked'></i></li>
                                     <li><i class='bx bxs-star checked'></i></li>
                                     <li><i class='bx bxs-star checked'></i></li>
                                     <li><i class='bx bxs-star checked'></i></li>
-                                    <li><i class='bx bxs-star '></i></li>
+                                    <li><i class='bx bxs-star'></i></li>
                                 </ul>
                                 <div class="add-cart">
                                     <a (click)="addToCart(merchandise.productid)"><i class='bx bxs-cart'></i> Add to Cart</a>
                                 </div>
                             </div>
-
+                
                             <div class="collection-bottom">
                                 <h3>{{merchandise.name}}</h3>
                                 <ul>
                                     <li><span>${{merchandise.price}}</span></li>
                                     <li>
                                         <span class="minus" (click)="decreaseQuantity(merchandise.productid)">-</span>
-                                        <label type="number" class="form-control" [(ngModel)]="quantities[merchandise.productid]">{{quantities[merchandise.productid]}}</label>
+                                        <label class="form-control">{{quantities[merchandise.productid]}}</label>
                                         <span class="plus" (click)="increaseQuantity(merchandise.productid)">+</span>
                                     </li>
                                 </ul>
@@ -63,8 +64,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
+                
             <div class="side-cart" *ngIf="allMerchandiseInCart.length > 0">
                 <div class="cart-wrap">
                     <div class="table">
@@ -88,6 +88,7 @@
             
         </div>
     </div>
+  </div>
 </section>
 
 <app-footer-style-two></app-footer-style-two>

@@ -31,7 +31,8 @@ export const environment = {
     UpdateStore:"/UpdateStore",
     DeleteStore:"/DeleteStore",
     GetStoreById:"/GetStoreById",
-    GetStoreByProviderId:"/GetStoreInfoByProviderID"
+    GetStoreByProviderId:"/GetStoreInfoByProviderID",
+    GetAllCategoriesByStoreID:"/GetAllCategoriesByStoreID"
   },
   CampusServiceProvider:{
     base:'CampusServiceProvider',
@@ -42,7 +43,10 @@ export const environment = {
   Order:{
     base:'Order',
     GetAllOrders:'/GetAllOrders',
-    CreateOrder:"/CreateOrder"
+    CreateOrder:"/CreateOrder",
+    DeleteOrder:"/DeleteOrder",
+    GetConsumerOrdersbyProviderId:"/GetConsumerOrdersbyProviderId",
+    AcceptOrder:"/AcceptOrder"
   },
   Cart:{
     base:'Cart',

@@ -391,8 +391,7 @@
             <table class="black-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
+                       
                         <th>Consumer Name</th>
                         <th>Consumer Phone</th>
                         <th>Date</th>
@@ -401,29 +400,36 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let order of orderData">
-                        <td>{{ order.id }}</td>
-                        <td>{{ order.name }}</td>
-                        <td>{{ order.consumerName }}</td>
-                        <td>{{ order.consumerPhone }}</td>
-                        <td>{{ order.date }}</td>
-                        <td
-                            [class.accepted]="order.orderStatus == 1"
-                            [class.declined]="order.orderStatus == 2"
-                            [class.pending]="order.orderStatus == 0"
-                        >
-                            {{
-                                order.orderStatus == 0
-                                    ? "Pending"
-                                    : order.orderStatus == 1
-                                    ? "Accepted"
-                                    : "Declined"
-                            }}
-                        </td>
+                    <tr *ngFor="let order of ordersList">
+               
+                        <td>{{ order.fullname }}</td>
+                        <td>{{ order.phone }}</td>
+                        <td>{{ order.orderdate }}</td>
+                        <td>{{ order.orderstatus }}</td>
+
+                       
                         <td style="text-align: center">
-                            <button class="edit" (click)="viewOrder(order.id)">
-                                View
-                            </button>
+                            <div
+                            style="
+                                display: flex;
+                                justify-content: center;
+                                margin-top: 10px;
+                            "
+                        >
+                        <button
+                        class="edit"
+                        (click)="acceptOrder(order.orderid)"
+                    >
+                        accept</button
+                    ><button
+                        class="remove"
+                        (click)="declineOrderr(order.orderid)"
+                    >
+                    decline
+                    </button>
+                            
+                        </div>
+                      
                         </td>
                     </tr>
                 </tbody>
@@ -441,76 +447,9 @@
                             margin: 20px 0;
                             border-radius: 20px;
                         "
-                        #orderForm="ngForm"
-                        (ngSubmit)="submitOrder(orderForm)"
+                       
                     >
-                        <label disabled for="id">ID:</label>
-                        <input
-                            disabled
-                            type="number"
-                            id="id"
-                            name="id"
-                            [(ngModel)]="newOrder.id"
-                        />
-
-                        <label disabled for="name">Name:</label>
-                        <input
-                            disabled
-                            type="text"
-                            id="name"
-                            name="name"
-                            [(ngModel)]="newOrder.name"
-                            required
-                        />
-                        <label disabled for="consumerName"
-                            >Consumer Name:</label
-                        >
-                        <input
-                            disabled
-                            type="text"
-                            id="consumerName"
-                            name="consumerName"
-                            [(ngModel)]="newOrder.consumerName"
-                            required
-                        />
-                        <label disabled for="name">Consumer Phone:</label>
-                        <input
-                            disabled
-                            type="text"
-                            id="consumerPhone"
-                            name="consumerPhone"
-                            [(ngModel)]="newOrder.consumerPhone"
-                            required
-                        />
-                        <table class="black-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Image</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr
-                                    *ngFor="
-                                        let merchandise of newOrder.merchandises
-                                    "
-                                >
-                                    <td>{{ merchandise.id }}</td>
-                                    <td>{{ merchandise.name }}</td>
-                                    <td>{{ merchandise.price }}</td>
-                                    <td>{{ merchandise.quantity }}</td>
-                                    <td>
-                                        <img
-                                            src="{{ merchandise.image }}"
-                                            alt="Food Image"
-                                        />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    
 
                         <div
                             style="
@@ -520,7 +459,7 @@
                             "
                         >
                             <button
-                                (click)="newOrder.orderStatus = 1"
+                            (click)="newOrder.orderStatus = 1"
                                 style="margin: 0 30px"
                                 type="submit"
                             >

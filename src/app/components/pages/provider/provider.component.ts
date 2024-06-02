@@ -11,6 +11,7 @@ import { MatConfirmDialogComponent } from 'src/app/mat-confirm-dialog/mat-confir
 import { MatDialog } from "@angular/material/dialog";
 import { DialogService } from "src/app/services/dialog.service";
 import { ToastrService } from "ngx-toastr";
+import { OrderService } from "src/app/services/order.service";
 
 @Component({
     selector: "app-provider",
@@ -184,8 +185,8 @@ export class ProviderComponent implements OnInit {
     selectedSpecialRequest: any;
     filteredOrdersById: any;
     providerID:any;
-    statusCheck='';
-
+    ordersList:any
+   
     CreateStoreFrom: FormGroup = new FormGroup({
         storename: new FormControl("", [Validators.required]),
         description:new FormControl("",[Validators.required]),
@@ -218,6 +219,7 @@ export class ProviderComponent implements OnInit {
         private dialog: MatDialog,
          private toastr: ToastrService,
          private campusConsumerService: CampusConsumerService,
+         private orderService:OrderService
 
     ) { }
 
@@ -313,6 +315,10 @@ export class ProviderComponent implements OnInit {
         this.merchandiseService.GetMerchandiseByStoreID(this.providerStoreData.value.storeId).subscribe((res) => {
             this.merchandiseList = res;
         });
+
+        this.orderService.GetConsumerOrdersbyProviderId(this.providerData.providerid).subscribe((res) => {
+            this.ordersList = res;
+        });
          }
               },
           (error) => {
@@ -339,7 +345,17 @@ export class ProviderComponent implements OnInit {
             }
         });
     }
-
+    declineOrderr(orderId: number) {
+        const dialogRef = this.dialog.open(MatConfirmDialogComponent, {
+            data: { message: 'Are you sure you want to decline this order?' }
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                
+                this.orderService.deleteOrder(orderId);
+            }
+        });
+    }
 
     updateSpecialRequest(request: any) {
     const dialogRef = this.dialog.open(MatConfirmDialogComponent, {
@@ -482,6 +498,12 @@ export class ProviderComponent implements OnInit {
             this.editingOrderIndex = null;
         }
         this.resetForm();
+    }
+
+    acceptOrder( orderid:number){
+        debugger
+       console.log(orderid)
+       this.orderService.AcceptOrder(orderid);
     }
 
     submitSpecialRequest(formData) {

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -9,10 +10,24 @@ import { environment } from 'src/environments/environment';
 })
 export class CampusConsumerService {
  
-  constructor(private http: HttpClient,private router: Router) { }
+  constructor(private http: HttpClient,private router: Router,private toastr:ToastrService) { }
 
   display_image: any;
 
+ 
+  updateConsumer(consumer:any){
+   
+    if(this.display_image!=undefined)
+      consumer.imagepath=this.display_image
+    this.http.put(environment.backendAPI+environment.CampusConsumer.base+environment.CampusConsumer.UpdateConsumer, consumer).subscribe(
+        (res: any) => {
+          this.toastr.success('Your data has been updated successfully', res);
+        },
+        (error: any) => {
+          this.toastr.error('Error Occurred');
+        }
+      );
+  }
   CreateCampusConsumer(body:any){
     body.imagepath=this.display_image
     this.http.post(environment.backendAPI+environment.CampusConsumer.base+environment.CampusConsumer.CreateCampusConsumerLogin, body).subscribe(
@@ -25,6 +40,7 @@ export class CampusConsumerService {
     );
   }
   uploadAttachment(file: FormData) {
+    
         this.http.post('https://localhost:7173/api/CampusConsumer/uploadImage', file).subscribe((resp: any) => {
       this.display_image = resp.imagepath;
    //   this.toastr.success("Image Uploaded Successfully");

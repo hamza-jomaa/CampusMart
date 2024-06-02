@@ -24,4 +24,35 @@ export class OrderService {
         }
       );
   }
+
+  GetConsumerOrdersbyProviderId (id:number): Observable<any[]>
+{
+  return this.http.get<any[]>(environment.backendAPI+environment.Order.base+environment.Order.GetConsumerOrdersbyProviderId+'?providerID='+id);
+}
+
+AcceptOrder (id:number)
+{
+ 
+   this.http.put(environment.backendAPI+environment.Order.base+environment.Order.AcceptOrder+'?orderID='+id,id).subscribe(
+    (res: any) => {
+      this.toastr.success('Order Accepted successfully', res);
+      console.log(res)
+    },
+    (error: any) => {
+      this.toastr.error('Error Occurred');
+    }
+  );
+}
+
+deleteOrder(id:number){
+ 
+    this.http.delete(environment.backendAPI+environment.Order.base+environment.Order.DeleteOrder+'/'+id).subscribe(
+        (res: any) => {
+          this.toastr.success('Order decline successfully', res);
+        },
+        (error: any) => {
+          this.toastr.error('Error Occurred');
+        }
+      );
+}
 }

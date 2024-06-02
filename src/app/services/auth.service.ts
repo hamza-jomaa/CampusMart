@@ -7,6 +7,7 @@ import { ProviderService } from './provider.service';
 import { StoreService } from './store.service';
 import { CheckoutService } from './checkout.service';
 import { TransactionService } from './transaction.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ import { TransactionService } from './transaction.service';
 export class AuthService {
   paymentCreditntails: any;
 
-  constructor(private http:HttpClient,private router: Router, private profileService:ProfileService,private providerService: ProviderService,public storeService:StoreService,private checkoutService:CheckoutService, private transactionService: TransactionService) { }
+  constructor(private http:HttpClient,private router: Router, private profileService:ProfileService,private providerService: ProviderService,public storeService:StoreService,private checkoutService:CheckoutService, private transactionService: TransactionService, private toastr:ToastrService) { }
 
   
   Login(body: any) {
@@ -65,6 +66,7 @@ export class AuthService {
               this.router.navigate(["admin/"])
             } else if((ConsumerRes.roleid === "2"||ConsumerRes.roleid === 2) && this.paymentCreditntails.length==0){
               this.router.navigate(["payment"])
+              this.toastr.success('Welcome')
             }
             else {
               this.router.navigate([""])
@@ -78,6 +80,7 @@ export class AuthService {
  
       
     }, (err) => {
+      this.toastr.error('Email or Password not correct')
     })
   }
 

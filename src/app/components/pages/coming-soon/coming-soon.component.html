@@ -22,20 +22,17 @@
         <div class="profile-container" style="max-width: 800px; margin: 0 auto;"> 
             <div class="profile-details" style="max-width: 800px; margin: 0 auto;"> 
                 <div class="profile-image"> 
-                    <img src="../../../assets/img/campus_consumer/{{userdata.image}}" alt="Profile Image"> 
+                    <img src="assets/img/campus_consumer/{{userdata.imagepath}}" alt="Profile Image"> 
                 </div> 
                 <br /> 
  
                <div>
                 <div class="form-group">
                     <label for="Name">Name:</label>
-                    <input placeholder="Consumer Name" type="text" id="name" class="form-control" [(ngModel)]="userdata.name" readonly>
+                    <input placeholder="Consumer Name" type="text" id="fullname" class="form-control" [(ngModel)]="userdata.fullname" readonly>
                 </div>
         
-                <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input placeholder="Username" type="text" id="username" class="form-control" [(ngModel)]="userdata.username"  readonly>
-                </div>
+             
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <input placeholder="Consumer@cit.just.edu.jo" type="text" id="email" class="form-control" [(ngModel)]="userdata.email" readonly>
@@ -61,26 +58,19 @@
                         #formData="ngForm"
                         (ngSubmit)="submitForm(formData)"
                     >
-                        <label  disabled for="name"
+                        <label  disabled for="fullname"
                             >Name:</label
                         >
                         <input
                             
                             
                             type="text"
-                            id="name"
-                            name="name"
-                            [(ngModel)]="userdata.name"
+                            id="fullname"
+                            name="fullname"
+                            [(ngModel)]="userdata.fullname"
                         />
 
-                        <label for="username">Username:</label>
-                        <input
-                            type="text"
-                            id="username"
-                            name="username"
-                            [(ngModel)]="userdata.username"
-                            required
-                        />
+                       
                         <label for="email">Email:</label>
                         <input
                             type="text"
@@ -97,17 +87,33 @@
                             [(ngModel)]="userdata.phone"
                             required
                         />
+                        <input
+                        type="number"
+                        id="consumerid"
+                        name="consumerid"
+                        [(ngModel)]="userdata.consumerid"
+                       value="this.apiUserData.login_ConsumerID"
+                        hidden
+                    />
+                    <input
+                        type="number"
+                        id="roleid"
+                        name="roleid"
+                        [(ngModel)]="userdata.roleid"
+                       value="this.apiUserData.login_ConsumerID"
+                        hidden
+                    />
                         <label for="image">Image:</label>
                         <input
                             type="file"
                             id="image"
                             name="image"
                             #file
-                            (change)="onFileSelected(file.files)"
+                            (change)="uploadImage(file.files)"
                         />
                         <img
-                            *ngIf="userdata.image"
-                            [src]="userdata.image"
+                            *ngIf="userdata.imagepath"
+                            [src]="userdata.imagepath"
                             alt="Selected Image"
                             width="200"
                         />
