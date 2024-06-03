@@ -9,4 +9,8 @@
   .closed {
     color: red;
   }
-  
+  .card-img-top {
+    width: 100%;
+    height: 200px; /* أو أي ارتفاع يناسب تصميمك */
+    object-fit: cover; /* للحفاظ على نسبة العرض إلى الارتفاع */
+}

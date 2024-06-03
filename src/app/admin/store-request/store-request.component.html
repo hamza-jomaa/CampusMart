@@ -24,7 +24,7 @@
                             <!-- <td>{{ store.storeid }}</td> -->
                             <td>{{ store.storename }}</td>
                             <td>{{store.approvalstatus}}</td>
-                            <td><img [src]="store.Image" alt="Store Image" style="width: 50px; height: 50px;"></td>
+                            <td><img src="assets/img/shops/{{store.image}}" alt="Store Image" style="width: 50px; height: 50px;"></td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-center">
                                     <button type="button" class="btn btn-sm btn-primary action-button" (click)="acceptStore(store.storeid)">Accept</button>

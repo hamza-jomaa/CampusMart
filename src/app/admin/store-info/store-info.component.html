@@ -2,26 +2,25 @@
 <app-navbar></app-navbar>
 
 <div class="content">
-    <div class="container-fluid pt-4 px-4">
-        <div class="card">
-            <div class="card-header bg-light">
-                <h3 class="card-title" style="color: #007bff;"><i class="fa fa-store"></i> Store Info</h3>
-            </div>
-        </div>
-        <br><br>
-        <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4" *ngFor="let store of storesInfo">
-              <div class="card h-100">
-                <img [src]="store.image" class="card-img-top" alt="Store Image">
-                <div class="card-body">
-                  <p class="card-title"><i class="fas fa-store" style="font-size: 18px; color: #007bff;"></i> Store Name: {{ store.storename }}</p>
-                  <p class="card-text"><i class="fas fa-info-circle" style="font-size: 18px; color: #28a745;"></i> Description: {{ store.description }}</p>
-                  <p class="card-text"><i class="fas fa-door-open" style="font-size: 18px; color: {{ store.isopen === 1 ? '#28a745' : '#dc3545' }};"></i> Is Open: <span [style.color]="store.isopen === 1 ? '#28a745' : '#dc3545'">{{ store.isopen === 1 ? 'Yes' : 'No' }}</span></p>
-                  <p class="card-text"><i class="fas fa-star" style="font-size: 18px; color: #ffc107;"></i> Rate: {{ store.rate }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          
+  <div class="container-fluid pt-4 px-4">
+    <div class="card">
+      <div class="card-header bg-light">
+        <h3 class="card-title" style="color: #007bff;"><i class="fa fa-store"></i> Store Info</h3>
+      </div>
     </div>
+    <br><br>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mb-4" *ngFor="let store of storesInfo">
+        <div class="card h-100">
+          <img src="assets/img/shops/{{store.image}}" class="card-img-top" alt="Store Image">
+          <div class="card-body">
+            <p class="card-title"><i class="fas fa-store" style="font-size: 18px; color: #007bff;"></i> Store Name: {{ store.storename }}</p>
+            <p class="card-text"><i class="fas fa-info-circle" style="font-size: 18px; color: #28a745;"></i> Description: {{ store.description }}</p>
+            <p class="card-text"><i class="fas fa-door-open" style="font-size: 18px; color: {{ store.isopen === 1 ? '#28a745' : '#dc3545' }};"></i> Is Open: <span [style.color]="store.isopen === 1 ? '#28a745' : '#dc3545'">{{ store.isopen === 1 ? 'Yes' : 'No' }}</span></p>
+            <p class="card-text"><i class="fas fa-star" style="font-size: 18px; color: #ffc107;"></i> Rate: {{ store.rate }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -22,7 +22,7 @@
                 <tbody>
                     <tr *ngFor="let consumer of admin.consumersInfo">
                         <td>{{ consumer.fullname }}</td>
-                        <td><img src="{{ consumer.imagepath }}" alt="{{ consumer.fullname }}" class="consumer-image"></td>
+                        <td><img src="assets/img/campus_consumer/{{consumer.imagepath}}" alt="{{ consumer.fullname }}" class="consumer-image" style="width: 65px; height: 65px;"></td>
                         <td>{{ consumer.email }}</td>
                         <td>{{ consumer.phone }}</td>
                         <td>
