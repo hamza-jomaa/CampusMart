@@ -600,8 +600,9 @@ export class TrackorderComponent implements OnInit {
                         finishedOrder=res.filter(order=>order.providerid==this.providerData.providerid)[0];
                         this.paymentCreditntails.balance =  parseFloat(this.paymentCreditntails.balance) + parseFloat(finishedOrder.totalamount);
                         this.transactionService.UpdateBank(this.paymentCreditntails);
-                        this.orderService.deleteOrder(finishedOrder.orderid)
-                        this.router.navigate[""];
+                        this.orderService.deleteOrder(finishedOrder.orderid);
+                        this.router.navigate(['/']);
+
                       }
                     });
 
