@@ -252,15 +252,11 @@ export class ProviderComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 
-               // console.log(this.ordersList)
-                console.log(totalamount)
-                //return total to user after decline
-                debugger 
+              
                 this.transactionService.GetBankByConsumerId(consumerId).subscribe(
                     res => {
-                      console.log(res);
+               
                       this.campusConsumerBank = res;
-                      console.log(this.campusConsumerBank.balance);
                       this.campusConsumerBank.balance=this.campusConsumerBank.balance+totalamount;
                       this.transactionService.UpdateBank(this.campusConsumerBank)
                     },

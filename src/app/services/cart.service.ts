@@ -41,10 +41,8 @@ export class CartService {
 deleteCartItem(cartId: number): Observable<any> {
   return this.http.delete<any>(`https://localhost:7173/api/Cart/DeleteCart/${cartId}`);
 }
-setData(data: any[]) {
-  this.dataSubject.next(data);
-}
-setStoreId(data: any) {
+
+setStore(data: any) {
   this.storeId.next(data);
 }
 getStoreId() { 

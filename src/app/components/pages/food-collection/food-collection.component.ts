@@ -61,6 +61,18 @@ export class FoodCollectionComponent implements OnInit {
       });
     }
   
+    initLocalData(): void {
+      const localDataString = localStorage.getItem("user");
+      if (localDataString) {
+        this.localData = JSON.parse(localDataString);
+      } else {
+        console.error("No local data found");
+      }
+    }
+    //filter  categories 
+    isActiveTab(category: any): boolean {
+      return category === this.activeCategory;
+    }
     filterMerchandise(category: string) {
       this.selectedCategory = category;
       if (category === 'all') {
@@ -69,10 +81,18 @@ export class FoodCollectionComponent implements OnInit {
         this.filteredMerchandise = this.allMerchandise.filter(item => item.category === category);
       }
     }
-  
-    isActiveTab(category: any): boolean {
-      return category === this.activeCategory;
-    }
+    GetAllCategoriesByStoreID(){
+      this.storeService.GetAllCategoriesByStoreID(this.storeData?.storeid).subscribe(
+           (res) => {
+               
+               this.allCategories=res
+           },
+           (error) => {
+               console.error("Error fetching All Merchandise Categories:", error);
+           }
+       );
+   }
+   
   
     getAllMerchandiseByStoreId() {
       this.providerService.getAllMerchandise().subscribe(
@@ -84,7 +104,7 @@ export class FoodCollectionComponent implements OnInit {
           this.allMerchandise.forEach(merch => {
             this.quantities[merch.productid] = 1;
           });
-          this.filterMerchandise(this.selectedCategory); // Ensure filteredMerchandise is initialized
+          this.filterMerchandise(this.selectedCategory); 
         },
         (error) => {
           console.error("Error fetching All Merchandise:", error);
@@ -92,23 +112,17 @@ export class FoodCollectionComponent implements OnInit {
       );
     }
   
-    initLocalData(): void {
-      const localDataString = localStorage.getItem("user");
-      if (localDataString) {
-        this.localData = JSON.parse(localDataString);
-      } else {
-        console.error("No local data found");
-      }
-    }
+    ///////////////cart
   
     addToCart(merchandiseId: number) {
       this.merchandiseService.getMerchandiseById(merchandiseId).subscribe((res) => {
         if (res) {
           this.merchandise = res;
           this.merchandise.quantity = this.quantities[merchandiseId]; // Get quantity from object
-          this.cartService.currentData.subscribe(res => {
-            if (res?.length > 0) {
-              if (!this.includesProductid(res, this.merchandise.productid)) {
+          this.cartService.currentData.subscribe(resp => { //currentData -->get store with all merchandise in it 
+            console.log(resp)
+            if (resp?.length > 0) {
+              if (!this.includesProductid(resp, this.merchandise.productid)) {
                 this.cartService.addItem(this.merchandise);
               }
             } else {
@@ -148,6 +162,7 @@ export class FoodCollectionComponent implements OnInit {
     }
     
     deleteItem(merchandise: any): void {
+      //delete item from observable
         this.cartService.removeItem(merchandise.productid);
         const index = this.allMerchandiseInCart.findIndex(item => item === merchandise);
         if (index !== -1) {
@@ -155,23 +170,10 @@ export class FoodCollectionComponent implements OnInit {
     }
         this.toastr.success('Item Removed from Cart', 'Success');
     }
-    updateCart(merchandise: any): void {
-        this.cartService.updateItem(merchandise);
-    }
-    
-    calculateTotal(): number {
+   
+    calculateTotal(): number { 
         return this.allMerchandiseInCart.reduce((total, item) => total + item.price * item.quantity, 0);
     }
 
-    GetAllCategoriesByStoreID(){
-       this.storeService.GetAllCategoriesByStoreID(this.storeData?.storeid).subscribe(
-            (res) => {
-                
-                this.allCategories=res
-            },
-            (error) => {
-                console.error("Error fetching All Merchandise Categories:", error);
-            }
-        );
-    }
+    
 }

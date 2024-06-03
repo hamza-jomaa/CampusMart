@@ -41,7 +41,6 @@ export class AuthService {
       localStorage.setItem("user", JSON  .stringify(data));
 
       let userData: any = localStorage.getItem("user");
-      debugger
       userData = JSON.parse(userData);
       if(userData.login_RoleID === "1"||userData.login_RoleID === 1) {
         this.router.navigate(["admin/"])

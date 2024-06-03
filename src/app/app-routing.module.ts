@@ -28,9 +28,6 @@ import { SpecialRequestComponent } from './special-request/special-request.compo
 import { WritetestmonialComponent } from './writetestmonial/writetestmonial.component';
 import { ProviderComponent } from './components/pages/provider/provider.component';
 
-// import { LoginComponent } from './login/login.component';
-// import { SignupComponent } from './signup/signup.component';
-// import { authorizationGuard } from './authorization.guard';
 import { AuthModule } from './auth/auth.module';
 
 import { HomeComponent } from "./components/pages/home/home.component";
@@ -47,48 +44,41 @@ const routes: Routes = [
     {path: 'home', component: HomeComponent},
     {path: 'home-three', component: HomeThreeComponent},
     {path: 'about', component: AboutComponent},
-    {path: 'categories', component: CategoriesComponent},
-    {path: 'services', component: ServicesComponent},
+    {path: 'categories', component: CategoriesComponent,canActivate:[consumerGuard]},
+    /*{path: 'services', component: ServicesComponent},
     {path: 'services-details', component: ServicesDetailsComponent},
     {path: 'sidebar', component: BlogComponent},
     {path: 'blog-details', component: BlogDetailsComponent},
+    */
     {
         path: 'food-collection/:storeId',
-        component: FoodCollectionComponent
+        component: FoodCollectionComponent,canActivate:[consumerGuard]
      },
-    {path: 'online-order', component: OnlineOrderComponent},
+    /*{path: 'online-order', component: OnlineOrderComponent},
     {path: 'chefs', component: ChefsComponent},
     {path: 'faq', component: FaqComponent},
-    {path: 'book-table', component: BookTableComponent},
-    {path: 'cart', component: CartComponent},
-    {path: 'checkout', component: CheckoutComponent},
-    {path: 'payment', component: PaymentComponent},
-    {path: 'coming-soon', component: ComingSoonComponent},
-    {path: 'terms-conditions', component: TermsConditionsComponent},
-    {path: 'privacy-policy', component: PrivacyPolicyComponent},
+    {path: 'book-table', component: BookTableComponent},*/
+    {path: 'cart', component: CartComponent,canActivate:[consumerGuard]},
+    {path: 'checkout', component: CheckoutComponent,canActivate:[consumerGuard]},
+    {path: 'payment', component: PaymentComponent,canActivate:[consumerGuard]},
+    {path: 'coming-soon', component: ComingSoonComponent,canActivate:[consumerGuard]},
+   // {path: 'terms-conditions', component: TermsConditionsComponent},
+    //{path: 'privacy-policy', component: PrivacyPolicyComponent},
     {path: 'error', component: ErrorComponent},
     {path: 'contact', component: ContactComponent},
     { path: 'testimonals', component: TesimonalsComponent },
-    { path: 'trackorder', component: TrackorderComponent },
-    {path: 'apply-as-sp', component: ApplyAsSPComponent },
-    // {path: 'login', component: LoginComponent },
-    // {path: 'signup', component : SignupComponent },
-
-    //{path: 'loginnn', component: LoginComponent },
- 
-    //{ path: 'security', loadChildren : () =>import('./auth/auth.module').then((m) => m.AuthModule) },
-    // ,
+    { path: 'trackorder', component: TrackorderComponent,canActivate:[consumerGuard] },
+    {path: 'apply-as-sp', component: ApplyAsSPComponent ,canActivate:[consumerGuard]},
     {
-
         path: 'auth',
         loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
-       },
-    { path: 'special-request', component: SpecialRequestComponent },
+    },
+    { path: 'special-request', component: SpecialRequestComponent ,canActivate:[consumerGuard]},
     { path: 'writetestmonial', component: WritetestmonialComponent },
     { path: 'provider', component: ProviderComponent,canActivate:[providerGuard] },
-    {path:'admin', loadChildren:()=>import('./admin/admin.module').then((m)=>m.AdminModule) },
-    { path: 'notification', component: NotificationsComponent },
-    {path :'visa', component:AddVisaComponent},
+    {path:'admin', loadChildren:()=>import('./admin/admin.module').then((m)=>m.AdminModule) ,canActivate:[AuthAdminGuard]},
+    { path: 'notification', component: NotificationsComponent,canActivate:[consumerGuard] },
+    {path :'visa', component:AddVisaComponent,canActivate:[consumerGuard]},
     {path: '**', component: ErrorComponent},
     
 ];

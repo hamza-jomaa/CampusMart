@@ -9,6 +9,7 @@ import { ToastrService } from "ngx-toastr";
 import { TransactionService } from "../services/transaction.service";
 import { interval } from 'rxjs';
 import { CampusConsumerService } from "../services/campus-consumer.service";
+import { Router } from "@angular/router";
 @Component({
     selector: "app-trackorder",
     templateUrl: "./trackorder.component.html",
@@ -34,17 +35,19 @@ export class TrackorderComponent implements OnInit {
         public orderService: OrderService,
         private toastr: ToastrService,
         private transactionService: TransactionService,
-        private consumerService:CampusConsumerService
+        private consumerService:CampusConsumerService,private router:Router
     ) {}
     markers: any[] = [];
     location: any[] = [
+        //geolocation library from ts
+        //intial value 
         sessionStorage.getItem("LAT"),
         sessionStorage.getItem("LONG"),
     ];
     currentOrder: any;
     currentUser: any;
+    
     ngOnInit(): void {
-        this.consumerFun();
         this.markers = [
             {
                 position: {
@@ -56,7 +59,7 @@ export class TrackorderComponent implements OnInit {
 
                 title: "Consumer",
                 options: {
-                    draggable: false,
+                    draggable: false,//didn't change marker by hand 
                     icon: "../assets/img/loc1.png",
                 },
             },
@@ -73,6 +76,8 @@ export class TrackorderComponent implements OnInit {
               }
             }
         ];
+        this.consumerFun();
+      
     }
     display: any;
     center: google.maps.LatLngLiteral = { lat: 32.494162, lng: 35.99104 };
@@ -84,7 +89,7 @@ export class TrackorderComponent implements OnInit {
         if (event.latLng != null) this.display = event.latLng.toJSON();
     }
     consumerFun() {
-        this.checkoutService.userData$.subscribe((res) => {
+        this.checkoutService.userData$.subscribe((res) => {//userdata set in login , filter always return
             if (res) {
                 this.consumerData = res;
                 this.orderService.GetOrders().subscribe((res) => {
@@ -107,6 +112,8 @@ export class TrackorderComponent implements OnInit {
                 });
                 this.getLatestOrderUpdate();
                 this.getCart();
+            
+               
             }
         });
     }
@@ -139,10 +146,7 @@ export class TrackorderComponent implements OnInit {
             .GetAllServiceProviders()
             .subscribe((providerRes: any) => {
                 if (providerRes) {
-                    this.providerData = providerRes.filter(
-                        (provider) =>
-                            provider.providerid == this.storeData.providerid
-                    )[0];
+                    this.providerData = providerRes.filter( (provider) =>provider.providerid == this.storeData.providerid )[0];
                     this.orderService.GetOrders().subscribe((res) => {
                         if (res?.length > 0) {
                             if (
@@ -200,6 +204,7 @@ export class TrackorderComponent implements OnInit {
                             store: this.storeData,
                         })
                     );
+                    //to hit cart 
                     const observableToPromise = (observable) => {
                         return new Promise((resolve, reject) => {
                             observable.subscribe(
@@ -218,6 +223,7 @@ export class TrackorderComponent implements OnInit {
                             observableToPromise(createCartObservable)
                         );
                     }
+                    //after hit cart 
                     Promise.all(createCartPromises)
                         .then((results) => {
                             const anyNull = results.some((res) => res == null);
@@ -256,6 +262,7 @@ export class TrackorderComponent implements OnInit {
             .getMilliseconds()
             .toString()
             .padStart(3, "0")}Z`;
+            //to save cart id in cartIDSFromDb
         this.cartService.GetAllCarts().subscribe((res) => {
             if (res) {
                 this.cartIDSFromDb = res;
@@ -265,6 +272,7 @@ export class TrackorderComponent implements OnInit {
                         cart.storeid == this.storeData.storeid
                 );
                 for (let i = 0; i < this.allMerchandiseInCart.length; i++) {
+                    //fill cart id in merchandise object 
                     this.allMerchandiseInCart[i].cartid =
                         this.cartIDSFromDb[i].cartid;
                 }
@@ -405,7 +413,7 @@ export class TrackorderComponent implements OnInit {
                                                 lng: parseInt(this.providerData.locatioN_LONGITUDE),
                                             };
                                             this.estimatedTime= this.getDistanceFromLatLonInKm(this.markers[0].position.lat,this.markers[0].position.lng,this.markers[1].position.lat,this.markers[1].position.lng);
-                                            this.estimatedTime=parseInt(this.estimatedTime)
+                                            this.estimatedTime=this.calculateTravelTime(parseInt(this.estimatedTime))
                                               
                                          
                                          
@@ -454,7 +462,7 @@ export class TrackorderComponent implements OnInit {
                                                             lng: parseInt(this.providerData.locatioN_LONGITUDE),
                                                         };
                                                         this.estimatedTime= this.getDistanceFromLatLonInKm(this.markers[0].position.lat,this.markers[0].position.lng,this.markers[1].position.lat,this.markers[1].position.lng);
-                                                        this.estimatedTime=parseInt(this.estimatedTime)
+                                                        this.estimatedTime=this.calculateTravelTime(parseInt(this.estimatedTime))
                                                     
                                                 });
                                                
@@ -510,7 +518,7 @@ export class TrackorderComponent implements OnInit {
                                                             lng: parseInt(this.providerData.locatioN_LONGITUDE),
                                                         };
                                                         this.estimatedTime= this.getDistanceFromLatLonInKm(this.markers[0].position.lat,this.markers[0].position.lng,this.markers[1].position.lat,this.markers[1].position.lng);
-                                                        this.estimatedTime=parseInt(this.estimatedTime)
+                                                        this.estimatedTime=this.calculateTravelTime(parseInt(this.estimatedTime))
                                                       
                                               
                                                  
@@ -558,7 +566,7 @@ export class TrackorderComponent implements OnInit {
                                                                     lng: parseInt(this.providerData.locatioN_LONGITUDE),
                                                                 };
                                                                 this.estimatedTime= this.getDistanceFromLatLonInKm(this.markers[0].position.lat,this.markers[0].position.lng,this.markers[1].position.lat,this.markers[1].position.lng);
-                                                        this.estimatedTime=parseInt(this.estimatedTime)
+                                                        this.estimatedTime=this.calculateTravelTime(parseInt(this.estimatedTime))
                                                             
                                                         });
                                                        
@@ -593,6 +601,7 @@ export class TrackorderComponent implements OnInit {
                         this.paymentCreditntails.balance =  parseFloat(this.paymentCreditntails.balance) + parseFloat(finishedOrder.totalamount);
                         this.transactionService.UpdateBank(this.paymentCreditntails);
                         this.orderService.deleteOrder(finishedOrder.orderid)
+                        this.router.navigate[""];
                       }
                     });
 

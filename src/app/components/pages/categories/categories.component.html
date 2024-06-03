@@ -31,7 +31,7 @@
     <div class="container">
         <!-- <input class="search__input" type="text"  [(ngModel)]="searchText" placeholder="Enter merchandise name..." >  -->
         <div class="row"> 
-            <div class="col-sm-6 col-lg-4" *ngFor="let store of (storeService.All_Stores| searchstore:searchText:['storename'])"> 
+            <div class="col-sm-6 col-lg-4" *ngFor="let store of (storeService.All_Stores_From_All_Providers| searchstore:searchText:['storename'])"> 
                 <div class="feature-item"> 
                     <img src="assets/img/shops/{{store.image}}" alt="Feature"> 
              

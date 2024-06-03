@@ -11,7 +11,7 @@ export class EmailService {
 
 
   SendEmail(body: any) {
-    this.http.post(`https://localhost:7173/api/Email`, body).subscribe(resp => {
+    this.http.post(`https://localhost:7131/api/Email`, body).subscribe(resp => {
       console.log("email sent");
     }, err  => {
       console.log(err);

@@ -17,17 +17,18 @@ export class CategoriesComponent implements OnInit, OnDestroy {
     
   }
   ngOnInit(): void {
-   this.storeService.GetAllStores();
+   this.storeService.GetAllStoresFromAllProviders();
    this.cartService.currentData.subscribe((res) => {
+    console.log(res)
     if(res){
       this.pickedStore=res[0].storeid;
     }
     
    });
   }
-  navigateToShopDetail(storeId: any) {
-      this.router.navigate(['/food-collection', storeId.storeid]);
-      this.cartService.setStoreId(storeId);
+  navigateToShopDetail(store: any) {
+      this.router.navigate(['/food-collection', store.storeid]);
+      this.cartService.setStore(store);
 
   }
 }

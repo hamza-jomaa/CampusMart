@@ -16,10 +16,9 @@ export const AuthAdminGuard: CanActivateFn = (route, state) => {
       if(isAdmin){
        
         toastr.success('Welcome to Admin Dashboard')
-        router.navigate(['admin/Dashboard']);
      
         return true ;
-      }else{    //user not admin 
+      }else{    
        
         toastr.warning('This page for admin  ')
          router.navigate(['auth/login']);
@@ -31,8 +30,8 @@ export const AuthAdminGuard: CanActivateFn = (route, state) => {
   }
   else{  
     //both of consumer&provider should navigate to dashboard    
-   toastr.warning('please sign up ')   ;
-   router.navigate(['auth/register']) ;
+    toastr.warning('This page for admin ')
+    router.navigate(['auth/login']);
    return false;
  }
 };

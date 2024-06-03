@@ -28,9 +28,7 @@ export class consumerGuard implements CanActivate {
      if (token) {
       const roleid=user.login_RoleID== 2 || user.login_RoleID == '2';
       if(roleid){
-      this.toastr.success('Welcome to campus consumer Dashboard')
-      // this.router.navigate(['coming-soon']);
-   
+      this.toastr.success('Welcome to campus consumer Dashboard')   
       return true ;
      }
      else{
