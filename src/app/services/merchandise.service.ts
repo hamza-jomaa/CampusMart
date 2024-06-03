@@ -16,7 +16,7 @@ export class MerchandiseService {
     merchandise.image=this.display_image;
     this.http.post(environment.backendAPI+environment.Merchandise.base+environment.Merchandise.CreateMerchandise, merchandise).subscribe(
       (resp: any) => {
-        this.toastr.success('Merchandise added successfully', resp);
+        this.toastr.success('Merchandise Request sent to admon successfully', resp);
       },
       (error: any) => {
         this.toastr.error('Error Occurred');

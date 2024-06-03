@@ -41,7 +41,15 @@ export class AuthService {
       localStorage.setItem("user", JSON  .stringify(data));
 
       let userData: any = localStorage.getItem("user");
+      debugger
       userData = JSON.parse(userData);
+      if(userData.login_RoleID === "1"||userData.login_RoleID === 1) {
+        this.router.navigate(["admin/"])
+      } 
+
+   
+      else if((userData.login_RoleID  === "2"||userData.login_RoleID  === 2)){
+        
       this.profileService.getConsumerById(userData.login_ConsumerID).subscribe((ConsumerRes:any)=>{
         if(ConsumerRes){
           //to fill consumer id every where 
@@ -63,9 +71,7 @@ export class AuthService {
         this.transactionService.getAllBanks().subscribe((banks:any)=>{
           if(banks){
             this.paymentCreditntails = banks.filter((bank: any) => bank.consumerid == ConsumerRes.consumerid);
-            if(ConsumerRes.roleid === "1"||ConsumerRes.roleid === 1) {
-              this.router.navigate(["admin/"])
-            } else if((ConsumerRes.roleid === "2"||ConsumerRes.roleid === 2) && this.paymentCreditntails.length==0){
+            if( this.paymentCreditntails.length==0){
               this.router.navigate(["payment"])
               this.toastr.success('Welcome')
             }
@@ -79,6 +85,8 @@ export class AuthService {
         }
       })
  
+      }
+
       
     }, (err) => {
       this.toastr.error('Email or Password not correct')

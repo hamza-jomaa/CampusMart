@@ -39,6 +39,20 @@ export class RegisterComponent {
     return { 'invalidEmail': true };
   }
  
+ 
+  MatchError(){
+    if(this.registerForm.controls['password'].value==
+    this.registerForm.controls['confirmPassword'].value)
+  
+    this.registerForm.controls['confirmPassword'].setErrors(null); 
+    else 
+  
+    this.registerForm.controls['confirmPassword'].setErrors({misMatch:true});
+  
+  
+  }
+ 
+
   uploadImage(file: any) {
     if (file.length === 0)
       return;
@@ -62,24 +76,4 @@ export class RegisterComponent {
    
     this.campusConsumer.CreateCampusConsumer(this.registerForm.value)
   }
-  MatchError(){
-    if(this.registerForm.controls['password'].value==
-    this.registerForm.controls['confirmPassword'].value)
-  
-    this.registerForm.controls['confirmPassword'].setErrors(null); 
-    else 
-  
-    this.registerForm.controls['confirmPassword'].setErrors({misMatch:true});
-  
-  
-  }
-  eduJoValidator() {
-    
-    if (this.registerForm.controls['email'].value.toLowerCase().endsWith('just.edu.jo')) {
-      this.registerForm.controls['email'].setErrors(null);
-    }
-    else this.registerForm.controls['email'].setErrors({missMatch:true});
-  }
-
- 
 }

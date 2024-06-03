@@ -233,7 +233,7 @@ export class ProviderComponent implements OnInit {
         notifications.push({ userId, message, isRead: false });
         localStorage.setItem('notifications', JSON.stringify(notifications));
       }
-    declineOrder(requestId: number) {
+    declineSpecialRequest(requestId: number) {
         const dialogRef = this.dialog.open(MatConfirmDialogComponent, {
             data: { message: 'Are you sure you want to decline this order?' }
         });

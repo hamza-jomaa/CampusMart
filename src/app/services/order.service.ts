@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -9,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class OrderService {
 
-  constructor(private  http:HttpClient, private toastr: ToastrService) { }
+  constructor(private  http:HttpClient, private toastr: ToastrService,private router:Router) { }
   GetOrders(): Observable<any[]> {
     return this.http.get<any[]>(`https://localhost:7173/api/Order/GetAllOrders`);
   }
@@ -40,7 +41,8 @@ deleteOrder(id:number){
     this.http.delete(environment.backendAPI+environment.Order.base+environment.Order.DeleteOrder+'/'+id).subscribe(
         (res: any) => {
           this.toastr.success('Order finished successfully', res);
-        },
+          this.router.navigate[""];
+                }, 
         (error: any) => {
           this.toastr.error('Error Occurred');
         }

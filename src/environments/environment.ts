@@ -14,7 +14,8 @@ export const environment = {
     base:"CampusConsumer",
     CreateCampusConsumerLogin:"/CreateCampusConsumerLogin",
     UpdateConsumer:"/UpdateConsumer",
-    GetConsumerById:'/GetConsumerById'
+    GetConsumerById:'/GetConsumerById',
+    GetConsumerOrderInfo:'/GetConsumerOrderInfo'
   },
   Merchandise:{
     base:"Merchandise",

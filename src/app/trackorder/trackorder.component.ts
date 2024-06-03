@@ -8,6 +8,7 @@ import { CheckoutService } from "../services/checkout.service";
 import { ToastrService } from "ngx-toastr";
 import { TransactionService } from "../services/transaction.service";
 import { interval } from 'rxjs';
+import { CampusConsumerService } from "../services/campus-consumer.service";
 @Component({
     selector: "app-trackorder",
     templateUrl: "./trackorder.component.html",
@@ -32,7 +33,8 @@ export class TrackorderComponent implements OnInit {
         private checkoutService: CheckoutService,
         public orderService: OrderService,
         private toastr: ToastrService,
-        private transactionService: TransactionService
+        private transactionService: TransactionService,
+        private consumerService:CampusConsumerService
     ) {}
     markers: any[] = [];
     location: any[] = [
@@ -592,8 +594,9 @@ export class TrackorderComponent implements OnInit {
                         this.transactionService.UpdateBank(this.paymentCreditntails);
                         this.orderService.deleteOrder(finishedOrder.orderid)
                       }
-                        
                     });
+
+                    
             }
         });
     }

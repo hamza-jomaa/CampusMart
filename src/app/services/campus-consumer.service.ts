@@ -31,7 +31,7 @@ export class CampusConsumerService {
     body.imagepath=this.display_image
     this.http.post(environment.backendAPI+environment.CampusConsumer.base+environment.CampusConsumer.CreateCampusConsumerLogin, body).subscribe(
       (resp: any) => {
-        this.router.navigate(['/auth/login']);
+        this.router.navigate(['auth/login']);
       },
       (error: any) => {
         //this.toastr.error('Error Occurred');
@@ -42,19 +42,20 @@ export class CampusConsumerService {
     
         this.http.post('https://localhost:7173/api/CampusConsumer/uploadImage', file).subscribe((resp: any) => {
       this.display_image = resp.imagepath;
-   //   this.toastr.success("Image Uploaded Successfully");
     },
       (error: any) => {
-       // this.toastr.error("Error Occured");
+       this.toastr.error("Error Occured");
       })
   }
   consumerrrrData:any;
   getConsumerById(id:any){
     return this.http.get(environment.backendAPI+environment.CampusConsumer.base+environment.CampusConsumer.GetConsumerById+'/'+id);
   }
+  getConsumerOrderInfo(id:any){
+    return this.http.get(environment.backendAPI+environment.CampusConsumer.base+environment.CampusConsumer.GetConsumerOrderInfo+'?consumerId='+id);
+  }
   isprovider:any
 checkIsProvider(id:any){
-  //this.GetCampusConsumerId(id);
   this.consumerrrrData=this.getConsumerById(id)
   this.getConsumerById(id).subscribe(
     (res: any) => {
