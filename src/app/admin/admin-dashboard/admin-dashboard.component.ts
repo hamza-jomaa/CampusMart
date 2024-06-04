@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AdminService } from 'src/app/services/admin.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgConfirmService } from 'ng-confirm-box';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -12,11 +13,17 @@ export class AdminDashboardComponent implements OnInit {
   pendingTestimonials: any[] = [];
   numberOfUsers: number = 0;
   numberOfAcceptedStores: number = 0;
-  constructor(public adminService: AdminService, public confirmService: NgConfirmService, public toastr: ToastrService) {}
+  constructor(public adminService: AdminService, public confirmService: NgConfirmService, public toastr: ToastrService,private router: Router) {}
   ngOnInit(): void {
     this.getPendingTestimonials();
     this.getNumberOfUsers();
     this.getNumberOfAcceptedStores();
+    
+  }
+  
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/auth/login']);
   }
   getPendingTestimonials() {
     this.adminService.getAllPendingTestimonials().subscribe(
