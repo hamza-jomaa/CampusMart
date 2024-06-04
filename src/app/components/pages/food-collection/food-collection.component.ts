@@ -94,24 +94,23 @@ export class FoodCollectionComponent implements OnInit {
    }
    
   
-    getAllMerchandiseByStoreId() {
-      this.providerService.getAllMerchandise().subscribe(
-        (data) => {
-          this.allMerchandise = data.filter(
-            (merch) => merch.storeid == this.storeData?.storeid
-          );
-          // Initialize quantities for each merchandise
-          this.allMerchandise.forEach(merch => {
-            this.quantities[merch.productid] = 1;
-          });
-          this.filterMerchandise(this.selectedCategory); 
-        },
-        (error) => {
-          console.error("Error fetching All Merchandise:", error);
-        }
-      );
-    }
-  
+   getAllMerchandiseByStoreId() { 
+    this.merchandiseService.GetMerchandiseByStoreID(this.storeData?.storeid).subscribe( 
+      (data) => { 
+        this.allMerchandise = data.filter( 
+          (merch) => merch.storeid == this.storeData?.storeid 
+        ); 
+        // Initialize quantities for each merchandise 
+        this.allMerchandise.forEach(merch => { 
+          this.quantities[merch.productid] = 1; 
+        }); 
+        this.filterMerchandise(this.selectedCategory);  
+      }, 
+      (error) => { 
+        console.error("Error fetching All Merchandise:", error); 
+      } 
+    ); 
+  }
     ///////////////cart
   
     addToCart(merchandiseId: number) {

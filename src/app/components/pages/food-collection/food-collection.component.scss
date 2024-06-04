@@ -54,9 +54,9 @@
 
 .side-cart {
     position: absolute;
-    top: calc(175px + 88px);
+    top: calc(155px + 70px);
     right: 20px;
-    width: 280px;
+    width: 248px;
     max-height: calc(100vh - 120px);
     background-color: #fff;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
@@ -158,19 +158,8 @@
     }
 }
 
-.collection-item {
-    width: 190px; /* العرض المرغوب */
-    height: 350px; /* الارتفاع المرغوب */
-    overflow: hidden; /* لمنع التجاوز */
-    position: relative; /* تحديد موقع الأزرار بالنسبة لهذا العنصر */
-}
 
-.collection-bottom ul {
-    position: absolute; 
-    bottom: 10px; 
-    left: 10px; 
-    
-}
+
 
 
 
